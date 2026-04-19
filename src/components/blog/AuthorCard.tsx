@@ -4,7 +4,9 @@ import type { Database } from "@/integrations/supabase/types";
 
 type Author = Database["public"]["Tables"]["authors"]["Row"];
 
-export function AuthorCard({ author }: { author: Author }) {
+type Variant = "compact" | "wide";
+
+export function AuthorCard({ author, variant = "compact" }: { author: Author; variant?: Variant }) {
   const initials = author.name
     .split(" ")
     .map((n) => n[0])
@@ -19,6 +21,73 @@ export function AuthorCard({ author }: { author: Author }) {
     { url: author.instagram_url, label: "Instagram", icon: InstagramIcon },
     { url: author.website_url, label: "Website", icon: Globe },
   ].filter((s) => s.url);
+
+  if (variant === "wide") {
+    return (
+      <div className="relative overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-primary/5 via-card to-card p-6 sm:p-8 shadow-soft">
+        <div className="absolute -top-12 -right-12 h-40 w-40 rounded-full bg-primary/10 blur-3xl" aria-hidden />
+        <div className="relative flex flex-col sm:flex-row gap-6 sm:items-start">
+          {author.avatar_url ? (
+            <img
+              src={author.avatar_url}
+              alt={author.name}
+              className="h-24 w-24 sm:h-28 sm:w-28 flex-shrink-0 rounded-full object-cover ring-4 ring-primary/15"
+            />
+          ) : (
+            <div className="h-24 w-24 sm:h-28 sm:w-28 flex-shrink-0 rounded-full bg-primary/10 text-primary grid place-items-center font-display font-bold text-3xl ring-4 ring-primary/15">
+              {initials}
+            </div>
+          )}
+          <div className="flex-1 min-w-0">
+            <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-primary mb-1.5">
+              About the author
+            </p>
+            <Link
+              to="/blog/author/$slug"
+              params={{ slug: author.slug }}
+              className="font-display text-2xl sm:text-3xl font-extrabold text-foreground hover:text-primary transition-colors"
+            >
+              {author.name}
+            </Link>
+            {author.role && (
+              <p className="text-sm text-muted-foreground mt-0.5">{author.role}</p>
+            )}
+            {author.bio && (
+              <p className="mt-3 text-[15px] leading-relaxed text-foreground/80 max-w-2xl">
+                {author.bio}
+              </p>
+            )}
+            <div className="mt-5 flex flex-wrap items-center gap-3">
+              {socials.length > 0 && (
+                <div className="flex items-center gap-2">
+                  {socials.map((s) => (
+                    <a
+                      key={s.label}
+                      href={s.url!}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={s.label}
+                      title={s.label}
+                      className="h-10 w-10 grid place-items-center rounded-full border border-border bg-background text-foreground/70 hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all hover:-translate-y-0.5"
+                    >
+                      <s.icon className="h-4 w-4" />
+                    </a>
+                  ))}
+                </div>
+              )}
+              <Link
+                to="/blog/author/$slug"
+                params={{ slug: author.slug }}
+                className="inline-flex items-center gap-1.5 rounded-full bg-primary text-primary-foreground px-4 py-2 text-sm font-semibold hover:shadow-glow transition-shadow"
+              >
+                View all posts
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="rounded-2xl border border-border bg-card p-6 sm:p-7 shadow-soft">
