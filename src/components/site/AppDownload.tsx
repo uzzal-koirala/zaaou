@@ -1,4 +1,5 @@
-import { Apple, Smartphone, Check } from "lucide-react";
+import { Check } from "lucide-react";
+import { AppStoreBadge, GooglePlayBadge } from "./StoreBadges";
 import screenHome from "@/assets/app/screen-home.png";
 import screenStores from "@/assets/app/screen-stores.png";
 import screenProduct from "@/assets/app/screen-product.png";
@@ -53,23 +54,17 @@ export function AppDownload() {
               <div className="flex flex-wrap gap-3 pt-3">
                 <a
                   href="#"
-                  className="group inline-flex items-center gap-3 bg-foreground text-background rounded-2xl px-6 py-3.5 hover:scale-[1.03] transition-transform"
+                  aria-label="Download on the App Store"
+                  className="inline-block rounded-xl overflow-hidden hover:scale-[1.03] transition-transform shadow-soft"
                 >
-                  <Apple className="h-7 w-7" />
-                  <span className="text-left">
-                    <span className="block text-[10px] uppercase tracking-wider opacity-70">Download on the</span>
-                    <span className="block font-bold leading-tight">App Store</span>
-                  </span>
+                  <AppStoreBadge className="h-14 w-auto" />
                 </a>
                 <a
                   href="#"
-                  className="group inline-flex items-center gap-3 bg-foreground text-background rounded-2xl px-6 py-3.5 hover:scale-[1.03] transition-transform"
+                  aria-label="Get it on Google Play"
+                  className="inline-block rounded-xl overflow-hidden hover:scale-[1.03] transition-transform shadow-soft"
                 >
-                  <Smartphone className="h-7 w-7" />
-                  <span className="text-left">
-                    <span className="block text-[10px] uppercase tracking-wider opacity-70">Get it on</span>
-                    <span className="block font-bold leading-tight">Google Play</span>
-                  </span>
+                  <GooglePlayBadge className="h-14 w-auto" />
                 </a>
               </div>
 
