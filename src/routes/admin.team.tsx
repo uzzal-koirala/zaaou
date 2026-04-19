@@ -4,6 +4,7 @@ import { Plus, Edit, Trash2, Loader2, X, Star, EyeOff } from "lucide-react";
 import { toast } from "sonner";
 import { AdminLayout } from "@/components/admin/AdminLayout";
 import { RoleGuard } from "@/components/admin/RoleGuard";
+import { ImageUpload } from "@/components/admin/ImageUpload";
 import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
 
@@ -242,12 +243,12 @@ function TeamAdminPage() {
                 />
               </Field>
               <div className="sm:col-span-2">
-                <Field label="Photo URL">
-                  <input
+                <Field label="Photo">
+                  <ImageUpload
                     value={editing.avatar_url}
-                    onChange={(e) => setEditing({ ...editing, avatar_url: e.target.value })}
-                    placeholder="https://..."
-                    className={inputCls}
+                    onChange={(url) => setEditing({ ...editing, avatar_url: url })}
+                    folder="team"
+                    variant="avatar"
                   />
                 </Field>
               </div>

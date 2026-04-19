@@ -4,6 +4,7 @@ import { Plus, Edit, Trash2, Loader2, X } from "lucide-react";
 import { toast } from "sonner";
 import { AdminLayout } from "@/components/admin/AdminLayout";
 import { RoleGuard } from "@/components/admin/RoleGuard";
+import { ImageUpload } from "@/components/admin/ImageUpload";
 import { supabase } from "@/integrations/supabase/client";
 import { slugify } from "@/lib/blog-utils";
 import type { Database } from "@/integrations/supabase/types";
@@ -185,8 +186,13 @@ function AuthorsPage() {
               <Field label="Role / Title">
                 <input value={editing.role} onChange={(e) => setEditing({ ...editing, role: e.target.value })} placeholder="Editor" className={inputCls} />
               </Field>
-              <Field label="Avatar URL">
-                <input value={editing.avatar_url} onChange={(e) => setEditing({ ...editing, avatar_url: e.target.value })} className={inputCls} />
+              <Field label="Avatar">
+                <ImageUpload
+                  value={editing.avatar_url}
+                  onChange={(url) => setEditing({ ...editing, avatar_url: url })}
+                  folder="authors"
+                  variant="avatar"
+                />
               </Field>
               <div className="sm:col-span-2">
                 <Field label="Bio">
