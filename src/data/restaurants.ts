@@ -6,6 +6,7 @@ import purwanchalCafe from "@/assets/restaurants/purwanchal-cafe.jpg";
 import royalBiryani from "@/assets/restaurants/royal-biryani.jpg";
 import bahattarCafe from "@/assets/restaurants/bahattar-cafe.jpg";
 import pauroti from "@/assets/restaurants/pauroti.jpg";
+import monkAndPunk from "@/assets/restaurants/monk-and-punk.jpg";
 
 export type Restaurant = {
   id: string;
@@ -71,6 +72,19 @@ export const restaurants: Restaurant[] = [
     reviews: 286,
     time: "20-30 min",
     price: "Rs. 180+",
+    area: "Itahari, Main Road",
+    featured: true,
+  },
+  {
+    id: "monk-and-punk",
+    img: monkAndPunk,
+    name: "Monk and Punk Chyafe",
+    tag: "Chyafe · Food · Drinks",
+    cuisines: ["Cafe", "Drinks", "Snacks", "Coffee"],
+    rating: 4.7,
+    reviews: 412,
+    time: "20-30 min",
+    price: "Rs. 220+",
     area: "Itahari, Main Road",
     featured: true,
   },
@@ -162,4 +176,5 @@ export const cuisineFilters = [
   "Burger",
   "Thali",
   "Cafe",
+  "Drinks",
 ];
