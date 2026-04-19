@@ -61,7 +61,7 @@ export function RouteLoader() {
               />
             </div>
             <p className="text-sm font-medium text-muted-foreground">
-              Plating your order…
+              Serving up something tasty…
             </p>
           </div>
         </div>
