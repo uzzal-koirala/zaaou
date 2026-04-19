@@ -15,8 +15,6 @@ import {
   Award,
   Activity,
   ExternalLink,
-  Twitter,
-  Linkedin,
   Globe,
   PenSquare,
 } from "lucide-react";
