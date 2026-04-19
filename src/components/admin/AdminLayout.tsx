@@ -11,6 +11,7 @@ import {
   Store,
   Bike,
   UserSquare,
+  Mail,
   Menu,
   X,
   ChevronLeft,
@@ -29,11 +30,12 @@ type NavItem = {
     | "/admin/authors"
     | "/admin/team"
     | "/admin/comments"
+    | "/admin/subscribers"
     | "/admin/settings";
   label: string;
   icon: typeof LayoutDashboard;
   exact?: boolean;
-  group: "Overview" | "Operations" | "Content" | "System";
+  group: "Overview" | "Operations" | "Content" | "Audience" | "System";
 };
 
 const nav: NavItem[] = [
@@ -44,10 +46,11 @@ const nav: NavItem[] = [
   { to: "/admin/authors", label: "Authors", icon: Users, group: "Content" },
   { to: "/admin/team", label: "Team", icon: UserSquare, group: "Content" },
   { to: "/admin/comments", label: "Comments", icon: MessageSquare, group: "Content" },
+  { to: "/admin/subscribers", label: "Newsletter", icon: Mail, group: "Audience" },
   { to: "/admin/settings", label: "Settings", icon: Settings, group: "System" },
 ];
 
-const groupOrder: NavItem["group"][] = ["Overview", "Operations", "Content", "System"];
+const groupOrder: NavItem["group"][] = ["Overview", "Operations", "Content", "Audience", "System"];
 const STORAGE_KEY = "zaaou-admin-sidebar-collapsed";
 
 export function AdminLayout({ children }: { children: ReactNode }) {

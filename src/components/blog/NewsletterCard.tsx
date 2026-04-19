@@ -1,35 +1,48 @@
 import { useState } from "react";
 import { Mail, Loader2, Check } from "lucide-react";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 /**
  * Compact newsletter signup card for the article sidebar.
- * Stores emails locally for now (no backend wired yet) and shows
- * a confirmation state.
+ * Saves subscribers (name optional, email required) to the
+ * `newsletter_subscribers` table for the admin to manage.
  */
-export function NewsletterCard() {
+export function NewsletterCard({ source = "blog-sidebar" }: { source?: string }) {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "done">("idle");
 
-  function onSubmit(e: React.FormEvent) {
+  async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!email || !/.+@.+\..+/.test(email)) {
+    const trimmedEmail = email.trim();
+    const trimmedName = name.trim();
+    if (!trimmedEmail || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(trimmedEmail)) {
       toast.error("Please enter a valid email");
       return;
     }
+    if (trimmedName.length > 80) {
+      toast.error("Name is too long");
+      return;
+    }
     setStatus("loading");
-    // Simulate quick async UX; replace with real endpoint later
-    setTimeout(() => {
-      try {
-        const list = JSON.parse(localStorage.getItem("zaaou:newsletter") ?? "[]") as string[];
-        if (!list.includes(email)) list.push(email);
-        localStorage.setItem("zaaou:newsletter", JSON.stringify(list));
-      } catch {
-        // ignore storage errors
+    const { error } = await supabase.from("newsletter_subscribers").insert({
+      name: trimmedName || null,
+      email: trimmedEmail,
+      source,
+    });
+    if (error) {
+      if (error.code === "23505") {
+        setStatus("done");
+        toast.success("You're already on the list!");
+        return;
       }
-      setStatus("done");
-      toast.success("You're subscribed!");
-    }, 500);
+      setStatus("idle");
+      toast.error(error.message || "Could not subscribe");
+      return;
+    }
+    setStatus("done");
+    toast.success("You're subscribed!");
   }
 
   return (
@@ -49,16 +62,25 @@ export function NewsletterCard() {
         </p>
         {status === "done" ? (
           <div className="flex items-center gap-2 text-sm font-semibold text-primary">
-            <Check className="h-4 w-4" /> Subscribed — check your inbox!
+            <Check className="h-4 w-4" /> Subscribed — thanks!
           </div>
         ) : (
           <form onSubmit={onSubmit} className="flex flex-col gap-2">
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Your name (optional)"
+              maxLength={80}
+              className="h-10 w-full rounded-xl border border-border bg-background px-3 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition"
+            />
             <input
               type="email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
+              maxLength={254}
               className="h-10 w-full rounded-xl border border-border bg-background px-3 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition"
             />
             <button
