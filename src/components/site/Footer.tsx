@@ -53,6 +53,7 @@ export function Footer() {
               <li><a href="#" className="transition-colors hover:text-primary">Terms of Service</a></li>
               <li><a href="#" className="transition-colors hover:text-primary">Privacy Policy</a></li>
               <li><a href="#" className="transition-colors hover:text-primary">FAQs</a></li>
+              <li><Link to="/author/login" className="transition-colors hover:text-primary">Author Login</Link></li>
             </ul>
           </div>
 

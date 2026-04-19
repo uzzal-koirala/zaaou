@@ -13,6 +13,7 @@ import { FloatingActions } from "@/components/blog/FloatingActions";
 import { NewsletterCard } from "@/components/blog/NewsletterCard";
 import { supabase } from "@/integrations/supabase/client";
 import { formatDate } from "@/lib/blog-utils";
+import { recordPostView } from "@/server/post-views.functions";
 import type { Database } from "@/integrations/supabase/types";
 
 type Author = Database["public"]["Tables"]["authors"]["Row"];
@@ -112,6 +113,13 @@ function PostPage() {
       cancelled = true;
     };
   }, [slug]);
+
+  // Track unique post view (best-effort, deduped server-side per visitor/day)
+  useEffect(() => {
+    const postId = post?.id;
+    if (!postId) return;
+    recordPostView({ data: { postId } }).catch(() => {});
+  }, [post?.id]);
 
   useEffect(() => {
     const category = post?.category;
