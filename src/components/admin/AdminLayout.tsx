@@ -232,8 +232,8 @@ export function AdminLayout({ children }: { children: ReactNode }) {
           })}
         </nav>
 
-        {/* Footer: profile + actions */}
-        <div className="p-3 border-t border-border bg-muted/40 space-y-1">
+        {/* Footer: profile card */}
+        <div className="p-3 border-t border-border bg-muted/40">
           {!collapsed ? (
             <div className="flex items-center gap-2.5 px-2 py-2 rounded-lg">
               <div className="h-9 w-9 rounded-full bg-gradient-primary text-primary-foreground grid place-items-center text-sm font-bold shadow-soft flex-shrink-0">
@@ -255,50 +255,6 @@ export function AdminLayout({ children }: { children: ReactNode }) {
               </div>
             </div>
           )}
-
-          <div className="relative group/item">
-            <Link
-              to="/"
-              title={collapsed ? "View site" : undefined}
-              className={[
-                "flex items-center rounded-lg text-sm font-medium",
-                "text-foreground/70 hover:bg-muted hover:text-foreground transition-colors",
-                collapsed
-                  ? "justify-center h-10 w-10 mx-auto"
-                  : "gap-3 px-3 py-2",
-              ].join(" ")}
-            >
-              <Home className="h-4 w-4 flex-shrink-0" />
-              {!collapsed && <span>View site</span>}
-            </Link>
-            {collapsed && (
-              <span className="hidden lg:block pointer-events-none absolute left-full top-1/2 -translate-y-1/2 ml-2 px-2.5 py-1.5 rounded-md bg-foreground text-background text-xs font-semibold whitespace-nowrap opacity-0 group-hover/item:opacity-100 transition-opacity shadow-card z-[60]">
-                View site
-              </span>
-            )}
-          </div>
-
-          <div className="relative group/item">
-            <button
-              onClick={handleSignOut}
-              title={collapsed ? "Sign out" : undefined}
-              className={[
-                "w-full flex items-center rounded-lg text-sm font-medium",
-                "text-destructive hover:bg-destructive/10 transition-colors",
-                collapsed
-                  ? "justify-center h-10 w-10 mx-auto"
-                  : "gap-3 px-3 py-2",
-              ].join(" ")}
-            >
-              <LogOut className="h-4 w-4 flex-shrink-0" />
-              {!collapsed && <span>Sign out</span>}
-            </button>
-            {collapsed && (
-              <span className="hidden lg:block pointer-events-none absolute left-full top-1/2 -translate-y-1/2 ml-2 px-2.5 py-1.5 rounded-md bg-foreground text-background text-xs font-semibold whitespace-nowrap opacity-0 group-hover/item:opacity-100 transition-opacity shadow-card z-[60]">
-                Sign out
-              </span>
-            )}
-          </div>
         </div>
       </aside>
 

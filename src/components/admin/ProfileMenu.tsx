@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "@tanstack/react-router";
+import { useNavigate } from "@tanstack/react-router";
 import { Home, LogOut, ChevronDown } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 
