@@ -219,25 +219,31 @@ function AuthorsPage() {
       ) : (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {authors.map((a) => (
-            <div key={a.id} className="rounded-2xl border border-border bg-card p-5 shadow-soft">
+            <div key={a.id} className="rounded-2xl border border-border bg-card p-5 shadow-soft flex flex-col">
               <div className="flex items-start gap-3">
                 {a.avatar_url ? (
-                  <img src={a.avatar_url} alt={a.name} className="h-12 w-12 rounded-full object-cover" />
+                  <img src={a.avatar_url} alt={a.name} className="h-14 w-14 rounded-xl object-cover ring-1 ring-border" />
                 ) : (
-                  <div className="h-12 w-12 rounded-full bg-primary/10 text-primary grid place-items-center font-bold">
+                  <div className="h-14 w-14 rounded-xl bg-primary/10 text-primary grid place-items-center font-bold text-lg">
                     {a.name.charAt(0)}
                   </div>
                 )}
                 <div className="flex-1 min-w-0">
                   <p className="font-semibold truncate">{a.name}</p>
-                  {a.role && <p className="text-xs text-muted-foreground">{a.role}</p>}
+                  {a.role && <p className="text-xs text-muted-foreground truncate">{a.role}</p>}
+                  {a.user_id && emails[a.id] && (
+                    <p className="mt-1 inline-flex items-center gap-1 text-[11px] text-muted-foreground truncate max-w-full">
+                      <Mail className="h-3 w-3 shrink-0" />
+                      <span className="truncate">{emails[a.id]}</span>
+                    </p>
+                  )}
                 </div>
               </div>
               {a.bio && <p className="mt-3 text-xs text-muted-foreground line-clamp-3">{a.bio}</p>}
               <div className="mt-3">
                 {a.user_id ? (
                   <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 text-primary px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider">
-                    Login enabled
+                    <KeyRound className="h-3 w-3" /> Login enabled
                   </span>
                 ) : (
                   <span className="inline-flex items-center gap-1 rounded-full bg-muted text-muted-foreground px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider">
@@ -245,25 +251,46 @@ function AuthorsPage() {
                   </span>
                 )}
               </div>
-              <div className="mt-4 flex items-center gap-1 flex-wrap">
-                <button onClick={() => startEdit(a)} className="p-2 hover:bg-muted rounded-md text-foreground/70" title="Edit profile">
-                  <Edit className="h-4 w-4" />
-                </button>
+
+              <div className="mt-4 pt-3 border-t border-border flex items-center gap-2 flex-wrap">
                 {a.user_id ? (
-                  <>
-                    <button onClick={() => openResetAccount(a)} className="p-2 hover:bg-muted rounded-md text-foreground/70" title="Reset password">
-                      <KeyRound className="h-4 w-4" />
-                    </button>
-                    <button onClick={() => handleRemoveAccount(a)} className="p-2 hover:bg-destructive/10 hover:text-destructive rounded-md" title="Remove login">
-                      <ShieldOff className="h-4 w-4" />
-                    </button>
-                  </>
+                  <button
+                    onClick={() => openEditAccount(a)}
+                    className="inline-flex items-center gap-1.5 rounded-lg bg-muted hover:bg-primary/10 hover:text-primary px-2.5 py-1.5 text-xs font-semibold transition-colors"
+                    title="Change email or password"
+                  >
+                    <Settings2 className="h-3.5 w-3.5" /> Manage login
+                  </button>
                 ) : (
-                  <button onClick={() => openCreateAccount(a)} className="p-2 hover:bg-primary/10 hover:text-primary rounded-md text-foreground/70" title="Create login">
-                    <UserPlus className="h-4 w-4" />
+                  <button
+                    onClick={() => openCreateAccount(a)}
+                    className="inline-flex items-center gap-1.5 rounded-lg bg-primary text-primary-foreground hover:opacity-90 px-2.5 py-1.5 text-xs font-semibold transition-opacity"
+                    title="Create login credentials"
+                  >
+                    <LogIn className="h-3.5 w-3.5" /> Create login
                   </button>
                 )}
-                <button onClick={() => handleDelete(a.id)} className="p-2 hover:bg-destructive/10 hover:text-destructive rounded-md ml-auto" title="Delete author">
+                <button
+                  onClick={() => startEdit(a)}
+                  className="p-1.5 hover:bg-muted rounded-md text-foreground/70"
+                  title="Edit profile"
+                >
+                  <Edit className="h-4 w-4" />
+                </button>
+                {a.user_id && (
+                  <button
+                    onClick={() => handleRemoveAccount(a)}
+                    className="p-1.5 hover:bg-destructive/10 hover:text-destructive rounded-md"
+                    title="Remove login"
+                  >
+                    <ShieldOff className="h-4 w-4" />
+                  </button>
+                )}
+                <button
+                  onClick={() => handleDelete(a.id)}
+                  className="p-1.5 hover:bg-destructive/10 hover:text-destructive rounded-md ml-auto"
+                  title="Delete author"
+                >
                   <Trash2 className="h-4 w-4" />
                 </button>
               </div>
