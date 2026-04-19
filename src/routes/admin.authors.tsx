@@ -304,45 +304,46 @@ function AuthorsPage() {
           <form onSubmit={handleAccountSubmit} className="bg-card border border-border rounded-2xl shadow-glow w-full max-w-md p-6">
             <div className="flex items-center justify-between mb-5">
               <h2 className="font-display text-lg font-bold">
-                {accountModal.kind === "create" ? "Create login" : "Reset password"} — {accountModal.author.name}
+                {accountModal.kind === "create" ? "Create login" : "Manage login"} — {accountModal.author.name}
               </h2>
               <button type="button" onClick={() => setAccountModal(null)} className="p-1.5 hover:bg-muted rounded-md">
                 <X className="h-4 w-4" />
               </button>
             </div>
             <div className="space-y-4">
-              {accountModal.kind === "create" && (
-                <Field label="Email *">
-                  <input
-                    type="email"
-                    required
-                    value={accountEmail}
-                    onChange={(e) => setAccountEmail(e.target.value)}
-                    placeholder="author@example.com"
-                    className={inputCls}
-                  />
-                </Field>
-              )}
-              <Field label="Password *" hint="Min. 8 characters">
+              <Field label={accountModal.kind === "create" ? "Email *" : "Email"}>
+                <input
+                  type="email"
+                  required={accountModal.kind === "create"}
+                  value={accountEmail}
+                  onChange={(e) => setAccountEmail(e.target.value)}
+                  placeholder="author@example.com"
+                  className={inputCls}
+                />
+              </Field>
+              <Field
+                label={accountModal.kind === "create" ? "Password *" : "New password"}
+                hint={accountModal.kind === "create" ? "Min. 8 characters" : "Leave blank to keep current"}
+              >
                 <input
                   type="text"
-                  required
-                  minLength={8}
+                  required={accountModal.kind === "create"}
+                  minLength={accountModal.kind === "create" ? 8 : undefined}
                   value={accountPassword}
                   onChange={(e) => setAccountPassword(e.target.value)}
-                  placeholder="At least 8 characters"
+                  placeholder={accountModal.kind === "create" ? "At least 8 characters" : "Set a new password (optional)"}
                   className={inputCls}
                 />
               </Field>
               <p className="text-xs text-muted-foreground">
-                Share these credentials with the author privately. They can sign in at <code className="bg-muted px-1 rounded">/author/login</code> and change their info from their profile.
+                Share these credentials with the author privately. They can sign in at <code className="bg-muted px-1 rounded">/author/login</code>.
               </p>
             </div>
             <div className="mt-6 flex items-center justify-end gap-2">
               <button type="button" onClick={() => setAccountModal(null)} className="px-4 py-2.5 text-sm font-semibold text-foreground/70">Cancel</button>
               <button type="submit" disabled={accountSubmitting} className="inline-flex items-center gap-2 rounded-xl bg-primary text-primary-foreground px-4 py-2.5 text-sm font-semibold disabled:opacity-50">
                 {accountSubmitting && <Loader2 className="h-4 w-4 animate-spin" />}
-                {accountModal.kind === "create" ? "Create login" : "Reset password"}
+                {accountModal.kind === "create" ? "Create login" : "Save changes"}
               </button>
             </div>
           </form>
