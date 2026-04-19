@@ -273,6 +273,15 @@ function AddRiderModal({ onClose, onSaved }: { onClose: () => void; onSaved: () 
           </button>
         </div>
         <form onSubmit={submit} className="space-y-3">
+          <div>
+            <label className="block text-xs font-semibold text-foreground/80 mb-1.5">Photo</label>
+            <ImageUpload
+              value={avatarUrl}
+              onChange={setAvatarUrl}
+              folder="riders"
+              variant="avatar"
+            />
+          </div>
           <Input label="Name *" value={name} onChange={setName} required />
           <Input label="Phone" value={phone} onChange={setPhone} placeholder="+977 98XXXXXXXX" />
           <Input label="Email" value={email} onChange={setEmail} type="email" />
