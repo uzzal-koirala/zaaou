@@ -1,4 +1,4 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { ArrowLeft, Clock, Loader2, Calendar } from "lucide-react";
 import { PageShell } from "@/components/site/PageShell";
@@ -29,105 +29,166 @@ type PostFull = {
   authors: Author | null;
 };
 
+type BlogSettings = {
+  comments_enabled: boolean;
+  comments_auto_approve: boolean;
+};
+
+const defaultSettings: BlogSettings = {
+  comments_enabled: true,
+  comments_auto_approve: false,
+};
+
 export const Route = createFileRoute("/blog/$slug")({
-  loader: async ({ params }) => {
-    const { data: post } = await supabase
-      .from("posts")
-      .select("id, slug, title, excerpt, content, cover_image_url, category, tags, published_at, reading_time_minutes, seo_title, seo_description, authors(*)")
-      .eq("slug", params.slug)
-      .eq("status", "published")
-      .maybeSingle();
-
-    if (!post) throw notFound();
-
-    const { data: settings } = await supabase
-      .from("blog_settings")
-      .select("comments_enabled, comments_auto_approve")
-      .eq("singleton", true)
-      .maybeSingle();
-
-    return {
-      post: post as PostFull,
-      settings: settings ?? { comments_enabled: true, comments_auto_approve: false },
-    };
-  },
-  head: ({ loaderData }) => {
-    if (!loaderData) return { meta: [{ title: "Post not found" }] };
-    const { post } = loaderData;
-    const title = post.seo_title || `${post.title} — Zaaou Food`;
-    const description = post.seo_description || post.excerpt || "Read on Zaaou Food.";
-    const meta = [
-      { title },
-      { name: "description", content: description },
-      { property: "og:title", content: title },
-      { property: "og:description", content: description },
-      { property: "og:type", content: "article" },
-      { name: "twitter:card", content: post.cover_image_url ? "summary_large_image" : "summary" },
-      { name: "twitter:title", content: title },
-      { name: "twitter:description", content: description },
-    ];
-    if (post.cover_image_url) {
-      meta.push(
-        { property: "og:image", content: post.cover_image_url },
-        { name: "twitter:image", content: post.cover_image_url },
-      );
-    }
-    return { meta };
-  },
-  notFoundComponent: () => (
-    <PageShell>
-      <div className="max-w-3xl mx-auto px-5 py-24 text-center">
-        <h1 className="font-display text-3xl font-bold">Post not found</h1>
-        <p className="mt-3 text-muted-foreground">The article you're looking for doesn't exist.</p>
-        <Link to="/blog" className="mt-6 inline-flex rounded-xl bg-primary text-primary-foreground px-5 py-2.5 text-sm font-semibold">
-          Back to blog
-        </Link>
-      </div>
-    </PageShell>
-  ),
-  errorComponent: ({ error }) => (
-    <PageShell>
-      <div className="max-w-3xl mx-auto px-5 py-24 text-center">
-        <h1 className="font-display text-2xl font-bold">Couldn't load post</h1>
-        <p className="mt-3 text-muted-foreground text-sm">{error.message}</p>
-      </div>
-    </PageShell>
-  ),
+  head: () => ({
+    meta: [
+      { title: "Blog Post — Zaaou Food" },
+      { name: "description", content: "Read stories, restaurant guides and food updates from Zaaou Food." },
+      { property: "og:title", content: "Blog Post — Zaaou Food" },
+      { property: "og:description", content: "Read stories, restaurant guides and food updates from Zaaou Food." },
+    ],
+  }),
   component: PostPage,
 });
 
 function PostPage() {
-  const { post, settings } = Route.useLoaderData();
+  const { slug } = Route.useParams();
+  const [post, setPost] = useState<PostFull | null>(null);
+  const [settings, setSettings] = useState<BlogSettings>(defaultSettings);
   const [related, setRelated] = useState<Array<React.ComponentProps<typeof BlogCard>["post"]>>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [shareUrl, setShareUrl] = useState("");
 
   useEffect(() => {
     setShareUrl(window.location.href);
-  }, []);
+  }, [slug]);
 
   useEffect(() => {
-    if (!post.category) return;
     let cancelled = false;
-    (async () => {
+
+    async function loadPost() {
+      setLoading(true);
+      setError(null);
+      setPost(null);
+      setRelated([]);
+
+      const [{ data: postData, error: postError }, { data: settingsData }] = await Promise.all([
+        supabase
+          .from("posts")
+          .select(
+            "id, slug, title, excerpt, content, cover_image_url, category, tags, published_at, reading_time_minutes, seo_title, seo_description, authors(*)",
+          )
+          .eq("slug", slug)
+          .eq("status", "published")
+          .maybeSingle(),
+        supabase
+          .from("blog_settings")
+          .select("comments_enabled, comments_auto_approve")
+          .eq("singleton", true)
+          .maybeSingle(),
+      ]);
+
+      if (cancelled) return;
+
+      if (postError) {
+        setError(postError.message);
+        setLoading(false);
+        return;
+      }
+
+      setPost((postData as PostFull | null) ?? null);
+      setSettings(settingsData ?? defaultSettings);
+      setLoading(false);
+    }
+
+    loadPost();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [slug]);
+
+  useEffect(() => {
+    if (!post?.category) return;
+
+    let cancelled = false;
+
+    async function loadRelated() {
       const { data } = await supabase
         .from("posts")
-        .select("id, slug, title, excerpt, cover_image_url, category, published_at, reading_time_minutes, authors(name, slug, avatar_url)")
+        .select(
+          "id, slug, title, excerpt, cover_image_url, category, published_at, reading_time_minutes, authors(name, slug, avatar_url)",
+        )
         .eq("status", "published")
         .eq("category", post.category)
         .neq("id", post.id)
         .order("published_at", { ascending: false })
         .limit(3);
-      if (!cancelled) setRelated((data as never) ?? []);
-    })();
+
+      if (!cancelled) {
+        setRelated((data as Array<React.ComponentProps<typeof BlogCard>["post"]> | null) ?? []);
+      }
+    }
+
+    loadRelated();
+
     return () => {
       cancelled = true;
     };
-  }, [post.id, post.category]);
+  }, [post?.category, post?.id]);
+
+  if (loading) {
+    return (
+      <PageShell>
+        <div className="flex min-h-[60vh] items-center justify-center px-5">
+          <Loader2 className="h-7 w-7 animate-spin text-primary" />
+        </div>
+      </PageShell>
+    );
+  }
+
+  if (error) {
+    return (
+      <PageShell>
+        <div className="max-w-3xl mx-auto px-5 py-24 text-center">
+          <h1 className="font-display text-2xl font-bold">Couldn't load post</h1>
+          <p className="mt-3 text-sm text-muted-foreground">{error}</p>
+          <Link
+            to="/blog"
+            className="mt-6 inline-flex rounded-xl bg-primary text-primary-foreground px-5 py-2.5 text-sm font-semibold"
+          >
+            Back to blog
+          </Link>
+        </div>
+      </PageShell>
+    );
+  }
+
+  if (!post) {
+    return (
+      <PageShell>
+        <div className="max-w-3xl mx-auto px-5 py-24 text-center">
+          <h1 className="font-display text-3xl font-bold">Post not found</h1>
+          <p className="mt-3 text-muted-foreground">The article you're looking for doesn't exist.</p>
+          <Link
+            to="/blog"
+            className="mt-6 inline-flex rounded-xl bg-primary text-primary-foreground px-5 py-2.5 text-sm font-semibold"
+          >
+            Back to blog
+          </Link>
+        </div>
+      </PageShell>
+    );
+  }
 
   return (
     <PageShell>
       <article className="mx-auto max-w-3xl px-5 lg:px-8 pt-10 pb-16">
-        <Link to="/blog" className="inline-flex items-center gap-1.5 text-sm font-semibold text-muted-foreground hover:text-primary mb-6">
+        <Link
+          to="/blog"
+          className="inline-flex items-center gap-1.5 text-sm font-semibold text-muted-foreground hover:text-primary mb-6"
+        >
           <ArrowLeft className="h-4 w-4" /> Back to blog
         </Link>
 
@@ -151,7 +212,11 @@ function PostPage() {
               className="flex items-center gap-2 group"
             >
               {post.authors.avatar_url ? (
-                <img src={post.authors.avatar_url} alt={post.authors.name} className="h-9 w-9 rounded-full object-cover" />
+                <img
+                  src={post.authors.avatar_url}
+                  alt={post.authors.name}
+                  className="h-9 w-9 rounded-full object-cover"
+                />
               ) : (
                 <div className="h-9 w-9 rounded-full bg-primary/10 text-primary grid place-items-center text-xs font-bold">
                   {post.authors.name.charAt(0)}
@@ -188,8 +253,11 @@ function PostPage() {
 
         {post.tags.length > 0 && (
           <div className="mt-10 flex items-center gap-2 flex-wrap">
-            {post.tags.map((tag: string) => (
-              <span key={tag} className="text-xs px-3 py-1 rounded-full bg-muted text-foreground/70 font-medium">
+            {post.tags.map((tag) => (
+              <span
+                key={tag}
+                className="text-xs px-3 py-1 rounded-full bg-muted text-foreground/70 font-medium"
+              >
                 #{tag}
               </span>
             ))}
