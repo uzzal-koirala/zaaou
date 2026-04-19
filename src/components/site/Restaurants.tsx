@@ -1,12 +1,12 @@
 import { Star, Clock } from "lucide-react";
 import momos from "@/assets/dish-momos.jpg";
-import thali from "@/assets/dish-thali.jpg";
 import burger from "@/assets/dish-burger.jpg";
 import pizza from "@/assets/dish-pizza.jpg";
+import purwanchalCafe from "@/assets/restaurants/purwanchal-cafe.jpg";
 
 const restaurants = [
+  { img: purwanchalCafe, name: "Purwanchal Cafe", tag: "Thakali Food · Khana", rating: 4.9, time: "25-35 min", price: "Rs. 250+" },
   { img: momos, name: "Himalayan Momo House", tag: "Nepali · Tibetan", rating: 4.8, time: "20-30 min", price: "Rs. 180+" },
-  { img: thali, name: "Annapurna Bhojanalaya", tag: "Traditional Thali", rating: 4.9, time: "25-35 min", price: "Rs. 250+" },
   { img: burger, name: "Burger Junction", tag: "Burgers · Fast Food", rating: 4.7, time: "15-25 min", price: "Rs. 220+" },
   { img: pizza, name: "Forno Pizzeria", tag: "Italian · Pizza", rating: 4.8, time: "30-40 min", price: "Rs. 450+" },
 ];
