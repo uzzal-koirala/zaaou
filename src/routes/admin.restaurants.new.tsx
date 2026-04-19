@@ -240,21 +240,12 @@ function RestaurantForm({ mode }: { mode: Mode }) {
           </Card>
 
           <Card title="Cover image">
-            <Field label="Image URL">
-              <input
-                value={form.cover_image_url}
-                onChange={(e) => update("cover_image_url", e.target.value)}
-                placeholder="https://..."
-                className={inputCls}
-              />
-              {form.cover_image_url && (
-                <img
-                  src={form.cover_image_url}
-                  alt=""
-                  className="mt-2 rounded-lg w-full aspect-video object-cover"
-                />
-              )}
-            </Field>
+            <ImageUpload
+              value={form.cover_image_url}
+              onChange={(url) => update("cover_image_url", url)}
+              folder="restaurants"
+              variant="cover"
+            />
           </Card>
 
           <Card title="Details">
