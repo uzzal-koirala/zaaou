@@ -77,7 +77,7 @@ function PostPage() {
         supabase
           .from("posts")
           .select(
-            "id, slug, title, excerpt, content, cover_image_url, category, tags, published_at, reading_time_minutes, seo_title, seo_description, authors(*)",
+            "id, slug, title, excerpt, content, cover_image_url, category, tags, published_at, reading_time_minutes, seo_title, seo_description, authors(id, name, slug, role, bio, avatar_url, facebook_url, instagram_url, linkedin_url, twitter_url, website_url, created_at, updated_at)",
           )
           .eq("slug", slug)
           .eq("status", "published")
