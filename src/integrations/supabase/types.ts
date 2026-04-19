@@ -195,6 +195,114 @@ export type Database = {
           },
         ]
       }
+      restaurants: {
+        Row: {
+          address: string | null
+          cover_image_url: string | null
+          created_at: string
+          cuisine: string | null
+          delivery_time_minutes: number | null
+          description: string | null
+          display_order: number
+          id: string
+          is_active: boolean
+          is_featured: boolean
+          name: string
+          phone: string | null
+          price_range: string | null
+          rating: number | null
+          slug: string
+          tags: string[]
+          updated_at: string
+        }
+        Insert: {
+          address?: string | null
+          cover_image_url?: string | null
+          created_at?: string
+          cuisine?: string | null
+          delivery_time_minutes?: number | null
+          description?: string | null
+          display_order?: number
+          id?: string
+          is_active?: boolean
+          is_featured?: boolean
+          name: string
+          phone?: string | null
+          price_range?: string | null
+          rating?: number | null
+          slug: string
+          tags?: string[]
+          updated_at?: string
+        }
+        Update: {
+          address?: string | null
+          cover_image_url?: string | null
+          created_at?: string
+          cuisine?: string | null
+          delivery_time_minutes?: number | null
+          description?: string | null
+          display_order?: number
+          id?: string
+          is_active?: boolean
+          is_featured?: boolean
+          name?: string
+          phone?: string | null
+          price_range?: string | null
+          rating?: number | null
+          slug?: string
+          tags?: string[]
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      riders: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          email: string | null
+          id: string
+          is_active: boolean
+          joined_at: string
+          name: string
+          phone: string | null
+          rating: number | null
+          status: string
+          total_deliveries: number
+          updated_at: string
+          vehicle_type: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          is_active?: boolean
+          joined_at?: string
+          name: string
+          phone?: string | null
+          rating?: number | null
+          status?: string
+          total_deliveries?: number
+          updated_at?: string
+          vehicle_type?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          is_active?: boolean
+          joined_at?: string
+          name?: string
+          phone?: string | null
+          rating?: number | null
+          status?: string
+          total_deliveries?: number
+          updated_at?: string
+          vehicle_type?: string | null
+        }
+        Relationships: []
+      }
       team_members: {
         Row: {
           avatar_url: string | null
