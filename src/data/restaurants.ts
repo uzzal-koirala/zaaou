@@ -155,6 +155,8 @@ export const cuisineFilters = [
   "Chicken",
   "Coffee",
   "Cakes",
+  "Pastries",
+  "Bakery",
   "Momo",
   "Pizza",
   "Burger",
