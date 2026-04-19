@@ -390,7 +390,7 @@ export type Database = {
       slugify: { Args: { value: string }; Returns: string }
     }
     Enums: {
-      app_role: "admin" | "user"
+      app_role: "admin" | "user" | "author"
       comment_status: "pending" | "approved" | "rejected"
       post_status: "draft" | "published"
     }
@@ -520,7 +520,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["admin", "user"],
+      app_role: ["admin", "user", "author"],
       comment_status: ["pending", "approved", "rejected"],
       post_status: ["draft", "published"],
     },
