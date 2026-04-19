@@ -7,6 +7,7 @@ import { HowItWorks } from "@/components/site/HowItWorks";
 import { Testimonials } from "@/components/site/Testimonials";
 import { AppDownload } from "@/components/site/AppDownload";
 import { Footer } from "@/components/site/Footer";
+import { WhatsAppFloat } from "@/components/site/WhatsAppButton";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -33,6 +34,7 @@ function Index() {
         <AppDownload />
       </main>
       <Footer />
+      <WhatsAppFloat />
     </div>
   );
 }
