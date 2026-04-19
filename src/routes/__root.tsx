@@ -37,6 +37,10 @@ export const Route = createRootRoute({
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Zaaou Food — Itahari's Favourite Food Delivery" },
+      { name: "twitter:description", content: "Order from your favourite restaurants in Itahari. Fast, fresh and on time — delivered by Zaaou Food." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/dc2741b4-ebf7-4634-9386-2d08a9023463/id-preview-a1f96e48--548acf30-8db7-4b9a-aeef-e20f2e4d95eb.lovable.app-1776576480073.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/dc2741b4-ebf7-4634-9386-2d08a9023463/id-preview-a1f96e48--548acf30-8db7-4b9a-aeef-e20f2e4d95eb.lovable.app-1776576480073.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
