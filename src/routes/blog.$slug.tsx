@@ -191,8 +191,14 @@ function PostPage() {
 
   return (
     <PageShell>
+      {/* Top reading-progress bar (sticky under navbar) */}
+      <ReadingProgress />
+
+      {/* Floating left action rail (desktop only) */}
+      <FloatingActions url={shareUrl} title={post.title} />
+
       {/* Hero */}
-      <header className="relative overflow-hidden bg-gradient-to-b from-primary/10 via-background to-background pt-10 pb-12 lg:pt-14 lg:pb-16">
+      <header className="relative overflow-hidden bg-gradient-to-b from-primary/10 via-background to-background pt-10 pb-12 lg:pt-14 lg:pb-16 animate-page-in">
         <div className="absolute inset-0 -z-10 opacity-60 [background:radial-gradient(60%_60%_at_50%_0%,color-mix(in_oklab,var(--primary)_18%,transparent),transparent_70%)]" />
         <div className="mx-auto max-w-4xl px-5 lg:px-8">
           <Link
@@ -207,11 +213,11 @@ function PostPage() {
               <Tag className="h-3 w-3" /> {post.category}
             </span>
           )}
-          <h1 className="mt-4 font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl tracking-tight text-foreground leading-[1.1]">
+          <h1 className="mt-4 font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl xl:text-6xl tracking-tight text-foreground leading-[1.05]">
             {post.title}
           </h1>
           {post.excerpt && (
-            <p className="mt-5 text-lg text-muted-foreground leading-relaxed max-w-2xl">
+            <p className="mt-5 text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-2xl">
               {post.excerpt}
             </p>
           )}
@@ -252,33 +258,39 @@ function PostPage() {
       </header>
 
       {post.cover_image_url && (
-        <div className="mx-auto max-w-5xl px-5 lg:px-8">
-          <img
-            src={post.cover_image_url}
-            alt={post.title}
-            className="w-full aspect-[16/8] object-cover rounded-3xl shadow-glow"
-          />
+        <div className="mx-auto max-w-5xl px-5 lg:px-8 animate-article-rise">
+          <div className="relative overflow-hidden rounded-3xl shadow-glow">
+            <img
+              src={post.cover_image_url}
+              alt={post.title}
+              className="w-full aspect-[16/8] object-cover transition-transform duration-700 hover:scale-[1.02]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-foreground/30 via-transparent to-transparent pointer-events-none" />
+          </div>
         </div>
       )}
 
       {/* Article + sidebar layout */}
       <div className="mx-auto max-w-7xl px-5 lg:px-8 pt-12 pb-20">
-        <div className="grid gap-10 lg:gap-14 lg:grid-cols-[minmax(0,1fr)_300px]">
+        <div className="grid gap-10 lg:gap-14 lg:grid-cols-[minmax(0,1fr)_320px]">
           {/* Main column */}
-          <article className="min-w-0">
-            <ReadingProgress />
-
+          <article className="min-w-0 animate-article-rise">
             <MarkdownContent content={post.content} />
 
             {post.tags.length > 0 && (
-              <div className="mt-10 flex items-center gap-2 flex-wrap">
+              <div className="mt-12 flex items-center gap-2 flex-wrap">
+                <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground mr-1">
+                  Tags:
+                </span>
                 {post.tags.map((tag) => (
-                  <span
+                  <Link
                     key={tag}
-                    className="text-xs px-3 py-1 rounded-full bg-muted text-foreground/70 font-medium"
+                    to="/blog"
+                    search={{ tag } as never}
+                    className="text-xs px-3 py-1.5 rounded-full bg-muted text-foreground/70 font-medium hover:bg-primary hover:text-primary-foreground transition-colors"
                   >
                     #{tag}
-                  </span>
+                  </Link>
                 ))}
               </div>
             )}
@@ -302,7 +314,7 @@ function PostPage() {
 
           {/* Sidebar */}
           <aside className="lg:block">
-            <div className="lg:sticky lg:top-24 space-y-6">
+            <div className="lg:sticky lg:top-24 space-y-6 max-h-[calc(100vh-7rem)] overflow-y-auto pb-2 [scrollbar-width:thin]">
               <TableOfContents content={post.content} />
 
               {post.authors && (
@@ -310,6 +322,8 @@ function PostPage() {
                   <AuthorCard author={post.authors} />
                 </div>
               )}
+
+              <NewsletterCard />
 
               {related.length > 0 && (
                 <div className="rounded-2xl border border-border bg-card p-5 shadow-soft">
@@ -358,7 +372,20 @@ function PostPage() {
 
         {related.length > 0 && (
           <section className="mt-20 pt-12 border-t border-border">
-            <h2 className="font-display text-2xl font-bold mb-6">More stories</h2>
+            <div className="flex items-end justify-between mb-8">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary mb-2">
+                  Keep reading
+                </p>
+                <h2 className="font-display text-3xl font-bold">More stories you'll love</h2>
+              </div>
+              <Link
+                to="/blog"
+                className="hidden sm:inline-flex text-sm font-semibold text-primary hover:underline"
+              >
+                Browse all →
+              </Link>
+            </div>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {related.map((p) => (
                 <BlogCard key={p.slug} post={p} />
