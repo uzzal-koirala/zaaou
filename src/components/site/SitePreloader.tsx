@@ -1,26 +1,58 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import logo from "@/assets/zaaou-logo.png";
 
 /**
- * Full-screen branded preloader shown until ALL <img> elements
- * currently in the DOM have finished loading (or errored).
- * Used on the home page to avoid showing a half-loaded hero / sections.
+ * Fast, branded preloader.
+ *
+ * Strategy (optimized for speed):
+ * - Wait only for above-the-fold images (within ~1.5x viewport height).
+ * - Lazy-loaded / offscreen images do NOT block the preloader.
+ * - Hard cap: 2.5s — never block the page longer than that.
+ * - Minimum show time: 350ms so the bar doesn't flash awkwardly.
  */
 export function SitePreloader() {
   const [progress, setProgress] = useState(0);
   const [done, setDone] = useState(false);
   const [hidden, setHidden] = useState(false);
+  const startRef = useRef<number>(typeof performance !== "undefined" ? performance.now() : Date.now());
 
   useEffect(() => {
     let cancelled = false;
+    const MIN_SHOW_MS = 350;
+    const HARD_CAP_MS = 2500;
+
+    const finish = () => {
+      if (cancelled) return;
+      const elapsed = (typeof performance !== "undefined" ? performance.now() : Date.now()) - startRef.current;
+      const remaining = Math.max(0, MIN_SHOW_MS - elapsed);
+      setProgress(100);
+      if (remaining === 0) {
+        setDone(true);
+      } else {
+        setTimeout(() => {
+          if (!cancelled) setDone(true);
+        }, remaining);
+      }
+    };
+
+    const collectCriticalImages = (): HTMLImageElement[] => {
+      const all = Array.from(document.images);
+      const viewportH = window.innerHeight || 800;
+      const threshold = viewportH * 1.5;
+      return all.filter((img) => {
+        if (img.loading === "lazy") return false;
+        const rect = img.getBoundingClientRect();
+        // Image is critical if it intersects (or is above) the threshold zone
+        return rect.top < threshold;
+      });
+    };
 
     const waitForImages = () => {
-      const imgs = Array.from(document.images);
+      const imgs = collectCriticalImages();
       const total = imgs.length;
 
       if (total === 0) {
-        setProgress(100);
-        setDone(true);
+        finish();
         return;
       }
 
@@ -28,9 +60,9 @@ export function SitePreloader() {
       const tick = () => {
         loaded += 1;
         if (cancelled) return;
-        const pct = Math.round((loaded / total) * 100);
-        setProgress(pct);
-        if (loaded >= total) setDone(true);
+        const pct = Math.round((loaded / total) * 95); // cap at 95 until finish
+        setProgress((p) => Math.max(p, pct));
+        if (loaded >= total) finish();
       };
 
       imgs.forEach((img) => {
@@ -43,38 +75,29 @@ export function SitePreloader() {
       });
     };
 
-    // Wait for window.load OR a short delay so newly-mounted <img> tags exist
-    if (document.readyState === "complete") {
-      waitForImages();
-    } else {
-      const onLoad = () => waitForImages();
-      window.addEventListener("load", onLoad, { once: true });
-      // Safety: also try after a tick in case images render after window load
-      const t = setTimeout(waitForImages, 800);
-      return () => {
-        cancelled = true;
-        window.removeEventListener("load", onLoad);
-        clearTimeout(t);
-      };
-    }
+    // Run immediately on next microtask — don't wait for window.load
+    const startTimer = setTimeout(waitForImages, 0);
 
-    // Hard cap: never block the page longer than 8s
-    const failsafe = setTimeout(() => {
+    // Hard cap
+    const failsafe = setTimeout(finish, HARD_CAP_MS);
+
+    // Smooth visual progress trickle so the bar is never frozen
+    const trickle = setInterval(() => {
       if (cancelled) return;
-      setProgress(100);
-      setDone(true);
-    }, 8000);
+      setProgress((p) => (p < 90 ? p + Math.max(1, Math.round((90 - p) * 0.08)) : p));
+    }, 120);
 
     return () => {
       cancelled = true;
+      clearTimeout(startTimer);
       clearTimeout(failsafe);
+      clearInterval(trickle);
     };
   }, []);
 
   useEffect(() => {
     if (!done) return;
-    // Allow fade-out animation to play, then unmount
-    const t = setTimeout(() => setHidden(true), 600);
+    const t = setTimeout(() => setHidden(true), 350);
     return () => clearTimeout(t);
   }, [done]);
 
@@ -94,11 +117,10 @@ export function SitePreloader() {
     <div
       role="status"
       aria-label="Loading Zaaou Food"
-      className={`fixed inset-0 z-[200] flex items-center justify-center bg-background transition-opacity duration-500 ${
+      className={`fixed inset-0 z-[200] flex items-center justify-center bg-background transition-opacity duration-300 ${
         done ? "opacity-0 pointer-events-none" : "opacity-100"
       }`}
     >
-      {/* Soft brand glow */}
       <div
         aria-hidden
         className="absolute inset-0 pointer-events-none"
@@ -109,7 +131,6 @@ export function SitePreloader() {
       />
 
       <div className="relative flex flex-col items-center gap-6 px-6">
-        {/* Bouncing logo + spinner */}
         <div className="relative h-24 w-24">
           <span
             className="absolute inset-0 flex items-center justify-center"
@@ -119,6 +140,7 @@ export function SitePreloader() {
               src={logo}
               alt="Zaaou Food"
               className="h-14 w-14 rounded-2xl shadow-soft"
+              fetchPriority="high"
             />
           </span>
           <span
@@ -127,7 +149,6 @@ export function SitePreloader() {
           />
         </div>
 
-        {/* Brand */}
         <div className="text-center">
           <p className="font-display text-3xl font-extrabold tracking-tight text-foreground">
             Zaaou <span className="text-primary">Food</span>
@@ -137,11 +158,10 @@ export function SitePreloader() {
           </p>
         </div>
 
-        {/* Progress bar */}
         <div className="w-64 max-w-[80vw]">
           <div className="h-1.5 w-full overflow-hidden rounded-full bg-primary/10">
             <div
-              className="h-full bg-gradient-primary transition-[width] duration-300 ease-out"
+              className="h-full bg-gradient-primary transition-[width] duration-200 ease-out"
               style={{ width: `${progress}%` }}
             />
           </div>
