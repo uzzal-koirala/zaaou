@@ -82,8 +82,8 @@ function TeamPage() {
               </p>
             ) : (
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-                {members.map((m) => (
-                  <TeamCard key={m.id} member={m} />
+                {members.map((m, i) => (
+                  <TeamCard key={m.id} member={m} index={i} />
                 ))}
               </div>
             )}
