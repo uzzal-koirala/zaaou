@@ -15,13 +15,20 @@ import {
   X,
   ChevronLeft,
   ChevronRight,
-  Sparkles,
 } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 import logo from "@/assets/zaaou-logo.png";
 
 type NavItem = {
-  to: "/admin" | "/admin/restaurants" | "/admin/riders" | "/admin/posts" | "/admin/authors" | "/admin/team" | "/admin/comments" | "/admin/settings";
+  to:
+    | "/admin"
+    | "/admin/restaurants"
+    | "/admin/riders"
+    | "/admin/posts"
+    | "/admin/authors"
+    | "/admin/team"
+    | "/admin/comments"
+    | "/admin/settings";
   label: string;
   icon: typeof LayoutDashboard;
   exact?: boolean;
@@ -40,7 +47,6 @@ const nav: NavItem[] = [
 ];
 
 const groupOrder: NavItem["group"][] = ["Overview", "Operations", "Content", "System"];
-
 const STORAGE_KEY = "zaaou-admin-sidebar-collapsed";
 
 export function AdminLayout({ children }: { children: ReactNode }) {
@@ -49,7 +55,6 @@ export function AdminLayout({ children }: { children: ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
 
-  // Load persisted collapsed state
   useEffect(() => {
     try {
       const v = localStorage.getItem(STORAGE_KEY);
@@ -77,15 +82,16 @@ export function AdminLayout({ children }: { children: ReactNode }) {
   }
 
   const initials = user?.email?.[0]?.toUpperCase() ?? "A";
-  const sidebarWidth = collapsed ? "lg:w-[76px]" : "lg:w-64";
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-muted/40 via-background to-muted/30 flex">
+    <div className="min-h-screen bg-muted/30 flex">
       {/* Mobile top bar */}
-      <div className="lg:hidden fixed top-0 inset-x-0 z-40 h-14 bg-card/90 backdrop-blur-md border-b border-border flex items-center justify-between px-4">
-        <Link to="/admin" className="flex items-center gap-2">
-          <img src={logo} alt="" className="h-7 w-7 rounded-md" />
-          <span className="font-display font-extrabold text-base">Zaaou Admin</span>
+      <header className="lg:hidden fixed top-0 inset-x-0 z-40 h-14 bg-card/95 backdrop-blur-md border-b border-border flex items-center justify-between px-4">
+        <Link to="/admin" className="flex items-center gap-2 min-w-0">
+          <img src={logo} alt="" className="h-7 w-7 rounded-md flex-shrink-0" />
+          <span className="font-display font-extrabold text-base truncate">
+            Zaaou Admin
+          </span>
         </Link>
         <button
           onClick={() => setMobileOpen(true)}
@@ -94,9 +100,9 @@ export function AdminLayout({ children }: { children: ReactNode }) {
         >
           <Menu className="h-5 w-5" />
         </button>
-      </div>
+      </header>
 
-      {/* Backdrop on mobile */}
+      {/* Mobile backdrop */}
       {mobileOpen && (
         <div
           className="lg:hidden fixed inset-0 z-40 bg-foreground/50 backdrop-blur-sm animate-fade-in"
@@ -104,195 +110,193 @@ export function AdminLayout({ children }: { children: ReactNode }) {
         />
       )}
 
+      {/* Sidebar:
+          - Mobile: fixed off-canvas drawer (translate)
+          - Desktop: in-flow sticky column with animated width */}
       <aside
-        className={`fixed lg:sticky top-0 left-0 z-50 h-screen w-72 ${sidebarWidth} shrink-0 flex flex-col transition-all duration-300 ease-out ${
-          mobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
-        }`}
+        className={[
+          "z-50 bg-card border-r border-border flex flex-col",
+          // mobile drawer
+          "fixed top-0 left-0 h-screen w-72 transition-transform duration-300 ease-out",
+          mobileOpen ? "translate-x-0" : "-translate-x-full",
+          // desktop in-flow sticky
+          "lg:static lg:translate-x-0 lg:sticky lg:top-0 lg:h-screen lg:flex-shrink-0",
+          "lg:transition-[width] lg:duration-300 lg:ease-out",
+          collapsed ? "lg:w-[76px]" : "lg:w-64",
+        ].join(" ")}
       >
-        {/* Sidebar surface with subtle gradient & border */}
-        <div className="relative flex-1 flex flex-col bg-card/95 backdrop-blur-xl border-r border-border shadow-card overflow-hidden">
-          {/* Decorative top glow */}
-          <div
-            aria-hidden
-            className="absolute -top-24 -left-12 h-56 w-56 rounded-full bg-primary/15 blur-3xl pointer-events-none"
-          />
-
-          {/* Header / Brand */}
-          <div className="relative p-4 border-b border-border/70 flex items-center gap-3">
-            <Link
-              to="/"
-              className="flex items-center gap-3 min-w-0 flex-1 group"
-              title="View site"
-            >
-              <div className="relative h-10 w-10 rounded-xl bg-gradient-primary p-[2px] shadow-soft flex-shrink-0 group-hover:scale-105 transition-transform">
-                <div className="h-full w-full rounded-[10px] bg-card grid place-items-center overflow-hidden">
-                  <img src={logo} alt="" className="h-7 w-7 rounded-md" />
-                </div>
+        {/* Header / Brand */}
+        <div className="relative h-16 px-3 border-b border-border flex items-center gap-2">
+          <Link
+            to="/"
+            className="flex items-center gap-2.5 min-w-0 flex-1 group rounded-lg p-1.5 hover:bg-muted transition-colors"
+            title="View site"
+          >
+            <div className="relative h-9 w-9 rounded-lg bg-gradient-primary p-[2px] shadow-soft flex-shrink-0">
+              <div className="h-full w-full rounded-[6px] bg-card grid place-items-center overflow-hidden">
+                <img src={logo} alt="" className="h-6 w-6 rounded" />
               </div>
-              {!collapsed && (
-                <div className="min-w-0 leading-tight">
-                  <p className="font-display font-extrabold text-base truncate">
-                    Zaaou <span className="text-primary">Admin</span>
+            </div>
+            {!collapsed && (
+              <div className="min-w-0 leading-tight">
+                <p className="font-display font-extrabold text-[15px] truncate">
+                  Zaaou <span className="text-primary">Admin</span>
+                </p>
+                <p className="text-[9px] uppercase tracking-[0.16em] font-semibold text-muted-foreground">
+                  Control Center
+                </p>
+              </div>
+            )}
+          </Link>
+
+          {/* Mobile close */}
+          <button
+            onClick={() => setMobileOpen(false)}
+            aria-label="Close menu"
+            className="lg:hidden h-8 w-8 grid place-items-center rounded-lg hover:bg-muted transition-colors"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+
+        {/* Floating collapse toggle (desktop only) */}
+        <button
+          onClick={toggleCollapsed}
+          aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+          title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+          className="hidden lg:grid absolute -right-3 top-12 h-6 w-6 place-items-center rounded-full bg-card border border-border shadow-soft hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all z-10"
+        >
+          {collapsed ? (
+            <ChevronRight className="h-3.5 w-3.5" />
+          ) : (
+            <ChevronLeft className="h-3.5 w-3.5" />
+          )}
+        </button>
+
+        {/* Nav */}
+        <nav className="flex-1 px-3 py-4 overflow-y-auto overflow-x-visible">
+          {groupOrder.map((group) => {
+            const items = nav.filter((i) => i.group === group);
+            if (!items.length) return null;
+            return (
+              <div key={group} className="mb-5 last:mb-0">
+                {!collapsed ? (
+                  <p className="px-2 mb-2 text-[10px] font-bold uppercase tracking-[0.14em] text-muted-foreground/70">
+                    {group}
                   </p>
-                  <p className="text-[10px] uppercase tracking-[0.16em] font-semibold text-muted-foreground">
-                    Control Center
-                  </p>
-                </div>
-              )}
-            </Link>
-
-            {/* Mobile close */}
-            <button
-              onClick={() => setMobileOpen(false)}
-              aria-label="Close menu"
-              className="lg:hidden h-8 w-8 grid place-items-center rounded-lg hover:bg-muted transition-colors"
-            >
-              <X className="h-4 w-4" />
-            </button>
-
-            {/* Desktop collapse toggle */}
-            <button
-              onClick={toggleCollapsed}
-              aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-              title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-              className="hidden lg:grid absolute -right-3 top-7 h-6 w-6 place-items-center rounded-full bg-card border border-border shadow-soft hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all z-10"
-            >
-              {collapsed ? (
-                <ChevronRight className="h-3.5 w-3.5" />
-              ) : (
-                <ChevronLeft className="h-3.5 w-3.5" />
-              )}
-            </button>
-          </div>
-
-          {/* Nav */}
-          <nav className="relative flex-1 p-3 overflow-y-auto overflow-x-hidden">
-            {groupOrder.map((group) => {
-              const items = nav.filter((i) => i.group === group);
-              if (!items.length) return null;
-              return (
-                <div key={group} className="mb-4 last:mb-0">
-                  {!collapsed && (
-                    <p className="px-3 mb-1.5 text-[10px] font-bold uppercase tracking-[0.14em] text-muted-foreground/70">
-                      {group}
-                    </p>
-                  )}
-                  {collapsed && (
-                    <div className="mx-3 mb-2 h-px bg-border/60" aria-hidden />
-                  )}
-                  <div className="space-y-0.5">
-                    {items.map((item) => {
-                      const Icon = item.icon;
-                      return (
+                ) : (
+                  <div className="mx-2 mb-2 h-px bg-border" aria-hidden />
+                )}
+                <ul className="space-y-1">
+                  {items.map((item) => {
+                    const Icon = item.icon;
+                    return (
+                      <li key={item.to} className="relative group/item">
                         <Link
-                          key={item.to}
                           to={item.to}
                           onClick={() => setMobileOpen(false)}
                           activeOptions={item.exact ? { exact: true } : undefined}
                           activeProps={{
                             className:
-                              "!bg-gradient-to-r !from-primary/15 !to-primary/5 !text-primary !font-semibold shadow-[inset_2px_0_0_0] shadow-primary",
+                              "bg-primary/10 text-primary font-semibold border-primary/30",
                           }}
                           title={collapsed ? item.label : undefined}
-                          className={`group relative flex items-center ${
-                            collapsed ? "justify-center px-0 py-3" : "gap-3 px-3 py-2.5"
-                          } rounded-xl text-sm font-medium text-foreground/70 hover:bg-muted hover:text-foreground transition-all`}
+                          className={[
+                            "flex items-center rounded-lg text-sm font-medium",
+                            "text-foreground/70 hover:bg-muted hover:text-foreground",
+                            "border border-transparent transition-colors",
+                            collapsed
+                              ? "justify-center h-11 w-11 mx-auto"
+                              : "gap-3 px-3 py-2.5",
+                          ].join(" ")}
                         >
-                          <Icon
-                            className={`h-[18px] w-[18px] flex-shrink-0 transition-transform group-hover:scale-110`}
-                          />
-                          {!collapsed && <span className="truncate">{item.label}</span>}
-
-                          {/* Tooltip when collapsed */}
-                          {collapsed && (
-                            <span className="pointer-events-none absolute left-full ml-3 px-2.5 py-1.5 rounded-md bg-foreground text-background text-xs font-semibold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity shadow-card z-50">
-                              {item.label}
-                            </span>
+                          <Icon className="h-[18px] w-[18px] flex-shrink-0" />
+                          {!collapsed && (
+                            <span className="truncate">{item.label}</span>
                           )}
                         </Link>
-                      );
-                    })}
-                  </div>
-                </div>
-              );
-            })}
-          </nav>
 
-          {/* Pro tip card (only when expanded) */}
-          {!collapsed && (
-            <div className="px-3 pb-3">
-              <div className="relative overflow-hidden rounded-xl bg-gradient-primary p-4 text-primary-foreground shadow-soft">
-                <Sparkles className="absolute -right-2 -top-2 h-16 w-16 opacity-20" />
-                <p className="text-xs font-bold uppercase tracking-wider opacity-90">
-                  Quick tip
+                        {/* Tooltip on hover (collapsed only) */}
+                        {collapsed && (
+                          <span className="hidden lg:block pointer-events-none absolute left-full top-1/2 -translate-y-1/2 ml-2 px-2.5 py-1.5 rounded-md bg-foreground text-background text-xs font-semibold whitespace-nowrap opacity-0 group-hover/item:opacity-100 transition-opacity shadow-card z-[60]">
+                            {item.label}
+                          </span>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            );
+          })}
+        </nav>
+
+        {/* Footer: profile + actions */}
+        <div className="p-3 border-t border-border bg-muted/40 space-y-1">
+          {!collapsed ? (
+            <div className="flex items-center gap-2.5 px-2 py-2 rounded-lg">
+              <div className="h-9 w-9 rounded-full bg-gradient-primary text-primary-foreground grid place-items-center text-sm font-bold shadow-soft flex-shrink-0">
+                {initials}
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="text-xs font-semibold text-foreground truncate">
+                  {user?.email?.split("@")[0] ?? "Admin"}
                 </p>
-                <p className="mt-1 text-sm font-semibold leading-snug">
-                  Add new restaurants to grow your reach.
+                <p className="text-[10px] text-muted-foreground truncate">
+                  {user?.email}
                 </p>
-                <Link
-                  to="/admin/restaurants"
-                  className="mt-3 inline-flex items-center gap-1 text-xs font-bold underline-offset-2 hover:underline"
-                >
-                  Go to Restaurants →
-                </Link>
+              </div>
+            </div>
+          ) : (
+            <div className="flex justify-center py-1">
+              <div className="h-9 w-9 rounded-full bg-gradient-primary text-primary-foreground grid place-items-center text-sm font-bold shadow-soft">
+                {initials}
               </div>
             </div>
           )}
 
-          {/* Footer: profile + actions */}
-          <div className="p-3 border-t border-border/70 space-y-1 bg-muted/30">
-            {!collapsed ? (
-              <div className="flex items-center gap-2.5 px-2 py-2 rounded-lg">
-                <div className="h-9 w-9 rounded-full bg-gradient-primary text-primary-foreground grid place-items-center text-sm font-bold shadow-soft flex-shrink-0">
-                  {initials}
-                </div>
-                <div className="min-w-0 flex-1">
-                  <p className="text-xs font-semibold text-foreground truncate">
-                    {user?.email?.split("@")[0] ?? "Admin"}
-                  </p>
-                  <p className="text-[10px] text-muted-foreground truncate">
-                    {user?.email}
-                  </p>
-                </div>
-              </div>
-            ) : (
-              <div className="flex justify-center py-1">
-                <div className="h-9 w-9 rounded-full bg-gradient-primary text-primary-foreground grid place-items-center text-sm font-bold shadow-soft">
-                  {initials}
-                </div>
-              </div>
-            )}
-
+          <div className="relative group/item">
             <Link
               to="/"
               title={collapsed ? "View site" : undefined}
-              className={`group relative flex items-center ${
-                collapsed ? "justify-center px-0 py-2.5" : "gap-3 px-3 py-2"
-              } rounded-lg text-sm font-medium text-foreground/70 hover:bg-muted hover:text-foreground transition-colors`}
+              className={[
+                "flex items-center rounded-lg text-sm font-medium",
+                "text-foreground/70 hover:bg-muted hover:text-foreground transition-colors",
+                collapsed
+                  ? "justify-center h-10 w-10 mx-auto"
+                  : "gap-3 px-3 py-2",
+              ].join(" ")}
             >
               <Home className="h-4 w-4 flex-shrink-0" />
               {!collapsed && <span>View site</span>}
-              {collapsed && (
-                <span className="pointer-events-none absolute left-full ml-3 px-2.5 py-1.5 rounded-md bg-foreground text-background text-xs font-semibold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity shadow-card z-50">
-                  View site
-                </span>
-              )}
             </Link>
+            {collapsed && (
+              <span className="hidden lg:block pointer-events-none absolute left-full top-1/2 -translate-y-1/2 ml-2 px-2.5 py-1.5 rounded-md bg-foreground text-background text-xs font-semibold whitespace-nowrap opacity-0 group-hover/item:opacity-100 transition-opacity shadow-card z-[60]">
+                View site
+              </span>
+            )}
+          </div>
+
+          <div className="relative group/item">
             <button
               onClick={handleSignOut}
               title={collapsed ? "Sign out" : undefined}
-              className={`group relative w-full flex items-center ${
-                collapsed ? "justify-center px-0 py-2.5" : "gap-3 px-3 py-2"
-              } rounded-lg text-sm font-medium text-destructive hover:bg-destructive/10 transition-colors`}
+              className={[
+                "w-full flex items-center rounded-lg text-sm font-medium",
+                "text-destructive hover:bg-destructive/10 transition-colors",
+                collapsed
+                  ? "justify-center h-10 w-10 mx-auto"
+                  : "gap-3 px-3 py-2",
+              ].join(" ")}
             >
               <LogOut className="h-4 w-4 flex-shrink-0" />
               {!collapsed && <span>Sign out</span>}
-              {collapsed && (
-                <span className="pointer-events-none absolute left-full ml-3 px-2.5 py-1.5 rounded-md bg-foreground text-background text-xs font-semibold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity shadow-card z-50">
-                  Sign out
-                </span>
-              )}
             </button>
+            {collapsed && (
+              <span className="hidden lg:block pointer-events-none absolute left-full top-1/2 -translate-y-1/2 ml-2 px-2.5 py-1.5 rounded-md bg-foreground text-background text-xs font-semibold whitespace-nowrap opacity-0 group-hover/item:opacity-100 transition-opacity shadow-card z-[60]">
+                Sign out
+              </span>
+            )}
           </div>
         </div>
       </aside>
