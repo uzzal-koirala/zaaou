@@ -42,7 +42,7 @@ export function TeamSection() {
         .eq("is_active", true)
         .eq("is_featured", true)
         .order("display_order", { ascending: true })
-        .limit(5);
+        .limit(4);
       if (active) {
         setMembers(data ?? []);
         setLoading(false);
@@ -76,13 +76,13 @@ export function TeamSection() {
         </div>
 
         {loading ? (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
-            {Array.from({ length: 5 }).map((_, i) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            {Array.from({ length: 4 }).map((_, i) => (
               <div key={i} className="rounded-3xl bg-muted/50 aspect-[3/4] animate-pulse" />
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {members.map((m, i) => (
               <TeamCard key={m.id} member={m} index={i} />
             ))}
@@ -119,74 +119,68 @@ export function TeamCard({ member, index = 0 }: { member: TeamMember; index?: nu
     member.facebook_url || member.instagram_url || member.linkedin_url || member.twitter_url;
 
   return (
-    <div className="group relative rounded-3xl bg-card border border-border p-6 text-center shadow-soft hover:shadow-glow transition-all duration-500 hover:-translate-y-2 overflow-hidden">
-      {/* hover gradient sheen */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-primary/5 via-transparent to-accent/5"
-      />
+    <div className="group relative rounded-3xl bg-card border border-border overflow-hidden shadow-soft hover:shadow-glow transition-all duration-500 hover:-translate-y-2">
+      {/* full photo */}
+      <div className="relative aspect-[4/5] overflow-hidden">
+        {member.avatar_url ? (
+          <img
+            src={member.avatar_url}
+            alt={member.name}
+            loading="lazy"
+            className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-700"
+          />
+        ) : (
+          <div
+            className={`absolute inset-0 grid place-items-center text-6xl font-display font-bold text-white bg-gradient-to-br ${gradient}`}
+          >
+            {member.name
+              .split(" ")
+              .map((n) => n.charAt(0))
+              .slice(0, 2)
+              .join("")}
+          </div>
+        )}
 
-      {/* avatar */}
-      <div className="relative mx-auto mb-5">
-        <div
-          aria-hidden
-          className={`absolute inset-0 -m-1 rounded-full bg-gradient-to-br ${gradient} opacity-60 blur-md group-hover:opacity-90 group-hover:-m-2 transition-all duration-500`}
-        />
-        <div className="relative mx-auto h-28 w-28 sm:h-32 sm:w-32 rounded-full overflow-hidden ring-4 ring-card shadow-soft">
-          {member.avatar_url ? (
-            <img
-              src={member.avatar_url}
-              alt={member.name}
-              loading="lazy"
-              className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500"
-            />
-          ) : (
-            <div
-              className={`h-full w-full grid place-items-center text-4xl font-display font-bold text-white bg-gradient-to-br ${gradient}`}
-            >
-              {member.name
-                .split(" ")
-                .map((n) => n.charAt(0))
-                .slice(0, 2)
-                .join("")}
+        {/* gradient overlay for legibility */}
+        <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
+
+        {/* role chip */}
+        <div className="absolute top-4 left-4">
+          <span className="inline-block rounded-full bg-background/95 backdrop-blur px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-primary shadow-soft">
+            {member.role}
+          </span>
+        </div>
+
+        {/* name + socials overlay */}
+        <div className="absolute inset-x-0 bottom-0 p-5">
+          <h3 className="font-display font-bold text-xl text-white leading-tight drop-shadow">
+            {member.name}
+          </h3>
+          {hasSocials && (
+            <div className="mt-3 flex items-center gap-2 opacity-90 translate-y-0 sm:opacity-0 sm:translate-y-2 sm:group-hover:opacity-100 sm:group-hover:translate-y-0 transition-all duration-300">
+              {member.facebook_url && (
+                <SocialLink href={member.facebook_url} label="Facebook">
+                  <Facebook className="h-3.5 w-3.5" />
+                </SocialLink>
+              )}
+              {member.instagram_url && (
+                <SocialLink href={member.instagram_url} label="Instagram">
+                  <Instagram className="h-3.5 w-3.5" />
+                </SocialLink>
+              )}
+              {member.linkedin_url && (
+                <SocialLink href={member.linkedin_url} label="LinkedIn">
+                  <Linkedin className="h-3.5 w-3.5" />
+                </SocialLink>
+              )}
+              {member.twitter_url && (
+                <SocialLink href={member.twitter_url} label="Twitter">
+                  <Twitter className="h-3.5 w-3.5" />
+                </SocialLink>
+              )}
             </div>
           )}
         </div>
-      </div>
-
-      {/* text */}
-      <div className="relative">
-        <h3 className="font-display font-bold text-base sm:text-lg text-foreground leading-tight">
-          {member.name}
-        </h3>
-        <p className="mt-1 text-xs font-semibold text-primary uppercase tracking-wide">
-          {member.role}
-        </p>
-
-        {hasSocials && (
-          <div className="mt-4 flex items-center justify-center gap-2">
-            {member.facebook_url && (
-              <SocialLink href={member.facebook_url} label="Facebook">
-                <Facebook className="h-3.5 w-3.5" />
-              </SocialLink>
-            )}
-            {member.instagram_url && (
-              <SocialLink href={member.instagram_url} label="Instagram">
-                <Instagram className="h-3.5 w-3.5" />
-              </SocialLink>
-            )}
-            {member.linkedin_url && (
-              <SocialLink href={member.linkedin_url} label="LinkedIn">
-                <Linkedin className="h-3.5 w-3.5" />
-              </SocialLink>
-            )}
-            {member.twitter_url && (
-              <SocialLink href={member.twitter_url} label="Twitter">
-                <Twitter className="h-3.5 w-3.5" />
-              </SocialLink>
-            )}
-          </div>
-        )}
       </div>
     </div>
   );
