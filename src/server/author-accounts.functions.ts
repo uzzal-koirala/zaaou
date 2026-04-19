@@ -156,3 +156,31 @@ export const removeAuthorAccount = createServerFn({ method: "POST" })
     await admin.auth.admin.deleteUser(userId).catch(() => {});
     return { ok: true };
   });
+
+export const listAuthorAccountEmails = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { data: roleRow } = await context.supabase
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", context.userId)
+      .eq("role", "admin")
+      .maybeSingle();
+    if (!roleRow) throw new Error("Forbidden: admin only");
+
+    const admin = getAdmin();
+    const { data: authors, error } = await admin
+      .from("authors")
+      .select("id, user_id")
+      .not("user_id", "is", null);
+    if (error) throw new Error(error.message);
+
+    const result: Record<string, string> = {};
+    for (const a of authors ?? []) {
+      if (!a.user_id) continue;
+      const { data } = await admin.auth.admin.getUserById(a.user_id);
+      if (data?.user?.email) result[a.id] = data.user.email;
+    }
+    return result;
+  });
+
