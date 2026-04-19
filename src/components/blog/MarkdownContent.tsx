@@ -6,9 +6,9 @@ function nodeToText(children: React.ReactNode): string {
   if (children == null || typeof children === "boolean") return "";
   if (typeof children === "string" || typeof children === "number") return String(children);
   if (Array.isArray(children)) return children.map(nodeToText).join("");
-  if (typeof children === "object" && "props" in (children as Record<string, unknown>)) {
-    const props = (children as { props?: { children?: React.ReactNode } }).props;
-    return nodeToText(props?.children);
+  const maybe = children as unknown as { props?: { children?: React.ReactNode } };
+  if (maybe && typeof maybe === "object" && "props" in maybe) {
+    return nodeToText(maybe.props?.children);
   }
   return "";
 }
