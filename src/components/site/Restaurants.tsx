@@ -1,17 +1,9 @@
 import { Star, Clock } from "lucide-react";
-import momos from "@/assets/dish-momos.jpg";
-import burger from "@/assets/dish-burger.jpg";
-import pizza from "@/assets/dish-pizza.jpg";
-import purwanchalCafe from "@/assets/restaurants/purwanchal-cafe.jpg";
-
-const restaurants = [
-  { img: purwanchalCafe, name: "Purwanchal Cafe", tag: "Thakali Food · Khana", rating: 4.9, time: "25-35 min", price: "Rs. 250+" },
-  { img: momos, name: "Himalayan Momo House", tag: "Nepali · Tibetan", rating: 4.8, time: "20-30 min", price: "Rs. 180+" },
-  { img: burger, name: "Burger Junction", tag: "Burgers · Fast Food", rating: 4.7, time: "15-25 min", price: "Rs. 220+" },
-  { img: pizza, name: "Forno Pizzeria", tag: "Italian · Pizza", rating: 4.8, time: "30-40 min", price: "Rs. 450+" },
-];
+import { Link } from "@tanstack/react-router";
+import { restaurants } from "@/data/restaurants";
 
 export function Restaurants() {
+  const featured = restaurants.slice(0, 4);
   return (
     <section id="restaurants" className="py-20 lg:py-28 bg-cream">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
@@ -22,15 +14,15 @@ export function Restaurants() {
               Itahari's most <span className="italic font-light">loved</span> spots.
             </h2>
           </div>
-          <a href="#app" className="text-primary font-semibold hover:underline underline-offset-4">
+          <Link to="/restaurants" className="text-primary font-semibold hover:underline underline-offset-4">
             See all restaurants →
-          </a>
+          </Link>
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {restaurants.map((r) => (
+          {featured.map((r) => (
             <div
-              key={r.name}
+              key={r.id}
               className="group bg-card rounded-3xl overflow-hidden shadow-card hover:shadow-glow transition-all hover:-translate-y-1.5 border border-border/60"
             >
               <div className="relative aspect-square overflow-hidden">
@@ -42,8 +34,8 @@ export function Restaurants() {
                   loading="lazy"
                   className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
-                <div className="absolute top-3 left-3 bg-white/95 backdrop-blur rounded-full px-2.5 py-1 flex items-center gap-1 text-xs font-bold">
-                  <Star className="h-3 w-3 fill-yellow-500 text-yellow-500" />
+                <div className="absolute top-3 left-3 bg-card rounded-full px-2.5 py-1 flex items-center gap-1 text-xs font-bold shadow-card">
+                  <Star className="h-3 w-3 fill-primary text-primary" />
                   {r.rating}
                 </div>
               </div>

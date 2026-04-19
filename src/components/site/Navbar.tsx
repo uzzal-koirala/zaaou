@@ -1,12 +1,18 @@
 import { useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import logo from "@/assets/zaaou-logo.png";
 
-const links = [
-  { href: "#restaurants", label: "Restaurants" },
-  { href: "#how", label: "How it works" },
-  { href: "#testimonials", label: "Reviews" },
-  { href: "#app", label: "Get the App" },
+type NavLink = { label: string } & (
+  | { kind: "hash"; href: string }
+  | { kind: "route"; to: "/restaurants" | "/careers" | "/partner" }
+);
+
+const links: NavLink[] = [
+  { kind: "route", to: "/restaurants", label: "Restaurants" },
+  { kind: "hash", href: "/#how", label: "How it works" },
+  { kind: "route", to: "/partner", label: "Add Restaurant" },
+  { kind: "route", to: "/careers", label: "Careers" },
 ];
 
 export function Navbar() {
@@ -15,7 +21,7 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50 backdrop-blur-xl bg-background/80 border-b border-border/60">
       <div className="mx-auto max-w-7xl px-5 lg:px-8 h-18 flex items-center justify-between py-3">
-        <a href="#" className="flex items-center gap-2.5">
+        <Link to="/" className="flex items-center gap-2.5">
           <img src={logo} alt="Zaaou Food" className="h-11 w-11 rounded-xl shadow-soft" />
           <div className="leading-tight">
             <span className="block font-display font-extrabold text-xl tracking-tight text-foreground">
@@ -25,19 +31,41 @@ export function Navbar() {
               Food Delivery
             </span>
           </div>
-        </a>
+        </Link>
 
-        <nav className="hidden md:flex items-center gap-8">
-          <a href="#" className="text-sm font-semibold text-primary">Home</a>
-          {links.map((l) => (
-            <a key={l.href} href={l.href} className="text-sm font-medium text-foreground/70 hover:text-primary transition-colors">
-              {l.label}
-            </a>
-          ))}
+        <nav className="hidden md:flex items-center gap-7">
+          <Link
+            to="/"
+            activeProps={{ className: "text-primary" }}
+            activeOptions={{ exact: true }}
+            className="text-sm font-semibold text-foreground/70 hover:text-primary transition-colors"
+          >
+            Home
+          </Link>
+          {links.map((l) =>
+            l.kind === "route" ? (
+              <Link
+                key={l.to}
+                to={l.to}
+                activeProps={{ className: "text-primary" }}
+                className="text-sm font-medium text-foreground/70 hover:text-primary transition-colors"
+              >
+                {l.label}
+              </Link>
+            ) : (
+              <a
+                key={l.href}
+                href={l.href}
+                className="text-sm font-medium text-foreground/70 hover:text-primary transition-colors"
+              >
+                {l.label}
+              </a>
+            ),
+          )}
         </nav>
 
         <a
-          href="#app"
+          href="/#app"
           className="hidden md:inline-flex items-center justify-center rounded-xl bg-primary text-primary-foreground px-6 py-2.5 text-sm font-semibold shadow-soft hover:shadow-glow transition-shadow"
         >
           Order Now
@@ -55,20 +83,38 @@ export function Navbar() {
       {open && (
         <div className="md:hidden border-t border-border bg-background">
           <div className="px-5 py-4 flex flex-col gap-3">
-            {links.map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                onClick={() => setOpen(false)}
-                className="py-2 text-sm font-medium text-foreground/80"
-              >
-                {l.label}
-              </a>
-            ))}
-            <a
-              href="#app"
+            <Link
+              to="/"
               onClick={() => setOpen(false)}
-              className="mt-2 text-center rounded-full bg-gradient-primary text-primary-foreground px-5 py-3 text-sm font-semibold"
+              className="py-2 text-sm font-medium text-foreground/80"
+            >
+              Home
+            </Link>
+            {links.map((l) =>
+              l.kind === "route" ? (
+                <Link
+                  key={l.to}
+                  to={l.to}
+                  onClick={() => setOpen(false)}
+                  className="py-2 text-sm font-medium text-foreground/80"
+                >
+                  {l.label}
+                </Link>
+              ) : (
+                <a
+                  key={l.href}
+                  href={l.href}
+                  onClick={() => setOpen(false)}
+                  className="py-2 text-sm font-medium text-foreground/80"
+                >
+                  {l.label}
+                </a>
+              ),
+            )}
+            <a
+              href="/#app"
+              onClick={() => setOpen(false)}
+              className="mt-2 text-center rounded-xl bg-primary text-primary-foreground px-5 py-3 text-sm font-semibold"
             >
               Order Now
             </a>

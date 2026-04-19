@@ -1,4 +1,5 @@
 import { Mail, Phone, MapPin, Send, Camera, MessageCircle } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import logo from "@/assets/zaaou-logo.png";
 
 const Facebook = MessageCircle;
@@ -31,9 +32,9 @@ export function Footer() {
             <h4 className="font-display font-bold mb-4">Company</h4>
             <ul className="space-y-2.5 text-sm text-background/70">
               <li><a href="#" className="hover:text-primary transition-colors">About Us</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Careers</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Partner with us</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Become a Rider</a></li>
+              <li><Link to="/careers" className="hover:text-primary transition-colors">Careers</Link></li>
+              <li><Link to="/partner" className="hover:text-primary transition-colors">Partner with us</Link></li>
+              <li><Link to="/restaurants" className="hover:text-primary transition-colors">All Restaurants</Link></li>
             </ul>
           </div>
 
