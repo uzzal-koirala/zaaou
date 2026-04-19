@@ -128,6 +128,9 @@
   .bg-gradient-warm {
     background-image: var(--gradient-warm);
   }
+  .bg-gradient-peach {
+    background-image: var(--gradient-peach);
+  }
   .text-gradient-primary {
     background-image: var(--gradient-primary);
     -webkit-background-clip: text;
