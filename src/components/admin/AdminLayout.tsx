@@ -17,6 +17,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
+import { ProfileMenu } from "./ProfileMenu";
 import logo from "@/assets/zaaou-logo.png";
 
 type NavItem = {
@@ -301,8 +302,18 @@ export function AdminLayout({ children }: { children: ReactNode }) {
         </div>
       </aside>
 
-      <main className="flex-1 min-w-0 pt-14 lg:pt-0">
-        <div className="max-w-6xl mx-auto p-5 sm:p-6 lg:p-10">{children}</div>
+      <main className="flex-1 min-w-0 pt-14 lg:pt-0 flex flex-col">
+        {/* Desktop top bar with profile menu */}
+        <div className="hidden lg:flex sticky top-0 z-30 h-16 items-center justify-end gap-3 px-6 lg:px-10 bg-background/80 backdrop-blur-md border-b border-border">
+          <ProfileMenu />
+        </div>
+        {/* Mobile top-right profile (sits inside the existing mobile header) */}
+        <div className="lg:hidden fixed top-2 right-14 z-50">
+          <ProfileMenu />
+        </div>
+        <div className="flex-1 max-w-6xl w-full mx-auto p-5 sm:p-6 lg:p-10">
+          {children}
+        </div>
       </main>
     </div>
   );
