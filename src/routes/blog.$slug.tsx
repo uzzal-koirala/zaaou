@@ -124,8 +124,8 @@ function PostPage() {
           "id, slug, title, excerpt, cover_image_url, category, published_at, reading_time_minutes, authors(name, slug, avatar_url)",
         )
         .eq("status", "published")
-        .eq("category", category)
-        .neq("id", postId)
+        .eq("category", category as string)
+        .neq("id", postId as string)
         .order("published_at", { ascending: false })
         .limit(3);
 
