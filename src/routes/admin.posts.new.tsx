@@ -1,10 +1,11 @@
 import { createFileRoute, useNavigate, useParams } from "@tanstack/react-router";
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Loader2, Save, Eye } from "lucide-react";
 import { toast } from "sonner";
 import { AdminLayout } from "@/components/admin/AdminLayout";
 import { RoleGuard } from "@/components/admin/RoleGuard";
 import { MarkdownContent } from "@/components/blog/MarkdownContent";
+import { MarkdownToolbar, useMarkdownShortcuts } from "@/components/admin/MarkdownToolbar";
 import { supabase } from "@/integrations/supabase/client";
 import { slugify, estimateReadingTime } from "@/lib/blog-utils";
 
