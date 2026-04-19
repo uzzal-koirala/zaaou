@@ -5,10 +5,10 @@ import type { Database } from "@/integrations/supabase/types";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 function getAdmin() {
-  const url = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const url = process.env.PROJECT_URL ?? process.env.SUPABASE_URL;
+  const key = process.env.SERVICE_ROLE_KEY ?? process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !key) {
-    throw new Error("Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY");
+    throw new Error("Missing PROJECT_URL or SERVICE_ROLE_KEY secrets");
   }
   return createClient<Database>(url, key, {
     auth: { persistSession: false, autoRefreshToken: false },
