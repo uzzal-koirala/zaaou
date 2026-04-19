@@ -5,6 +5,7 @@ import thali from "@/assets/dish-thali.jpg";
 import purwanchalCafe from "@/assets/restaurants/purwanchal-cafe.jpg";
 import royalBiryani from "@/assets/restaurants/royal-biryani.jpg";
 import bahattarCafe from "@/assets/restaurants/bahattar-cafe.jpg";
+import pauroti from "@/assets/restaurants/pauroti.jpg";
 
 export type Restaurant = {
   id: string;
@@ -57,6 +58,19 @@ export const restaurants: Restaurant[] = [
     reviews: 348,
     time: "20-30 min",
     price: "Rs. 200+",
+    area: "Itahari, Main Road",
+    featured: true,
+  },
+  {
+    id: "pauroti",
+    img: pauroti,
+    name: "Pauroti",
+    tag: "Bakery · Cakes · Pastries",
+    cuisines: ["Cakes", "Pastries", "Coffee", "Bakery"],
+    rating: 4.8,
+    reviews: 286,
+    time: "20-30 min",
+    price: "Rs. 180+",
     area: "Itahari, Main Road",
     featured: true,
   },
