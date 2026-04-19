@@ -115,14 +115,18 @@ function PostPage() {
     let cancelled = false;
 
     async function loadRelated() {
+      const category = post.category;
+      const postId = post.id;
+      if (!category) return;
+
       const { data } = await supabase
         .from("posts")
         .select(
           "id, slug, title, excerpt, cover_image_url, category, published_at, reading_time_minutes, authors(name, slug, avatar_url)",
         )
         .eq("status", "published")
-        .eq("category", post.category)
-        .neq("id", post.id)
+        .eq("category", category)
+        .neq("id", postId)
         .order("published_at", { ascending: false })
         .limit(3);
 
