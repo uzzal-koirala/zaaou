@@ -195,6 +195,57 @@ export type Database = {
           },
         ]
       }
+      team_members: {
+        Row: {
+          avatar_url: string | null
+          bio: string | null
+          created_at: string
+          display_order: number
+          facebook_url: string | null
+          id: string
+          instagram_url: string | null
+          is_active: boolean
+          is_featured: boolean
+          linkedin_url: string | null
+          name: string
+          role: string
+          twitter_url: string | null
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string
+          display_order?: number
+          facebook_url?: string | null
+          id?: string
+          instagram_url?: string | null
+          is_active?: boolean
+          is_featured?: boolean
+          linkedin_url?: string | null
+          name: string
+          role: string
+          twitter_url?: string | null
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string
+          display_order?: number
+          facebook_url?: string | null
+          id?: string
+          instagram_url?: string | null
+          is_active?: boolean
+          is_featured?: boolean
+          linkedin_url?: string | null
+          name?: string
+          role?: string
+          twitter_url?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
