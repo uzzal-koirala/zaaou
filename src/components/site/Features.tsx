@@ -1,34 +1,37 @@
-import { Bike, ShieldCheck, UtensilsCrossed, Wallet } from "lucide-react";
+import { Award, Rocket, Leaf, Smartphone } from "lucide-react";
 
 const features = [
-  { icon: Bike, title: "Lightning Delivery", desc: "Hot food at your door in 30 minutes — guaranteed." },
-  { icon: UtensilsCrossed, title: "Best Restaurants", desc: "Hand-picked kitchens across Itahari, all in one app." },
-  { icon: Wallet, title: "Easy Payments", desc: "Pay with eSewa, Khalti, cards or cash on delivery." },
-  { icon: ShieldCheck, title: "Quality You Trust", desc: "Sealed packaging, hygiene checked, every single order." },
+  { icon: Award, title: "Quality Food", desc: "Hand-picked kitchens, hygiene checked — every single order." },
+  { icon: Rocket, title: "Fastest Delivery", desc: "Hot food at your door in 30 minutes, anywhere in Itahari.", featured: true },
+  { icon: Leaf, title: "Fresh Food", desc: "Locally sourced, freshly prepared meals from trusted chefs." },
+  { icon: Smartphone, title: "Easy To Order", desc: "Order in three taps with eSewa, Khalti, card or cash." },
 ];
 
 export function Features() {
   return (
-    <section className="py-20 lg:py-28 bg-background">
+    <section className="py-20 lg:py-24 bg-gradient-peach">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <div className="max-w-2xl mb-14">
-          <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3">Why Zaaou</p>
-          <h2 className="text-4xl lg:text-5xl font-extrabold tracking-tight">
-            Built for hungry <span className="text-gradient-primary">Itaharians</span>.
-          </h2>
-        </div>
-
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((f) => (
             <div
               key={f.title}
-              className="group p-7 rounded-3xl bg-card border border-border hover:border-primary/30 hover:-translate-y-1 transition-all shadow-card"
+              className={`group relative rounded-3xl bg-card border border-border p-7 text-center transition-all hover:-translate-y-2 hover:shadow-glow ${
+                f.featured ? "shadow-glow lg:-translate-y-4 ring-1 ring-primary/20" : "shadow-card"
+              }`}
             >
-              <div className="h-14 w-14 rounded-2xl bg-gradient-primary grid place-items-center text-primary-foreground mb-5 group-hover:scale-110 transition-transform">
-                <f.icon className="h-6 w-6" />
+              <div className="mx-auto mb-5 h-16 w-16 rounded-2xl bg-primary/10 grid place-items-center text-primary group-hover:bg-gradient-primary group-hover:text-primary-foreground transition-colors">
+                <f.icon className="h-7 w-7" />
               </div>
-              <h3 className="font-bold text-lg mb-2">{f.title}</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">{f.desc}</p>
+              <h3 className="font-bold text-lg mb-2 text-foreground">{f.title}</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed mb-4">{f.desc}</p>
+              <a
+                href="#how"
+                className={`inline-block text-sm font-semibold transition-colors ${
+                  f.featured ? "text-primary" : "text-foreground/70 hover:text-primary"
+                }`}
+              >
+                Learn More
+              </a>
             </div>
           ))}
         </div>
