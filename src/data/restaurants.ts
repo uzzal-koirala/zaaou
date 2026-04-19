@@ -4,6 +4,7 @@ import pizza from "@/assets/dish-pizza.jpg";
 import thali from "@/assets/dish-thali.jpg";
 import purwanchalCafe from "@/assets/restaurants/purwanchal-cafe.jpg";
 import royalBiryani from "@/assets/restaurants/royal-biryani.jpg";
+import bahattarCafe from "@/assets/restaurants/bahattar-cafe.jpg";
 
 export type Restaurant = {
   id: string;
@@ -44,6 +45,19 @@ export const restaurants: Restaurant[] = [
     time: "25-35 min",
     price: "Rs. 280+",
     area: "Itahari, Dharan Road",
+    featured: true,
+  },
+  {
+    id: "bahattar-cafe",
+    img: bahattarCafe,
+    name: "Bahattar Restro & Lounge",
+    tag: "Cafe · Coffee · Cakes",
+    cuisines: ["Coffee", "Tea", "Cakes", "Cafe"],
+    rating: 4.7,
+    reviews: 348,
+    time: "20-30 min",
+    price: "Rs. 200+",
+    area: "Itahari, Main Road",
     featured: true,
   },
   {
@@ -125,9 +139,11 @@ export const cuisineFilters = [
   "Thakali",
   "Biryani",
   "Chicken",
+  "Coffee",
+  "Cakes",
   "Momo",
   "Pizza",
   "Burger",
   "Thali",
-  "Fast Food",
+  "Cafe",
 ];
