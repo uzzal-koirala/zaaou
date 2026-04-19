@@ -14,7 +14,7 @@ export const Route = createFileRoute("/auth")({
   validateSearch: (search) => searchSchema.parse(search),
   head: () => ({
     meta: [
-      { title: "Sign in — Zaaou Food" },
+      { title: "Sign in - Zaaou Food" },
       { name: "robots", content: "noindex" },
     ],
   }),

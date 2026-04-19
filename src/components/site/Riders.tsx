@@ -60,7 +60,7 @@ export function Riders() {
 
             <p className="text-muted-foreground text-lg leading-relaxed max-w-lg">
               Our Zaaou riders know every gali of Itahari by heart. Trained,
-              insured and powered by passion — they make sure your meal lands
+              insured and powered by passion - they make sure your meal lands
               hot, fresh and right on time.
             </p>
 

@@ -15,10 +15,10 @@ import { PageShell } from "@/components/site/PageShell";
 export const Route = createFileRoute("/careers")({
   head: () => ({
     meta: [
-      { title: "Careers at Zaaou Food — Join the Itahari food revolution" },
-      { name: "description", content: "Open roles at Zaaou Food. Join Itahari's fastest-growing food delivery team — engineering, operations, riders, marketing and more." },
-      { property: "og:title", content: "Careers at Zaaou Food — Join the Itahari food revolution" },
-      { property: "og:description", content: "Open roles at Zaaou Food. Join Itahari's fastest-growing food delivery team — engineering, operations, riders, marketing and more." },
+      { title: "Careers at Zaaou Food - Join the Itahari food revolution" },
+      { name: "description", content: "Open roles at Zaaou Food. Join Itahari's fastest-growing food delivery team - engineering, operations, riders, marketing and more." },
+      { property: "og:title", content: "Careers at Zaaou Food - Join the Itahari food revolution" },
+      { property: "og:description", content: "Open roles at Zaaou Food. Join Itahari's fastest-growing food delivery team - engineering, operations, riders, marketing and more." },
     ],
   }),
   component: CareersPage,
@@ -89,7 +89,7 @@ const jobs: Job[] = [
     department: "Marketing",
     type: "Internship",
     location: "Itahari (Hybrid)",
-    desc: "Run our Facebook, Instagram and TikTok — shoot food, write captions, engage the community.",
+    desc: "Run our Facebook, Instagram and TikTok - shoot food, write captions, engage the community.",
   },
 ];
 
@@ -106,10 +106,10 @@ export function CareersPage() {
           </p>
           <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground max-w-3xl leading-[1.05]">
             Help us feed{" "}
-            <span className="text-gradient-primary">all of Itahari</span> — one delicious order at a time.
+            <span className="text-gradient-primary">all of Itahari</span> - one delicious order at a time.
           </h1>
           <p className="text-muted-foreground text-lg max-w-2xl mt-4">
-            We're a small, ambitious team building the future of food delivery in Eastern Nepal. If you love food, technology and moving fast — you'll feel right at home.
+            We're a small, ambitious team building the future of food delivery in Eastern Nepal. If you love food, technology and moving fast - you'll feel right at home.
           </p>
           <div className="flex flex-wrap gap-3 mt-7">
             <a

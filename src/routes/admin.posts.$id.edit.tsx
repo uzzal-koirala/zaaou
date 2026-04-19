@@ -4,7 +4,7 @@ import { RoleGuard } from "@/components/admin/RoleGuard";
 import { PostFormPage } from "./admin.posts.new";
 
 export const Route = createFileRoute("/admin/posts/$id/edit")({
-  head: () => ({ meta: [{ title: "Edit post — Admin" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [{ title: "Edit post - Admin" }, { name: "robots", content: "noindex" }] }),
   component: () => (
     <RoleGuard>
       <AdminLayout>

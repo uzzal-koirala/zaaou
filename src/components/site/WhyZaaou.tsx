@@ -4,7 +4,7 @@ const reasons = [
   {
     icon: Award,
     title: "Best Food Delivery Service in Itahari",
-    desc: "Trusted by thousands of foodies across Itahari for fast, reliable and tasty deliveries — every single day.",
+    desc: "Trusted by thousands of foodies across Itahari for fast, reliable and tasty deliveries - every single day.",
     accent: "from-primary to-primary-glow",
   },
   {
@@ -16,7 +16,7 @@ const reasons = [
   {
     icon: MapPin,
     title: "100% Local to Itahari",
-    desc: "Born and raised in Itahari. We partner with the kitchens you already love — from momos to thakali sets.",
+    desc: "Born and raised in Itahari. We partner with the kitchens you already love - from momos to thakali sets.",
     accent: "from-emerald-400 to-teal-500",
   },
   {
@@ -28,7 +28,7 @@ const reasons = [
   {
     icon: Headphones,
     title: "24/7 Local Support",
-    desc: "Real humans from Itahari, available any time you need help. We pick up the phone — promise.",
+    desc: "Real humans from Itahari, available any time you need help. We pick up the phone - promise.",
     accent: "from-sky-400 to-blue-500",
   },
   {
@@ -62,7 +62,7 @@ export function WhyZaaou() {
             way to eat in.
           </h2>
           <p className="mt-5 text-lg text-muted-foreground leading-relaxed">
-            From the first tap to the last bite — we obsess over every detail
+            From the first tap to the last bite - we obsess over every detail
             so you get the best food, faster, fresher and at a fair price.
           </p>
         </div>

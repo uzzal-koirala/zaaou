@@ -2,7 +2,7 @@ import { Search, ShoppingBag, Bike } from "lucide-react";
 
 const steps = [
   { icon: Search, title: "Pick a restaurant", desc: "Browse hundreds of dishes from Itahari's top kitchens." },
-  { icon: ShoppingBag, title: "Place your order", desc: "Customise, add to cart, and pay your way — quick & easy." },
+  { icon: ShoppingBag, title: "Place your order", desc: "Customise, add to cart, and pay your way - quick & easy." },
   { icon: Bike, title: "Get it delivered", desc: "Track your rider live until your food arrives, hot & fresh." },
 ];
 

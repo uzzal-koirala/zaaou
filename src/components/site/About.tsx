@@ -82,7 +82,7 @@ export function About() {
           </div>
 
           <h2 className="font-display text-4xl sm:text-5xl lg:text-[3.5rem] font-extrabold tracking-tight leading-[1.05] text-foreground">
-            More than delivery —{" "}
+            More than delivery -{" "}
             <span className="text-gradient-primary">a taste of Itahari</span>{" "}
             in every bite.
           </h2>
@@ -90,8 +90,8 @@ export function About() {
           <p className="text-lg text-muted-foreground leading-relaxed">
             Zaaou Food was born from a simple idea: the city's best kitchens
             deserve to be just a tap away. We partner with handpicked
-            restaurants — from neighbourhood Thakali joints to wood-fired
-            pizzerias — and connect them with hungry customers through one
+            restaurants - from neighbourhood Thakali joints to wood-fired
+            pizzerias - and connect them with hungry customers through one
             beautifully simple app.
           </p>
 

@@ -32,9 +32,9 @@ export const Route = createFileRoute("/blog/author/$slug")({
     const { author } = loaderData;
     return {
       meta: [
-        { title: `${author.name} — Zaaou Food` },
+        { title: `${author.name} - Zaaou Food` },
         { name: "description", content: author.bio ?? `Articles by ${author.name} on Zaaou Food.` },
-        { property: "og:title", content: `${author.name} — Zaaou Food` },
+        { property: "og:title", content: `${author.name} - Zaaou Food` },
         { property: "og:description", content: author.bio ?? `Articles by ${author.name}.` },
       ],
     };

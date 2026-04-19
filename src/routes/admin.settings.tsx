@@ -13,7 +13,7 @@ type Settings = {
 };
 
 export const Route = createFileRoute("/admin/settings")({
-  head: () => ({ meta: [{ title: "Settings — Admin" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [{ title: "Settings - Admin" }, { name: "robots", content: "noindex" }] }),
   component: () => (
     <RoleGuard>
       <AdminLayout>

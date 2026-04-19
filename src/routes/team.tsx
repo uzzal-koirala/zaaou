@@ -12,17 +12,17 @@ type TeamMember = Database["public"]["Tables"]["team_members"]["Row"];
 export const Route = createFileRoute("/team")({
   head: () => ({
     meta: [
-      { title: "Our Team — Zaaou Food" },
+      { title: "Our Team - Zaaou Food" },
       {
         name: "description",
         content:
-          "Meet the people behind Zaaou Food — the team making sure Itahari gets its favourite food on time, every time.",
+          "Meet the people behind Zaaou Food - the team making sure Itahari gets its favourite food on time, every time.",
       },
-      { property: "og:title", content: "Our Team — Zaaou Food" },
+      { property: "og:title", content: "Our Team - Zaaou Food" },
       {
         property: "og:description",
         content:
-          "Meet the people behind Zaaou Food — the team making sure Itahari gets its favourite food on time, every time.",
+          "Meet the people behind Zaaou Food - the team making sure Itahari gets its favourite food on time, every time.",
       },
     ],
   }),
@@ -65,7 +65,7 @@ function TeamPage() {
             </h1>
             <p className="mt-5 text-base sm:text-lg text-muted-foreground">
               From founders to riders, every member plays a part in delivering Itahari its
-              favourite meals — fresh, fast and with a smile.
+              favourite meals - fresh, fast and with a smile.
             </p>
           </div>
         </section>

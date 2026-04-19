@@ -19,7 +19,7 @@ export function Footer() {
               <span className="font-display text-xl font-extrabold">Zaaou food</span>
             </div>
             <p className="text-sm leading-relaxed text-background/70">
-              Itahari&apos;s favourite food delivery — connecting you to the city&apos;s best kitchens.
+              Itahari&apos;s favourite food delivery - connecting you to the city&apos;s best kitchens.
             </p>
             <div className="mt-5 flex gap-3">
               {[Facebook, Instagram, Twitter].map((Icon, i) => (

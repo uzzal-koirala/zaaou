@@ -10,7 +10,7 @@ import type { Database } from "@/integrations/supabase/types";
 type TeamMember = Database["public"]["Tables"]["team_members"]["Row"];
 
 export const Route = createFileRoute("/admin/team")({
-  head: () => ({ meta: [{ title: "Team — Admin" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [{ title: "Team - Admin" }, { name: "robots", content: "noindex" }] }),
   component: () => (
     <RoleGuard>
       <AdminLayout>

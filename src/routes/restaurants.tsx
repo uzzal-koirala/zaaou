@@ -7,9 +7,9 @@ import { restaurants, cuisineFilters } from "@/data/restaurants";
 export const Route = createFileRoute("/restaurants")({
   head: () => ({
     meta: [
-      { title: "All Restaurants — Zaaou Food Itahari" },
+      { title: "All Restaurants - Zaaou Food Itahari" },
       { name: "description", content: "Browse and search every restaurant on Zaaou Food. Filter by cuisine, rating and delivery time across Itahari." },
-      { property: "og:title", content: "All Restaurants — Zaaou Food Itahari" },
+      { property: "og:title", content: "All Restaurants - Zaaou Food Itahari" },
       { property: "og:description", content: "Browse and search every restaurant on Zaaou Food. Filter by cuisine, rating and delivery time across Itahari." },
     ],
   }),
@@ -60,7 +60,7 @@ function RestaurantsPage() {
             <span className="text-gradient-primary">Zaaou Food</span>.
           </h1>
           <p className="text-muted-foreground text-lg max-w-xl mt-4">
-            Search by name, cuisine or area — and filter to find exactly what you're craving today.
+            Search by name, cuisine or area - and filter to find exactly what you're craving today.
           </p>
 
           {/* Search bar */}

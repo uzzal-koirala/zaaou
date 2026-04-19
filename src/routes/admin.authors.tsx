@@ -11,7 +11,7 @@ import type { Database } from "@/integrations/supabase/types";
 type Author = Database["public"]["Tables"]["authors"]["Row"];
 
 export const Route = createFileRoute("/admin/authors")({
-  head: () => ({ meta: [{ title: "Authors — Admin" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [{ title: "Authors - Admin" }, { name: "robots", content: "noindex" }] }),
   component: () => (
     <RoleGuard>
       <AdminLayout>

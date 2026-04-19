@@ -16,10 +16,10 @@ import { Footer } from "@/components/site/Footer";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Zaaou Food — Itahari's Favourite Food Delivery App" },
-      { name: "description", content: "Order from the best restaurants in Itahari. Fast delivery, fresh food and exclusive offers — only on Zaaou Food." },
-      { property: "og:title", content: "Zaaou Food — Itahari's Favourite Food Delivery App" },
-      { property: "og:description", content: "Order from the best restaurants in Itahari. Fast delivery, fresh food and exclusive offers — only on Zaaou Food." },
+      { title: "Zaaou Food - Itahari's Favourite Food Delivery App" },
+      { name: "description", content: "Order from the best restaurants in Itahari. Fast delivery, fresh food and exclusive offers - only on Zaaou Food." },
+      { property: "og:title", content: "Zaaou Food - Itahari's Favourite Food Delivery App" },
+      { property: "og:description", content: "Order from the best restaurants in Itahari. Fast delivery, fresh food and exclusive offers - only on Zaaou Food." },
     ],
   }),
   component: Index,
