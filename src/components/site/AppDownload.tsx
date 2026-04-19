@@ -1,4 +1,5 @@
-import { Apple, Smartphone, Check } from "lucide-react";
+import { Check } from "lucide-react";
+import { AppStoreBadge, GooglePlayBadge } from "./StoreBadges";
 import screenHome from "@/assets/app/screen-home.png";
 import screenStores from "@/assets/app/screen-stores.png";
 import screenProduct from "@/assets/app/screen-product.png";
