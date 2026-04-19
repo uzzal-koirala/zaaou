@@ -209,7 +209,7 @@ function AuthorsPage() {
               {a.bio && <p className="mt-3 text-xs text-muted-foreground line-clamp-3">{a.bio}</p>}
               <div className="mt-3">
                 {a.user_id ? (
-                  <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider">
+                  <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 text-primary px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider">
                     Login enabled
                   </span>
                 ) : (
