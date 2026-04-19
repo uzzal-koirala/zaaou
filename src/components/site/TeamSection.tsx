@@ -201,7 +201,7 @@ function SocialLink({
       target="_blank"
       rel="noopener noreferrer"
       aria-label={label}
-      className="grid place-items-center h-7 w-7 rounded-full bg-muted text-foreground/70 hover:bg-primary hover:text-primary-foreground transition-colors"
+      className="grid place-items-center h-8 w-8 rounded-full bg-white/15 text-white backdrop-blur-sm hover:bg-primary hover:text-primary-foreground transition-colors"
     >
       {children}
     </a>
