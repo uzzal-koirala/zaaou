@@ -24,6 +24,7 @@ import { Route as AuthorProfileRouteImport } from './routes/author.profile'
 import { Route as AuthorLoginRouteImport } from './routes/author.login'
 import { Route as AuthorCommentsRouteImport } from './routes/author.comments'
 import { Route as AdminTeamRouteImport } from './routes/admin.team'
+import { Route as AdminSubscribersRouteImport } from './routes/admin.subscribers'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as AdminRidersRouteImport } from './routes/admin.riders'
 import { Route as AdminCommentsRouteImport } from './routes/admin.comments'
@@ -114,6 +115,11 @@ const AdminTeamRoute = AdminTeamRouteImport.update({
   path: '/admin/team',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminSubscribersRoute = AdminSubscribersRouteImport.update({
+  id: '/admin/subscribers',
+  path: '/admin/subscribers',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminSettingsRoute = AdminSettingsRouteImport.update({
   id: '/admin/settings',
   path: '/admin/settings',
@@ -197,6 +203,7 @@ export interface FileRoutesByFullPath {
   '/admin/comments': typeof AdminCommentsRoute
   '/admin/riders': typeof AdminRidersRoute
   '/admin/settings': typeof AdminSettingsRoute
+  '/admin/subscribers': typeof AdminSubscribersRoute
   '/admin/team': typeof AdminTeamRoute
   '/author/comments': typeof AuthorCommentsRoute
   '/author/login': typeof AuthorLoginRoute
@@ -227,6 +234,7 @@ export interface FileRoutesByTo {
   '/admin/comments': typeof AdminCommentsRoute
   '/admin/riders': typeof AdminRidersRoute
   '/admin/settings': typeof AdminSettingsRoute
+  '/admin/subscribers': typeof AdminSubscribersRoute
   '/admin/team': typeof AdminTeamRoute
   '/author/comments': typeof AuthorCommentsRoute
   '/author/login': typeof AuthorLoginRoute
@@ -259,6 +267,7 @@ export interface FileRoutesById {
   '/admin/comments': typeof AdminCommentsRoute
   '/admin/riders': typeof AdminRidersRoute
   '/admin/settings': typeof AdminSettingsRoute
+  '/admin/subscribers': typeof AdminSubscribersRoute
   '/admin/team': typeof AdminTeamRoute
   '/author/comments': typeof AuthorCommentsRoute
   '/author/login': typeof AuthorLoginRoute
@@ -292,6 +301,7 @@ export interface FileRouteTypes {
     | '/admin/comments'
     | '/admin/riders'
     | '/admin/settings'
+    | '/admin/subscribers'
     | '/admin/team'
     | '/author/comments'
     | '/author/login'
@@ -322,6 +332,7 @@ export interface FileRouteTypes {
     | '/admin/comments'
     | '/admin/riders'
     | '/admin/settings'
+    | '/admin/subscribers'
     | '/admin/team'
     | '/author/comments'
     | '/author/login'
@@ -353,6 +364,7 @@ export interface FileRouteTypes {
     | '/admin/comments'
     | '/admin/riders'
     | '/admin/settings'
+    | '/admin/subscribers'
     | '/admin/team'
     | '/author/comments'
     | '/author/login'
@@ -385,6 +397,7 @@ export interface RootRouteChildren {
   AdminCommentsRoute: typeof AdminCommentsRoute
   AdminRidersRoute: typeof AdminRidersRoute
   AdminSettingsRoute: typeof AdminSettingsRoute
+  AdminSubscribersRoute: typeof AdminSubscribersRoute
   AdminTeamRoute: typeof AdminTeamRoute
   AuthorCommentsRoute: typeof AuthorCommentsRoute
   AuthorLoginRoute: typeof AuthorLoginRoute
@@ -507,6 +520,13 @@ declare module '@tanstack/react-router' {
       path: '/admin/team'
       fullPath: '/admin/team'
       preLoaderRoute: typeof AdminTeamRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/subscribers': {
+      id: '/admin/subscribers'
+      path: '/admin/subscribers'
+      fullPath: '/admin/subscribers'
+      preLoaderRoute: typeof AdminSubscribersRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/settings': {
@@ -636,6 +656,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminCommentsRoute: AdminCommentsRoute,
   AdminRidersRoute: AdminRidersRoute,
   AdminSettingsRoute: AdminSettingsRoute,
+  AdminSubscribersRoute: AdminSubscribersRoute,
   AdminTeamRoute: AdminTeamRoute,
   AuthorCommentsRoute: AuthorCommentsRoute,
   AuthorLoginRoute: AuthorLoginRoute,
