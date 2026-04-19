@@ -1,0 +1,130 @@
+import momos from "@/assets/dish-momos.jpg";
+import burger from "@/assets/dish-burger.jpg";
+import pizza from "@/assets/dish-pizza.jpg";
+import thali from "@/assets/dish-thali.jpg";
+import purwanchalCafe from "@/assets/restaurants/purwanchal-cafe.jpg";
+
+export type Restaurant = {
+  id: string;
+  img: string;
+  name: string;
+  tag: string;
+  cuisines: string[];
+  rating: number;
+  reviews: number;
+  time: string;
+  price: string;
+  area: string;
+  featured?: boolean;
+};
+
+export const restaurants: Restaurant[] = [
+  {
+    id: "purwanchal-cafe",
+    img: purwanchalCafe,
+    name: "Purwanchal Cafe",
+    tag: "Thakali Food · Khana",
+    cuisines: ["Thakali", "Nepali", "Cafe"],
+    rating: 4.9,
+    reviews: 312,
+    time: "25-35 min",
+    price: "Rs. 250+",
+    area: "Itahari-1, Pipal Chowk",
+    featured: true,
+  },
+  {
+    id: "himalayan-momo",
+    img: momos,
+    name: "Himalayan Momo House",
+    tag: "Nepali · Tibetan",
+    cuisines: ["Momo", "Nepali", "Tibetan"],
+    rating: 4.8,
+    reviews: 980,
+    time: "20-30 min",
+    price: "Rs. 180+",
+    area: "Dharan Road",
+  },
+  {
+    id: "burger-junction",
+    img: burger,
+    name: "Burger Junction",
+    tag: "Burgers · Fast Food",
+    cuisines: ["Burger", "Fast Food"],
+    rating: 4.7,
+    reviews: 612,
+    time: "15-25 min",
+    price: "Rs. 220+",
+    area: "Halgada",
+  },
+  {
+    id: "forno-pizzeria",
+    img: pizza,
+    name: "Forno Pizzeria",
+    tag: "Italian · Pizza",
+    cuisines: ["Pizza", "Italian"],
+    rating: 4.8,
+    reviews: 745,
+    time: "30-40 min",
+    price: "Rs. 450+",
+    area: "Koshi Highway",
+  },
+  {
+    id: "annapurna-bhojanalaya",
+    img: thali,
+    name: "Annapurna Bhojanalaya",
+    tag: "Traditional Thali",
+    cuisines: ["Thali", "Nepali"],
+    rating: 4.9,
+    reviews: 421,
+    time: "25-35 min",
+    price: "Rs. 280+",
+    area: "Itahari Chowk",
+  },
+  {
+    id: "munch-food-service",
+    img: pizza,
+    name: "Munch Food Service",
+    tag: "Pizza · Snacks",
+    cuisines: ["Pizza", "Snacks", "Fast Food"],
+    rating: 4.6,
+    reviews: 287,
+    time: "20-30 min",
+    price: "Rs. 350+",
+    area: "Itahari-4",
+  },
+  {
+    id: "the-momo-hub",
+    img: momos,
+    name: "The Mo:Mo Hub",
+    tag: "Momo Specialists",
+    cuisines: ["Momo", "Nepali"],
+    rating: 4.5,
+    reviews: 198,
+    time: "20-30 min",
+    price: "Rs. 150+",
+    area: "Itahari-Dharan Road",
+  },
+  {
+    id: "royal-biryani",
+    img: thali,
+    name: "Royal Biryani (Itahari)",
+    tag: "Biryani · Indian",
+    cuisines: ["Biryani", "Indian"],
+    rating: 4.4,
+    reviews: 156,
+    time: "30-45 min",
+    price: "Rs. 320+",
+    area: "Dharan Road, Halgada",
+  },
+];
+
+export const cuisineFilters = [
+  "All",
+  "Thakali",
+  "Momo",
+  "Pizza",
+  "Burger",
+  "Biryani",
+  "Thali",
+  "Fast Food",
+];
