@@ -17,8 +17,8 @@ async function sha256Hex(input: string) {
 export const recordPostView = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => schema.parse(input))
   .handler(async ({ data }) => {
-    const url = process.env.SUPABASE_URL;
-    const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    const url = process.env.PROJECT_URL ?? process.env.SUPABASE_URL;
+    const key = process.env.SERVICE_ROLE_KEY ?? process.env.SUPABASE_SERVICE_ROLE_KEY;
     if (!url || !key) return { ok: false };
 
     const req = getRequest();
