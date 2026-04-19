@@ -12,6 +12,11 @@ import type { Database } from "@/integrations/supabase/types";
 
 type Author = Database["public"]["Tables"]["authors"]["Row"];
 
+type AccountModal =
+  | { kind: "create"; author: Author }
+  | { kind: "reset"; author: Author }
+  | null;
+
 export const Route = createFileRoute("/admin/authors")({
   head: () => ({ meta: [{ title: "Authors - Admin" }, { name: "robots", content: "noindex" }] }),
   component: () => (
@@ -42,6 +47,55 @@ function AuthorsPage() {
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState<typeof emptyForm | null>(null);
   const [saving, setSaving] = useState(false);
+  const [accountModal, setAccountModal] = useState<AccountModal>(null);
+  const [accountEmail, setAccountEmail] = useState("");
+  const [accountPassword, setAccountPassword] = useState("");
+  const [accountSubmitting, setAccountSubmitting] = useState(false);
+
+  function openCreateAccount(a: Author) {
+    setAccountEmail("");
+    setAccountPassword("");
+    setAccountModal({ kind: "create", author: a });
+  }
+  function openResetAccount(a: Author) {
+    setAccountEmail("");
+    setAccountPassword("");
+    setAccountModal({ kind: "reset", author: a });
+  }
+  async function handleAccountSubmit(e: FormEvent) {
+    e.preventDefault();
+    if (!accountModal) return;
+    setAccountSubmitting(true);
+    try {
+      if (accountModal.kind === "create") {
+        await createAuthorAccount({
+          data: { authorId: accountModal.author.id, email: accountEmail.trim(), password: accountPassword },
+        });
+        toast.success(`Login created for ${accountModal.author.name}`);
+      } else {
+        await resetAuthorPassword({
+          data: { authorId: accountModal.author.id, password: accountPassword },
+        });
+        toast.success("Password reset");
+      }
+      setAccountModal(null);
+      load();
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Failed");
+    } finally {
+      setAccountSubmitting(false);
+    }
+  }
+  async function handleRemoveAccount(a: Author) {
+    if (!confirm(`Remove login access for ${a.name}? They will no longer be able to sign in.`)) return;
+    try {
+      await removeAuthorAccount({ data: { authorId: a.id } });
+      toast.success("Login removed");
+      load();
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Failed");
+    }
+  }
 
   async function load() {
     setLoading(true);
@@ -153,16 +207,91 @@ function AuthorsPage() {
                 </div>
               </div>
               {a.bio && <p className="mt-3 text-xs text-muted-foreground line-clamp-3">{a.bio}</p>}
-              <div className="mt-4 flex items-center gap-1">
-                <button onClick={() => startEdit(a)} className="p-2 hover:bg-muted rounded-md text-foreground/70" title="Edit">
+              <div className="mt-3">
+                {a.user_id ? (
+                  <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 text-primary px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider">
+                    Login enabled
+                  </span>
+                ) : (
+                  <span className="inline-flex items-center gap-1 rounded-full bg-muted text-muted-foreground px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider">
+                    No login
+                  </span>
+                )}
+              </div>
+              <div className="mt-4 flex items-center gap-1 flex-wrap">
+                <button onClick={() => startEdit(a)} className="p-2 hover:bg-muted rounded-md text-foreground/70" title="Edit profile">
                   <Edit className="h-4 w-4" />
                 </button>
-                <button onClick={() => handleDelete(a.id)} className="p-2 hover:bg-destructive/10 hover:text-destructive rounded-md" title="Delete">
+                {a.user_id ? (
+                  <>
+                    <button onClick={() => openResetAccount(a)} className="p-2 hover:bg-muted rounded-md text-foreground/70" title="Reset password">
+                      <KeyRound className="h-4 w-4" />
+                    </button>
+                    <button onClick={() => handleRemoveAccount(a)} className="p-2 hover:bg-destructive/10 hover:text-destructive rounded-md" title="Remove login">
+                      <ShieldOff className="h-4 w-4" />
+                    </button>
+                  </>
+                ) : (
+                  <button onClick={() => openCreateAccount(a)} className="p-2 hover:bg-primary/10 hover:text-primary rounded-md text-foreground/70" title="Create login">
+                    <UserPlus className="h-4 w-4" />
+                  </button>
+                )}
+                <button onClick={() => handleDelete(a.id)} className="p-2 hover:bg-destructive/10 hover:text-destructive rounded-md ml-auto" title="Delete author">
                   <Trash2 className="h-4 w-4" />
                 </button>
               </div>
             </div>
           ))}
+        </div>
+      )}
+
+      {accountModal && (
+        <div className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm grid place-items-center p-4">
+          <form onSubmit={handleAccountSubmit} className="bg-card border border-border rounded-2xl shadow-glow w-full max-w-md p-6">
+            <div className="flex items-center justify-between mb-5">
+              <h2 className="font-display text-lg font-bold">
+                {accountModal.kind === "create" ? "Create login" : "Reset password"} — {accountModal.author.name}
+              </h2>
+              <button type="button" onClick={() => setAccountModal(null)} className="p-1.5 hover:bg-muted rounded-md">
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+            <div className="space-y-4">
+              {accountModal.kind === "create" && (
+                <Field label="Email *">
+                  <input
+                    type="email"
+                    required
+                    value={accountEmail}
+                    onChange={(e) => setAccountEmail(e.target.value)}
+                    placeholder="author@example.com"
+                    className={inputCls}
+                  />
+                </Field>
+              )}
+              <Field label="Password *" hint="Min. 8 characters">
+                <input
+                  type="text"
+                  required
+                  minLength={8}
+                  value={accountPassword}
+                  onChange={(e) => setAccountPassword(e.target.value)}
+                  placeholder="At least 8 characters"
+                  className={inputCls}
+                />
+              </Field>
+              <p className="text-xs text-muted-foreground">
+                Share these credentials with the author privately. They can sign in at <code className="bg-muted px-1 rounded">/author/login</code> and change their info from their profile.
+              </p>
+            </div>
+            <div className="mt-6 flex items-center justify-end gap-2">
+              <button type="button" onClick={() => setAccountModal(null)} className="px-4 py-2.5 text-sm font-semibold text-foreground/70">Cancel</button>
+              <button type="submit" disabled={accountSubmitting} className="inline-flex items-center gap-2 rounded-xl bg-primary text-primary-foreground px-4 py-2.5 text-sm font-semibold disabled:opacity-50">
+                {accountSubmitting && <Loader2 className="h-4 w-4 animate-spin" />}
+                {accountModal.kind === "create" ? "Create login" : "Reset password"}
+              </button>
+            </div>
+          </form>
         </div>
       )}
 
