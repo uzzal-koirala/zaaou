@@ -325,7 +325,7 @@ function AuthorsPage() {
                   value={editing.avatar_url}
                   onChange={(url) => setEditing({ ...editing, avatar_url: url })}
                   folder="authors"
-                  variant="avatar"
+                  variant="square"
                 />
               </Field>
               <div className="sm:col-span-2">
