@@ -1,10 +1,11 @@
 import { createFileRoute, useNavigate, useParams } from "@tanstack/react-router";
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Loader2, Save, Eye } from "lucide-react";
 import { toast } from "sonner";
 import { AdminLayout } from "@/components/admin/AdminLayout";
 import { RoleGuard } from "@/components/admin/RoleGuard";
 import { MarkdownContent } from "@/components/blog/MarkdownContent";
+import { MarkdownToolbar, useMarkdownShortcuts } from "@/components/admin/MarkdownToolbar";
 import { supabase } from "@/integrations/supabase/client";
 import { slugify, estimateReadingTime } from "@/lib/blog-utils";
 
@@ -49,6 +50,12 @@ function PostFormPage({ mode }: { mode: Mode }) {
   const [loading, setLoading] = useState(mode === "edit");
   const [saving, setSaving] = useState(false);
   const [preview, setPreview] = useState(false);
+  const contentRef = useRef<HTMLTextAreaElement>(null);
+  const shortcuts = useMarkdownShortcuts(
+    form.content,
+    (next) => setForm((f) => ({ ...f, content: next })),
+    contentRef,
+  );
 
   useEffect(() => {
     (async () => {
@@ -197,14 +204,23 @@ function PostFormPage({ mode }: { mode: Mode }) {
                   {form.content ? <MarkdownContent content={form.content} /> : <p className="text-muted-foreground text-sm">Nothing to preview.</p>}
                 </div>
               ) : (
-                <textarea
-                  value={form.content}
-                  onChange={(e) => update("content", e.target.value)}
-                  rows={20}
-                  required
-                  placeholder="# Heading&#10;&#10;Write your article using **markdown**..."
-                  className={inputCls + " font-mono text-sm resize-y min-h-[400px]"}
-                />
+                <div>
+                  <MarkdownToolbar
+                    value={form.content}
+                    onChange={(next) => update("content", next)}
+                    textareaRef={contentRef}
+                  />
+                  <textarea
+                    ref={contentRef}
+                    value={form.content}
+                    onChange={(e) => update("content", e.target.value)}
+                    onKeyDown={shortcuts.onKeyDown}
+                    rows={20}
+                    required
+                    placeholder="# Heading&#10;&#10;Write your article using **markdown**...&#10;&#10;Click the image icon in the toolbar to drop a photo anywhere in the post."
+                    className="w-full rounded-b-xl border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 font-mono resize-y min-h-[400px]"
+                  />
+                </div>
               )}
             </Field>
           </div>
