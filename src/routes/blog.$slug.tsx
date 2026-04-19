@@ -110,14 +110,13 @@ function PostPage() {
   }, [slug]);
 
   useEffect(() => {
-    if (!post?.category) return;
+    const category = post?.category;
+    const postId = post?.id;
+    if (!category || !postId) return;
 
     let cancelled = false;
 
     async function loadRelated() {
-      const category = post.category;
-      const postId = post.id;
-      if (!category) return;
 
       const { data } = await supabase
         .from("posts")
