@@ -68,7 +68,17 @@ export function Footer() {
 
         <div className="flex flex-wrap items-center justify-between gap-3 pt-8 text-xs text-background/60">
           <p>© {CURRENT_YEAR} Zaaou Food. All rights reserved.</p>
-          <p>Made with ♥ in Itahari</p>
+          <p>
+            Designed with <span className="text-primary">♥</span> by{" "}
+            <a
+              href="https://www.nepsustech.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-background hover:text-primary transition-colors underline-offset-4 hover:underline"
+            >
+              Nepsus Tech
+            </a>
+          </p>
         </div>
       </div>
     </footer>
