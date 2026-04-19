@@ -1,5 +1,9 @@
-import { Facebook, Instagram, Twitter, Mail, Phone, MapPin } from "lucide-react";
+import { FacebookIcon, InstagramIcon, TwitterIcon, Mail, Phone, MapPin } from "lucide-react";
 import logo from "@/assets/zaaou-logo.png";
+
+const Facebook = FacebookIcon;
+const Instagram = InstagramIcon;
+const Twitter = TwitterIcon;
 
 export function Footer() {
   return (
