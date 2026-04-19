@@ -4,6 +4,7 @@ import { Plus, Bike, Loader2, Trash2, Phone, Star, X } from "lucide-react";
 import { toast } from "sonner";
 import { AdminLayout } from "@/components/admin/AdminLayout";
 import { RoleGuard } from "@/components/admin/RoleGuard";
+import { ImageUpload } from "@/components/admin/ImageUpload";
 import { supabase } from "@/integrations/supabase/client";
 
 type Rider = {
@@ -237,6 +238,7 @@ function AddRiderModal({ onClose, onSaved }: { onClose: () => void; onSaved: () 
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [vehicle, setVehicle] = useState<"bike" | "scooter" | "cycle" | "car">("bike");
+  const [avatarUrl, setAvatarUrl] = useState("");
   const [saving, setSaving] = useState(false);
 
   async function submit(e: FormEvent) {
@@ -248,6 +250,7 @@ function AddRiderModal({ onClose, onSaved }: { onClose: () => void; onSaved: () 
       phone: phone.trim() || null,
       email: email.trim() || null,
       vehicle_type: vehicle,
+      avatar_url: avatarUrl.trim() || null,
     });
     setSaving(false);
     if (error) return toast.error(error.message);
