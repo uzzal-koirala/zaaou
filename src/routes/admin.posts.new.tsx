@@ -4,6 +4,7 @@ import { Loader2, Save, Eye } from "lucide-react";
 import { toast } from "sonner";
 import { AdminLayout } from "@/components/admin/AdminLayout";
 import { RoleGuard } from "@/components/admin/RoleGuard";
+import { ImageUpload } from "@/components/admin/ImageUpload";
 import { MarkdownContent } from "@/components/blog/MarkdownContent";
 import { MarkdownToolbar, useMarkdownShortcuts } from "@/components/admin/MarkdownToolbar";
 import { supabase } from "@/integrations/supabase/client";
@@ -262,16 +263,13 @@ function PostFormPage({ mode }: { mode: Mode }) {
             </div>
 
             <div className="rounded-2xl border border-border bg-card p-5 space-y-4">
-              <Field label="Cover image URL">
-                <input
+              <Field label="Cover image">
+                <ImageUpload
                   value={form.cover_image_url}
-                  onChange={(e) => update("cover_image_url", e.target.value)}
-                  placeholder="https://..."
-                  className={inputCls}
+                  onChange={(url) => update("cover_image_url", url)}
+                  folder="posts"
+                  variant="cover"
                 />
-                {form.cover_image_url && (
-                  <img src={form.cover_image_url} alt="" className="mt-2 rounded-lg w-full aspect-video object-cover" />
-                )}
               </Field>
               <Field label="Category">
                 <input
