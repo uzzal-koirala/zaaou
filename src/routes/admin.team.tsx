@@ -248,7 +248,7 @@ function TeamAdminPage() {
                     value={editing.avatar_url}
                     onChange={(url) => setEditing({ ...editing, avatar_url: url })}
                     folder="team"
-                    variant="avatar"
+                    variant="square"
                   />
                 </Field>
               </div>

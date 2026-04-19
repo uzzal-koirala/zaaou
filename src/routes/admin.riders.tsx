@@ -279,7 +279,7 @@ function AddRiderModal({ onClose, onSaved }: { onClose: () => void; onSaved: () 
               value={avatarUrl}
               onChange={setAvatarUrl}
               folder="riders"
-              variant="avatar"
+              variant="square"
             />
           </div>
           <Input label="Name *" value={name} onChange={setName} required />

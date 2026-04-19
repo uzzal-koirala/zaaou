@@ -121,7 +121,7 @@ function ProfilePage() {
               value={form.avatar_url}
               onChange={(url) => setForm({ ...form, avatar_url: url })}
               folder="authors"
-              variant="avatar"
+              variant="square"
             />
           </Field>
           <div className="sm:col-span-2">
