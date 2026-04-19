@@ -1,86 +1,110 @@
-import { ArrowRight, Star, Clock, MapPin } from "lucide-react";
-import heroFood from "@/assets/hero-food.jpg";
+import { Rocket, Star } from "lucide-react";
+import heroPerson from "@/assets/hero-person.png";
+import floatingPizza from "@/assets/floating-pizza.png";
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden bg-gradient-hero text-primary-foreground">
-      <div className="absolute inset-0 opacity-20 pointer-events-none">
-        <div className="absolute -top-40 -right-40 h-96 w-96 rounded-full bg-white/30 blur-3xl" />
-        <div className="absolute bottom-0 -left-40 h-96 w-96 rounded-full bg-yellow-300/20 blur-3xl" />
-      </div>
+    <section className="relative overflow-hidden bg-gradient-peach">
+      {/* Decorative blobs */}
+      <div
+        aria-hidden
+        className="absolute -top-20 left-1/2 -translate-x-1/2 h-72 w-[42rem] rounded-b-[3rem] bg-primary/90 opacity-90"
+      />
+      <div
+        aria-hidden
+        className="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-primary/15 blur-2xl"
+      />
+      <div
+        aria-hidden
+        className="absolute top-40 -right-20 h-80 w-80 rounded-full bg-primary/10 blur-3xl"
+      />
 
-      <div className="relative mx-auto max-w-7xl px-5 lg:px-8 pt-16 pb-24 lg:pt-24 lg:pb-32 grid lg:grid-cols-2 gap-12 items-center">
-        <div className="space-y-7">
-          <div className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur px-4 py-1.5 text-xs font-semibold ring-1 ring-white/20">
-            <MapPin className="h-3.5 w-3.5" />
-            Now delivering across Itahari
-          </div>
+      <div className="relative mx-auto max-w-7xl px-5 lg:px-8 pt-10 pb-20 lg:pt-16 lg:pb-28">
+        <div className="rounded-[2.5rem] bg-card/80 backdrop-blur-sm shadow-card px-6 sm:px-10 lg:px-14 py-12 lg:py-16 grid lg:grid-cols-2 gap-10 items-center">
+          {/* Left copy */}
+          <div className="space-y-7">
+            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.05] tracking-tight text-foreground">
+              Get Your <br />
+              <span className="text-primary">Desire Food</span> <br />
+              in 30 Minutes
+            </h1>
 
-          <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.02] tracking-tight">
-            Crave it. <br />
-            Tap it. <span className="italic font-light">Devour it.</span>
-          </h1>
+            <p className="text-base sm:text-lg text-muted-foreground max-w-md leading-relaxed">
+              A meal at Zaaou is one you won't soon forget — Itahari's best kitchens, delivered hot and fresh to your door.
+            </p>
 
-          <p className="text-lg text-white/85 max-w-xl leading-relaxed">
-            From sizzling momos to wood-fired pizzas — Itahari's best kitchens, delivered hot to your door in minutes.
-          </p>
-
-          <div className="flex flex-wrap items-center gap-3 pt-2">
-            <a
-              href="#app"
-              className="group inline-flex items-center gap-2 rounded-full bg-white text-primary px-7 py-4 font-semibold shadow-glow hover:shadow-soft transition-all hover:scale-[1.02]"
-            >
-              Download the App
-              <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </a>
-            <a
-              href="#restaurants"
-              className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur px-7 py-4 font-semibold ring-1 ring-white/25 hover:bg-white/15 transition-colors"
-            >
-              Browse Restaurants
-            </a>
-          </div>
-
-          <div className="flex items-center gap-6 pt-6">
-            <div>
-              <div className="flex items-center gap-1 text-yellow-300">
-                {[...Array(5)].map((_, i) => <Star key={i} className="h-4 w-4 fill-current" />)}
-              </div>
-              <p className="text-sm text-white/80 mt-1">4.9 from 12k+ orders</p>
-            </div>
-            <div className="h-10 w-px bg-white/25" />
-            <div className="flex items-center gap-2">
-              <Clock className="h-5 w-5" />
-              <div>
-                <p className="font-bold leading-tight">25 min</p>
-                <p className="text-xs text-white/75">Avg delivery</p>
-              </div>
+            <div className="flex flex-wrap items-center gap-4 pt-2">
+              <a
+                href="#app"
+                className="inline-flex items-center justify-center rounded-xl bg-primary text-primary-foreground px-7 py-3.5 font-semibold shadow-soft hover:shadow-glow hover:scale-[1.02] transition-all"
+              >
+                Order Now
+              </a>
+              <a
+                href="#how"
+                className="inline-flex items-center justify-center rounded-xl bg-card border-2 border-border hover:border-primary text-foreground px-7 py-3.5 font-semibold transition-colors"
+              >
+                Learn More
+              </a>
             </div>
           </div>
-        </div>
 
-        <div className="relative">
-          <div className="absolute inset-0 -m-10 rounded-full bg-white/10 blur-3xl animate-pulse" />
-          <div className="relative animate-float">
+          {/* Right visual */}
+          <div className="relative h-[420px] sm:h-[500px] lg:h-[560px]">
+            {/* Orange splash background */}
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 h-[90%] w-[78%] rounded-[40%_55%_45%_60%/55%_45%_55%_45%] bg-gradient-primary opacity-95" />
+
+            {/* Person */}
             <img
-              src={heroFood}
-              alt="Delicious food collage with momos, pizza, biryani and burger"
+              src={heroPerson}
+              alt="Happy customer enjoying Zaaou Food pizza delivery"
               width={1024}
               height={1024}
-              className="rounded-3xl shadow-glow w-full max-w-md mx-auto"
+              className="absolute right-0 bottom-0 h-full w-auto object-contain object-bottom drop-shadow-2xl"
             />
-            <div className="absolute -bottom-6 -left-4 bg-card text-card-foreground rounded-2xl shadow-card px-5 py-3 flex items-center gap-3">
-              <div className="h-10 w-10 rounded-full bg-primary/15 grid place-items-center">
-                <Clock className="h-5 w-5 text-primary" />
+
+            {/* Delivery card */}
+            <div className="absolute top-[18%] left-0 sm:left-2 bg-card rounded-2xl shadow-card px-4 py-3 flex items-center gap-3 animate-float">
+              <div className="h-10 w-10 rounded-xl bg-primary/15 grid place-items-center">
+                <Rocket className="h-5 w-5 text-primary" />
               </div>
               <div>
-                <p className="text-xs text-muted-foreground">Delivered in</p>
-                <p className="font-bold text-sm">22 minutes</p>
+                <p className="font-bold text-sm text-foreground">Delivery</p>
+                <p className="text-xs text-primary font-semibold">In 30 Minutes</p>
               </div>
             </div>
-            <div className="absolute -top-4 -right-2 bg-card text-card-foreground rounded-2xl shadow-card px-4 py-3">
-              <p className="text-xs text-muted-foreground">Today's orders</p>
-              <p className="font-bold text-lg text-primary">2,847+</p>
+
+            {/* Reviewer card */}
+            <div className="absolute bottom-[18%] left-0 sm:left-4 bg-card rounded-2xl shadow-card px-4 py-3 flex items-center gap-3">
+              <div className="h-9 w-9 rounded-full bg-gradient-primary grid place-items-center text-primary-foreground font-bold text-sm">
+                OF
+              </div>
+              <div>
+                <p className="font-bold text-sm text-foreground">Omar Faruk</p>
+                <div className="flex gap-0.5 text-primary">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="h-3 w-3 fill-current" />
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Pizza price card */}
+            <div className="absolute right-2 sm:right-6 bottom-[8%] bg-card rounded-2xl shadow-card p-3 w-32">
+              <div className="aspect-square w-full rounded-xl overflow-hidden bg-secondary mb-2">
+                <img
+                  src={floatingPizza}
+                  alt="Wood-fired pizza slice"
+                  width={512}
+                  height={512}
+                  loading="lazy"
+                  className="h-full w-full object-cover"
+                />
+              </div>
+              <p className="font-bold text-sm text-foreground">Pizza</p>
+              <span className="inline-block mt-1 rounded-md bg-primary text-primary-foreground text-xs font-bold px-2 py-0.5">
+                Rs 450
+              </span>
             </div>
           </div>
         </div>
