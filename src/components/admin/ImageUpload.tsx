@@ -85,10 +85,15 @@ export function ImageUpload({
     variant === "avatar"
       ? "aspect-square rounded-full"
       : variant === "square"
-        ? "aspect-square rounded-xl"
-        : "aspect-video rounded-xl";
+        ? "aspect-square rounded-lg"
+        : "aspect-video rounded-lg";
 
-  const sizeCls = variant === "avatar" ? "max-w-[160px]" : "w-full";
+  const sizeCls =
+    variant === "avatar"
+      ? "max-w-[96px]"
+      : variant === "square"
+        ? "max-w-[140px]"
+        : "w-full max-w-md";
 
   return (
     <div className="space-y-2">
