@@ -1,0 +1,78 @@
+
+INSERT INTO public.posts (title, slug, excerpt, content, cover_image_url, category, tags, status, published_at, reading_time_minutes, author_id, seo_title, seo_description)
+VALUES
+(
+  'Top 5 Must-Try Momo Spots in Itahari',
+  'top-5-must-try-momo-spots-in-itahari',
+  'From classic steamed to fiery jhol — discover the momo joints every Itahari foodie should know.',
+  E'# Top 5 Must-Try Momo Spots in Itahari\n\nMomos are more than a snack in Itahari — they are a way of life. Whether you crave the classic steamed buff momo or a spicy jhol momo on a rainy evening, the city has it all.\n\n## 1. Bahattar Cafe\nKnown for soft wrappers and a tangy tomato achar that keeps locals coming back.\n\n## 2. Royal Biryani House\nYes, biryani is the headline — but their chicken momos are a hidden gem.\n\n## 3. Monk and Punk\nFusion momos with peri-peri and cheese fillings, perfect for the adventurous eater.\n\n## 4. Pauroti Ghar\nFresh, hand-folded momos served piping hot. Try the kothey style.\n\n## 5. Purwanchal Cafe\nA local favourite for jhol momos with a signature sesame broth.\n\n> Order any of these on **Zaaou Food** and get them delivered hot to your doorstep.',
+  'https://images.unsplash.com/photo-1496116218417-1a781b1c416c?auto=format&fit=crop&w=1200&q=80',
+  'Food Guide',
+  ARRAY['momos','itahari','foodguide'],
+  'published',
+  now() - interval '1 day',
+  4,
+  '2c00df0c-d139-40a5-a36c-281e1eb5b71f',
+  'Top 5 Must-Try Momo Spots in Itahari | Zaaou Food',
+  'Discover the best momo restaurants in Itahari — from classic steamed to fiery jhol momos. Order on Zaaou Food.'
+),
+(
+  'How Zaaou Food is Changing Delivery in Itahari',
+  'how-zaaou-food-is-changing-delivery-in-itahari',
+  'A look behind the scenes at how local riders, tech and great restaurants come together.',
+  E'# How Zaaou Food is Changing Delivery in Itahari\n\nWhen we started Zaaou Food, the goal was simple: make it effortless for Itahari to enjoy great food at home.\n\n## Local first\nWe partner with local restaurants — not chains — so you get the flavours that define our city.\n\n## Riders who care\nOur riders are trained, insured and know every gali in town. That means faster delivery and food that arrives hot.\n\n## Smart tech\nLive tracking, easy payments and instant support — all built for the way Itahari orders.\n\n**The result?** Thousands of happy meals, every single week.',
+  'https://images.unsplash.com/photo-1526367790999-0150786686a2?auto=format&fit=crop&w=1200&q=80',
+  'Company',
+  ARRAY['zaaou','delivery','itahari'],
+  'published',
+  now() - interval '3 day',
+  3,
+  '2c00df0c-d139-40a5-a36c-281e1eb5b71f',
+  'How Zaaou Food is Changing Delivery in Itahari',
+  'Behind the scenes of Zaaou Food — local restaurants, trained riders and smart tech delivering Itahari its favourite meals.'
+),
+(
+  'A Beginner''s Guide to Nepali Thali',
+  'a-beginners-guide-to-nepali-thali',
+  'Dal, bhat, tarkari and more — everything you need to know before ordering your first thali.',
+  E'# A Beginner''s Guide to Nepali Thali\n\nThe Nepali thali is a complete meal on a single plate. Here is what to expect.\n\n## The essentials\n- **Bhat** — steamed rice, the base of the meal\n- **Dal** — lentil soup, comforting and protein-rich\n- **Tarkari** — seasonal vegetable curry\n- **Achar** — pickle for that extra kick\n- **Saag** — leafy greens, lightly spiced\n\n## Add-ons\nMost places let you add chicken, mutton or paneer. Pair with a glass of lassi for the full experience.\n\n*Order an authentic thali on Zaaou Food today.*',
+  'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?auto=format&fit=crop&w=1200&q=80',
+  'Food Guide',
+  ARRAY['thali','nepali','traditional'],
+  'published',
+  now() - interval '5 day',
+  5,
+  '2c00df0c-d139-40a5-a36c-281e1eb5b71f',
+  'A Beginner''s Guide to Nepali Thali | Zaaou Food',
+  'New to Nepali food? Our complete guide to the traditional thali — dal, bhat, tarkari, achar and more.'
+),
+(
+  '5 Tips to Order Smarter on Zaaou Food',
+  '5-tips-to-order-smarter-on-zaaou-food',
+  'Save time, save money and never miss a free-delivery offer with these handy tricks.',
+  E'# 5 Tips to Order Smarter on Zaaou Food\n\n## 1. Schedule ahead\nGoing to be hungry at 8pm? Schedule your order earlier and skip the rush.\n\n## 2. Watch for combos\nMost restaurants offer combo meals that are 15-20% cheaper than à la carte.\n\n## 3. Use saved addresses\nAdd Home, Office and Other once — order in two taps every time.\n\n## 4. Stack offers\nLook for the **Offers** ribbon — many can be combined with free-delivery promos.\n\n## 5. Rate your order\nGood ratings help great restaurants get noticed and earn you loyalty perks.',
+  'https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=1200&q=80',
+  'Tips',
+  ARRAY['tips','offers','zaaou'],
+  'published',
+  now() - interval '7 day',
+  3,
+  '2c00df0c-d139-40a5-a36c-281e1eb5b71f',
+  '5 Tips to Order Smarter on Zaaou Food',
+  'Order faster, save money and stack offers with these 5 essential Zaaou Food tips.'
+),
+(
+  'Why Itahari Loves Late-Night Biryani',
+  'why-itahari-loves-late-night-biryani',
+  'Aromatic basmati, slow-cooked meat and that one perfect bite at midnight — here''s the story.',
+  E'# Why Itahari Loves Late-Night Biryani\n\nThere is something magical about a hot plate of biryani after sunset. The city slows down, the kitchens fire up, and the orders start rolling in.\n\n## The perfect biryani\nA great biryani has three things:\n1. **Long-grain basmati** that stays fluffy\n2. **Tender meat** that falls off the bone\n3. **Layered spices** — not too loud, not too shy\n\n## Where to order\n**Royal Biryani House** leads the pack, but several new contenders are pushing the bar higher every month.\n\n*Open the Zaaou Food app after 9pm and you will see what we mean.*',
+  'https://images.unsplash.com/photo-1631515243349-e0cb75fb8d3a?auto=format&fit=crop&w=1200&q=80',
+  'Food Guide',
+  ARRAY['biryani','latenight','itahari'],
+  'published',
+  now() - interval '10 day',
+  4,
+  '2c00df0c-d139-40a5-a36c-281e1eb5b71f',
+  'Why Itahari Loves Late-Night Biryani | Zaaou Food',
+  'The story of Itahari''s late-night biryani culture — and where to order the best plates after dark.'
+);
