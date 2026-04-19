@@ -8,6 +8,7 @@ import { ImageUpload } from "@/components/admin/ImageUpload";
 import { supabase } from "@/integrations/supabase/client";
 import { slugify } from "@/lib/blog-utils";
 import { createAuthorAccount, resetAuthorPassword, removeAuthorAccount } from "@/server/author-accounts.functions";
+import { callWithAuth } from "@/lib/server-fn-auth";
 import type { Database } from "@/integrations/supabase/types";
 
 type Author = Database["public"]["Tables"]["authors"]["Row"];
