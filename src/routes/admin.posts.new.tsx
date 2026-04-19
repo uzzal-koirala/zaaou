@@ -50,6 +50,12 @@ function PostFormPage({ mode }: { mode: Mode }) {
   const [loading, setLoading] = useState(mode === "edit");
   const [saving, setSaving] = useState(false);
   const [preview, setPreview] = useState(false);
+  const contentRef = useRef<HTMLTextAreaElement>(null);
+  const shortcuts = useMarkdownShortcuts(
+    form.content,
+    (next) => setForm((f) => ({ ...f, content: next })),
+    contentRef,
+  );
 
   useEffect(() => {
     (async () => {
