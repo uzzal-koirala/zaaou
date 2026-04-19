@@ -93,7 +93,7 @@ function AuthorsPage() {
   async function handleRemoveAccount(a: Author) {
     if (!confirm(`Remove login access for ${a.name}? They will no longer be able to sign in.`)) return;
     try {
-      await removeAuthorAccount({ data: { authorId: a.id } });
+      await callWithAuth(removeAuthorAccount, { authorId: a.id });
       toast.success("Login removed");
       load();
     } catch (err) {
