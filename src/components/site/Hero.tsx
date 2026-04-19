@@ -1,5 +1,6 @@
 import { ArrowRight, Star, Clock, ShieldCheck, Sparkles } from "lucide-react";
 import screenHome from "@/assets/app/screen-home.png";
+import { WhatsAppInlineButton } from "./WhatsAppButton";
 
 export function Hero() {
   return (
@@ -56,6 +57,7 @@ export function Hero() {
               Download the App
               <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </a>
+            <WhatsAppInlineButton />
             <a
               href="#restaurants"
               className="inline-flex items-center gap-2 rounded-xl bg-card border-2 border-border hover:border-primary/40 text-foreground px-7 py-4 font-semibold transition-colors"
