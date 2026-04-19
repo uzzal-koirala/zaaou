@@ -8,6 +8,7 @@ import { ImageUpload } from "@/components/admin/ImageUpload";
 import { supabase } from "@/integrations/supabase/client";
 import { slugify } from "@/lib/blog-utils";
 import { createAuthorAccount, resetAuthorPassword, removeAuthorAccount } from "@/server/author-accounts.functions";
+import { callWithAuth } from "@/lib/server-fn-auth";
 import type { Database } from "@/integrations/supabase/types";
 
 type Author = Database["public"]["Tables"]["authors"]["Row"];
@@ -68,13 +69,16 @@ function AuthorsPage() {
     setAccountSubmitting(true);
     try {
       if (accountModal.kind === "create") {
-        await createAuthorAccount({
-          data: { authorId: accountModal.author.id, email: accountEmail.trim(), password: accountPassword },
+        await callWithAuth(createAuthorAccount, {
+          authorId: accountModal.author.id,
+          email: accountEmail.trim(),
+          password: accountPassword,
         });
         toast.success(`Login created for ${accountModal.author.name}`);
       } else {
-        await resetAuthorPassword({
-          data: { authorId: accountModal.author.id, password: accountPassword },
+        await callWithAuth(resetAuthorPassword, {
+          authorId: accountModal.author.id,
+          password: accountPassword,
         });
         toast.success("Password reset");
       }
@@ -89,7 +93,7 @@ function AuthorsPage() {
   async function handleRemoveAccount(a: Author) {
     if (!confirm(`Remove login access for ${a.name}? They will no longer be able to sign in.`)) return;
     try {
-      await removeAuthorAccount({ data: { authorId: a.id } });
+      await callWithAuth(removeAuthorAccount, { authorId: a.id });
       toast.success("Login removed");
       load();
     } catch (err) {
