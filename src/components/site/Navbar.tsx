@@ -5,11 +5,12 @@ import logo from "@/assets/zaaou-logo.png";
 
 type NavLink = { label: string } & (
   | { kind: "hash"; href: string }
-  | { kind: "route"; to: "/restaurants" | "/careers" | "/partner" }
+  | { kind: "route"; to: "/restaurants" | "/careers" | "/partner" | "/blog" }
 );
 
 const links: NavLink[] = [
   { kind: "route", to: "/restaurants", label: "Restaurants" },
+  { kind: "route", to: "/blog", label: "Blog" },
   { kind: "hash", href: "/#how", label: "How it works" },
   { kind: "route", to: "/partner", label: "Add Restaurant" },
   { kind: "route", to: "/careers", label: "Careers" },
