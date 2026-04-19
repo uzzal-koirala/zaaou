@@ -85,10 +85,11 @@ export const createAuthorAccount = createServerFn({ method: "POST" })
 
 const resetSchema = z.object({
   authorId: z.string().uuid(),
-  password: z.string().min(8).max(72),
+  email: z.string().email().max(254).optional(),
+  password: z.string().min(8).max(72).optional(),
 });
 
-export const resetAuthorPassword = createServerFn({ method: "POST" })
+export const updateAuthorAccount = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input: unknown) => resetSchema.parse(input))
   .handler(async ({ data, context }) => {
@@ -100,6 +101,10 @@ export const resetAuthorPassword = createServerFn({ method: "POST" })
       .maybeSingle();
     if (!roleRow) throw new Error("Forbidden: admin only");
 
+    if (!data.email && !data.password) {
+      throw new Error("Provide a new email or password");
+    }
+
     const admin = getAdmin();
     const { data: a } = await admin
       .from("authors")
@@ -108,12 +113,20 @@ export const resetAuthorPassword = createServerFn({ method: "POST" })
       .maybeSingle();
     if (!a?.user_id) throw new Error("Author has no login account");
 
-    const { error } = await admin.auth.admin.updateUserById(a.user_id, {
-      password: data.password,
-    });
+    const updates: { email?: string; password?: string; email_confirm?: boolean } = {};
+    if (data.email) {
+      updates.email = data.email;
+      updates.email_confirm = true;
+    }
+    if (data.password) updates.password = data.password;
+
+    const { error } = await admin.auth.admin.updateUserById(a.user_id, updates);
     if (error) throw new Error(error.message);
     return { ok: true };
   });
+
+// Backwards-compatible alias
+export const resetAuthorPassword = updateAuthorAccount;
 
 const removeSchema = z.object({ authorId: z.string().uuid() });
 
