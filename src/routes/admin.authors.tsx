@@ -1,13 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState, type FormEvent } from "react";
-import { Plus, Edit, Trash2, Loader2, X, KeyRound, UserPlus, ShieldOff } from "lucide-react";
+import { Plus, Edit, Trash2, Loader2, X, Mail, KeyRound, ShieldOff, LogIn, Settings2 } from "lucide-react";
 import { toast } from "sonner";
 import { AdminLayout } from "@/components/admin/AdminLayout";
 import { RoleGuard } from "@/components/admin/RoleGuard";
 import { ImageUpload } from "@/components/admin/ImageUpload";
 import { supabase } from "@/integrations/supabase/client";
 import { slugify } from "@/lib/blog-utils";
-import { createAuthorAccount, resetAuthorPassword, removeAuthorAccount } from "@/server/author-accounts.functions";
+import {
+  createAuthorAccount,
+  updateAuthorAccount,
+  removeAuthorAccount,
+  listAuthorAccountEmails,
+} from "@/server/author-accounts.functions";
 import { callWithAuth } from "@/lib/server-fn-auth";
 import type { Database } from "@/integrations/supabase/types";
 
@@ -15,7 +20,7 @@ type Author = Database["public"]["Tables"]["authors"]["Row"];
 
 type AccountModal =
   | { kind: "create"; author: Author }
-  | { kind: "reset"; author: Author }
+  | { kind: "edit"; author: Author; currentEmail: string }
   | null;
 
 export const Route = createFileRoute("/admin/authors")({
