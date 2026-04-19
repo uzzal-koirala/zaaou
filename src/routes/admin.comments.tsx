@@ -21,7 +21,7 @@ type CommentRow = {
 type Filter = "pending" | "approved" | "rejected" | "all";
 
 export const Route = createFileRoute("/admin/comments")({
-  head: () => ({ meta: [{ title: "Comments — Admin" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [{ title: "Comments - Admin" }, { name: "robots", content: "noindex" }] }),
   component: () => (
     <RoleGuard>
       <AdminLayout>

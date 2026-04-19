@@ -45,7 +45,7 @@ export function Hero() {
           </h1>
 
           <p className="text-lg text-muted-foreground max-w-xl leading-relaxed">
-            From sizzling momos to wood-fired pizzas — order from Itahari's
+            From sizzling momos to wood-fired pizzas - order from Itahari's
             best kitchens and track your rider live, all from one beautiful app.
           </p>
 
@@ -104,7 +104,7 @@ export function Hero() {
                 <div className="absolute top-2 left-1/2 -translate-x-1/2 z-20 h-5 w-24 rounded-full bg-foreground" />
                 <img
                   src={screenHome}
-                  alt="Zaaou Food mobile app — browse restaurants and order in seconds"
+                  alt="Zaaou Food mobile app - browse restaurants and order in seconds"
                   width={886}
                   height={1920}
                   className="h-full w-full object-cover object-top"

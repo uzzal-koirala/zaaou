@@ -42,9 +42,9 @@ const defaultSettings: BlogSettings = {
 export const Route = createFileRoute("/blog/$slug")({
   head: () => ({
     meta: [
-      { title: "Blog Post — Zaaou Food" },
+      { title: "Blog Post - Zaaou Food" },
       { name: "description", content: "Read stories, restaurant guides and food updates from Zaaou Food." },
-      { property: "og:title", content: "Blog Post — Zaaou Food" },
+      { property: "og:title", content: "Blog Post - Zaaou Food" },
       { property: "og:description", content: "Read stories, restaurant guides and food updates from Zaaou Food." },
     ],
   }),

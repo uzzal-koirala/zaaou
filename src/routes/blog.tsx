@@ -27,9 +27,9 @@ export const Route = createFileRoute("/blog")({
   validateSearch: (search) => searchSchema.parse(search),
   head: () => ({
     meta: [
-      { title: "Blog — Zaaou Food" },
+      { title: "Blog - Zaaou Food" },
       { name: "description", content: "Stories, restaurant guides, recipes and updates from Zaaou Food in Itahari." },
-      { property: "og:title", content: "Blog — Zaaou Food" },
+      { property: "og:title", content: "Blog - Zaaou Food" },
       { property: "og:description", content: "Stories, restaurant guides, recipes and updates from Zaaou Food in Itahari." },
     ],
   }),
@@ -144,7 +144,7 @@ function BlogPage() {
         ) : posts.length === 0 ? (
           <div className="text-center py-20">
             <p className="text-lg text-muted-foreground">
-              {q || category ? "No posts match your filters." : "No posts published yet — check back soon!"}
+              {q || category ? "No posts match your filters." : "No posts published yet - check back soon!"}
             </p>
           </div>
         ) : (

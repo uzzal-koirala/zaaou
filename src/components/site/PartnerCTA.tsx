@@ -27,7 +27,7 @@ const benefits = [
   {
     icon: BadgeCheck,
     title: "Zero setup hassle",
-    desc: "We handle photos, menu, riders and payments — you just cook.",
+    desc: "We handle photos, menu, riders and payments - you just cook.",
   },
 ];
 
@@ -50,7 +50,7 @@ export function PartnerCTA() {
 
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-          {/* LEFT — Copy */}
+          {/* LEFT - Copy */}
           <div className="lg:col-span-7 space-y-7">
             <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 text-primary px-4 py-1.5 text-xs font-bold uppercase tracking-widest">
               <Store className="h-3.5 w-3.5" />
@@ -75,7 +75,7 @@ export function PartnerCTA() {
 
             <p className="text-lg text-muted-foreground leading-relaxed max-w-xl">
               Join 100+ restaurants already growing with Itahari's favourite food
-              delivery platform. Set up in minutes — start receiving orders today.
+              delivery platform. Set up in minutes - start receiving orders today.
             </p>
 
             <div className="grid sm:grid-cols-3 gap-5 pt-2">
@@ -130,7 +130,7 @@ export function PartnerCTA() {
             </div>
           </div>
 
-          {/* RIGHT — Visual collage */}
+          {/* RIGHT - Visual collage */}
           <div className="lg:col-span-5 relative">
             <div className="relative aspect-[4/5] max-w-md mx-auto">
               {/* Glow */}
@@ -139,11 +139,11 @@ export function PartnerCTA() {
                 className="absolute inset-0 m-auto h-72 w-72 rounded-full bg-primary/30 blur-3xl"
               />
 
-              {/* Big card — biryani */}
+              {/* Big card - biryani */}
               <div className="absolute top-0 left-0 w-[62%] aspect-[4/5] rounded-3xl overflow-hidden shadow-glow ring-1 ring-border rotate-[-6deg] hover:rotate-0 transition-transform duration-500">
                 <img
                   src={royalBiryani}
-                  alt="Royal Biryani — partnered with Zaaou Food"
+                  alt="Royal Biryani - partnered with Zaaou Food"
                   loading="lazy"
                   width={600}
                   height={750}
@@ -164,11 +164,11 @@ export function PartnerCTA() {
                 </div>
               </div>
 
-              {/* Mid card — bahattar */}
+              {/* Mid card - bahattar */}
               <div className="absolute top-[10%] right-0 w-[52%] aspect-square rounded-3xl overflow-hidden shadow-card ring-1 ring-border rotate-[7deg] hover:rotate-0 transition-transform duration-500 z-10">
                 <img
                   src={bahattarCafe}
-                  alt="Bahattar Restro & Lounge — partnered with Zaaou Food"
+                  alt="Bahattar Restro & Lounge - partnered with Zaaou Food"
                   loading="lazy"
                   width={500}
                   height={500}
@@ -186,11 +186,11 @@ export function PartnerCTA() {
                 </div>
               </div>
 
-              {/* Bottom card — pauroti */}
+              {/* Bottom card - pauroti */}
               <div className="absolute bottom-0 left-[18%] w-[48%] aspect-[4/5] rounded-3xl overflow-hidden shadow-card ring-1 ring-border rotate-[4deg] hover:rotate-0 transition-transform duration-500 z-20">
                 <img
                   src={pauroti}
-                  alt="Pauroti — partnered with Zaaou Food"
+                  alt="Pauroti - partnered with Zaaou Food"
                   loading="lazy"
                   width={500}
                   height={625}
@@ -208,11 +208,11 @@ export function PartnerCTA() {
                 </div>
               </div>
 
-              {/* Tiny card — purwanchal */}
+              {/* Tiny card - purwanchal */}
               <div className="absolute bottom-[18%] right-[2%] w-[34%] aspect-square rounded-2xl overflow-hidden shadow-card ring-2 ring-background rotate-[-8deg] hover:rotate-0 transition-transform duration-500 z-30">
                 <img
                   src={purwanchalCafe}
-                  alt="Purwanchal Cafe — partnered with Zaaou Food"
+                  alt="Purwanchal Cafe - partnered with Zaaou Food"
                   loading="lazy"
                   width={300}
                   height={300}

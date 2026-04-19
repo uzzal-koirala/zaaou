@@ -227,7 +227,7 @@ function PostFormPage({ mode }: { mode: Mode }) {
                   onChange={(e) => update("author_id", e.target.value)}
                   className={inputCls}
                 >
-                  <option value="">— Select —</option>
+                  <option value="">- Select -</option>
                   {authors.map((a) => (
                     <option key={a.id} value={a.id}>
                       {a.name}
@@ -318,7 +318,7 @@ function Field({ label, hint, children }: { label: string; hint?: string; childr
 }
 
 export const Route = createFileRoute("/admin/posts/new")({
-  head: () => ({ meta: [{ title: "New post — Admin" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [{ title: "New post - Admin" }, { name: "robots", content: "noindex" }] }),
   component: () => (
     <RoleGuard>
       <AdminLayout>

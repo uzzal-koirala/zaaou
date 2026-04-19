@@ -74,7 +74,7 @@ export function AppDownload() {
               </h2>
 
               <p className="text-white/85 text-lg max-w-lg leading-relaxed">
-                Download the Zaaou Food app — Itahari's tastiest kitchens,
+                Download the Zaaou Food app - Itahari's tastiest kitchens,
                 live tracking and exclusive offers, right in your pocket.
               </p>
 

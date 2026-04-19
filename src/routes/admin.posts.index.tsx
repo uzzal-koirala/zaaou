@@ -8,7 +8,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { formatDate } from "@/lib/blog-utils";
 
 export const Route = createFileRoute("/admin/posts/")({
-  head: () => ({ meta: [{ title: "Posts — Admin" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [{ title: "Posts - Admin" }, { name: "robots", content: "noindex" }] }),
   component: () => (
     <RoleGuard>
       <AdminLayout>
@@ -103,7 +103,7 @@ function PostsPage() {
               {rows.map((row) => (
                 <tr key={row.id} className="border-t border-border hover:bg-muted/30">
                   <td className="px-5 py-3 font-medium">{row.title}</td>
-                  <td className="px-5 py-3 text-muted-foreground">{row.authors?.name ?? "—"}</td>
+                  <td className="px-5 py-3 text-muted-foreground">{row.authors?.name ?? "-"}</td>
                   <td className="px-5 py-3">
                     <button
                       onClick={() => togglePublish(row)}

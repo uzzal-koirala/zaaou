@@ -13,9 +13,9 @@ import { PageShell } from "@/components/site/PageShell";
 export const Route = createFileRoute("/partner")({
   head: () => ({
     meta: [
-      { title: "Add Your Restaurant — Partner with Zaaou Food" },
+      { title: "Add Your Restaurant - Partner with Zaaou Food" },
       { name: "description", content: "List your restaurant on Zaaou Food and reach thousands of hungry customers across Itahari. Zero setup fees, simple onboarding." },
-      { property: "og:title", content: "Add Your Restaurant — Partner with Zaaou Food" },
+      { property: "og:title", content: "Add Your Restaurant - Partner with Zaaou Food" },
       { property: "og:description", content: "List your restaurant on Zaaou Food and reach thousands of hungry customers across Itahari. Zero setup fees, simple onboarding." },
     ],
   }),
@@ -25,12 +25,12 @@ export const Route = createFileRoute("/partner")({
 const benefits = [
   { icon: Users, title: "Reach 50,000+ customers", desc: "Tap into Itahari's largest hungry audience from day one." },
   { icon: TrendingUp, title: "Grow revenue 3x", desc: "Partner restaurants see an average 3x revenue boost in 90 days." },
-  { icon: Truck, title: "We handle delivery", desc: "Our trained rider fleet picks up and delivers — you focus on cooking." },
+  { icon: Truck, title: "We handle delivery", desc: "Our trained rider fleet picks up and delivers - you focus on cooking." },
   { icon: BarChart3, title: "Real-time insights", desc: "Track orders, sales and customer feedback from one simple dashboard." },
 ];
 
 const steps = [
-  { n: 1, title: "Apply", desc: "Fill out the form below — takes less than 2 minutes." },
+  { n: 1, title: "Apply", desc: "Fill out the form below - takes less than 2 minutes." },
   { n: 2, title: "Onboard", desc: "Our team visits, photographs your menu and sets up your store." },
   { n: 3, title: "Go live", desc: "Start receiving orders within 5 working days." },
 ];
@@ -55,7 +55,7 @@ function PartnerPage() {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    // For now, just acknowledge — wire up to backend later.
+    // For now, just acknowledge - wire up to backend later.
     setSubmitted(true);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -169,7 +169,7 @@ function PartnerPage() {
                 Application received!
               </h2>
               <p className="text-muted-foreground max-w-md mx-auto mb-6">
-                Thanks {form.ownerName || "there"} — our partnerships team will reach out to {form.restaurantName || "you"} within 24 hours.
+                Thanks {form.ownerName || "there"} - our partnerships team will reach out to {form.restaurantName || "you"} within 24 hours.
               </p>
               <Link
                 to="/"
