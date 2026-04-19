@@ -77,8 +77,8 @@ function AuthorPage() {
           <p className="mt-6 text-muted-foreground">No articles yet.</p>
         ) : (
           <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {posts.map((p) => (
-              <BlogCard key={p.id} post={p as never} />
+            {posts.map((p: { id: string } & React.ComponentProps<typeof BlogCard>["post"]) => (
+              <BlogCard key={p.id} post={p} />
             ))}
           </div>
         )}

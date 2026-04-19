@@ -79,7 +79,7 @@ function BlogPage() {
 
   function handleSearch(e: React.FormEvent) {
     e.preventDefault();
-    navigate({ search: (prev) => ({ ...prev, q: searchInput || undefined }) });
+    navigate({ search: (prev: { category?: string; q?: string }) => ({ ...prev, q: searchInput || undefined }) });
   }
 
   return (

@@ -12,7 +12,11 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as RestaurantsRouteImport } from './routes/restaurants'
 import { Route as PartnerRouteImport } from './routes/partner'
 import { Route as CareersRouteImport } from './routes/careers'
+import { Route as BlogRouteImport } from './routes/blog'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as BlogAuthorSlugRouteImport } from './routes/blog.author.$slug'
 
 const RestaurantsRoute = RestaurantsRouteImport.update({
   id: '/restaurants',
@@ -29,41 +33,100 @@ const CareersRoute = CareersRouteImport.update({
   path: '/careers',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogRoute = BlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => BlogRoute,
+} as any)
+const BlogAuthorSlugRoute = BlogAuthorSlugRouteImport.update({
+  id: '/author/$slug',
+  path: '/author/$slug',
+  getParentRoute: () => BlogRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/blog': typeof BlogRouteWithChildren
   '/careers': typeof CareersRoute
   '/partner': typeof PartnerRoute
   '/restaurants': typeof RestaurantsRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/blog/author/$slug': typeof BlogAuthorSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/blog': typeof BlogRouteWithChildren
   '/careers': typeof CareersRoute
   '/partner': typeof PartnerRoute
   '/restaurants': typeof RestaurantsRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/blog/author/$slug': typeof BlogAuthorSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/blog': typeof BlogRouteWithChildren
   '/careers': typeof CareersRoute
   '/partner': typeof PartnerRoute
   '/restaurants': typeof RestaurantsRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/blog/author/$slug': typeof BlogAuthorSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/careers' | '/partner' | '/restaurants'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/blog'
+    | '/careers'
+    | '/partner'
+    | '/restaurants'
+    | '/blog/$slug'
+    | '/blog/author/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/careers' | '/partner' | '/restaurants'
-  id: '__root__' | '/' | '/careers' | '/partner' | '/restaurants'
+  to:
+    | '/'
+    | '/auth'
+    | '/blog'
+    | '/careers'
+    | '/partner'
+    | '/restaurants'
+    | '/blog/$slug'
+    | '/blog/author/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/auth'
+    | '/blog'
+    | '/careers'
+    | '/partner'
+    | '/restaurants'
+    | '/blog/$slug'
+    | '/blog/author/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthRoute: typeof AuthRoute
+  BlogRoute: typeof BlogRouteWithChildren
   CareersRoute: typeof CareersRoute
   PartnerRoute: typeof PartnerRoute
   RestaurantsRoute: typeof RestaurantsRoute
@@ -92,6 +155,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CareersRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog': {
+      id: '/blog'
+      path: '/blog'
+      fullPath: '/blog'
+      preLoaderRoute: typeof BlogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -99,11 +176,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof BlogRoute
+    }
+    '/blog/author/$slug': {
+      id: '/blog/author/$slug'
+      path: '/author/$slug'
+      fullPath: '/blog/author/$slug'
+      preLoaderRoute: typeof BlogAuthorSlugRouteImport
+      parentRoute: typeof BlogRoute
+    }
   }
 }
 
+interface BlogRouteChildren {
+  BlogSlugRoute: typeof BlogSlugRoute
+  BlogAuthorSlugRoute: typeof BlogAuthorSlugRoute
+}
+
+const BlogRouteChildren: BlogRouteChildren = {
+  BlogSlugRoute: BlogSlugRoute,
+  BlogAuthorSlugRoute: BlogAuthorSlugRoute,
+}
+
+const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthRoute: AuthRoute,
+  BlogRoute: BlogRouteWithChildren,
   CareersRoute: CareersRoute,
   PartnerRoute: PartnerRoute,
   RestaurantsRoute: RestaurantsRoute,
