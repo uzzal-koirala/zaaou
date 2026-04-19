@@ -124,7 +124,7 @@ function AuthorsPage() {
     setLoading(false);
     // Load emails (admin-only)
     try {
-      const map = await callWithAuth(listAuthorAccountEmails, undefined as never);
+      const map = await callWithAuth(listAuthorAccountEmails);
       setEmails(map);
     } catch {
       // not fatal
