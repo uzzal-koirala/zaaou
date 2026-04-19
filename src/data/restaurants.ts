@@ -3,6 +3,7 @@ import burger from "@/assets/dish-burger.jpg";
 import pizza from "@/assets/dish-pizza.jpg";
 import thali from "@/assets/dish-thali.jpg";
 import purwanchalCafe from "@/assets/restaurants/purwanchal-cafe.jpg";
+import royalBiryani from "@/assets/restaurants/royal-biryani.jpg";
 
 export type Restaurant = {
   id: string;
@@ -30,6 +31,19 @@ export const restaurants: Restaurant[] = [
     time: "25-35 min",
     price: "Rs. 250+",
     area: "Itahari-1, Pipal Chowk",
+    featured: true,
+  },
+  {
+    id: "royal-biryani",
+    img: royalBiryani,
+    name: "Royal Biryani",
+    tag: "Biryani · Chicken Specialists",
+    cuisines: ["Biryani", "Chicken", "Indian"],
+    rating: 4.8,
+    reviews: 524,
+    time: "25-35 min",
+    price: "Rs. 280+",
+    area: "Itahari, Dharan Road",
     featured: true,
   },
   {
@@ -104,27 +118,16 @@ export const restaurants: Restaurant[] = [
     price: "Rs. 150+",
     area: "Itahari-Dharan Road",
   },
-  {
-    id: "royal-biryani",
-    img: thali,
-    name: "Royal Biryani (Itahari)",
-    tag: "Biryani · Indian",
-    cuisines: ["Biryani", "Indian"],
-    rating: 4.4,
-    reviews: 156,
-    time: "30-45 min",
-    price: "Rs. 320+",
-    area: "Dharan Road, Halgada",
-  },
 ];
 
 export const cuisineFilters = [
   "All",
   "Thakali",
+  "Biryani",
+  "Chicken",
   "Momo",
   "Pizza",
   "Burger",
-  "Biryani",
   "Thali",
   "Fast Food",
 ];
