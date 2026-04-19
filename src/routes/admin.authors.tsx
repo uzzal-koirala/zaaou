@@ -69,13 +69,16 @@ function AuthorsPage() {
     setAccountSubmitting(true);
     try {
       if (accountModal.kind === "create") {
-        await createAuthorAccount({
-          data: { authorId: accountModal.author.id, email: accountEmail.trim(), password: accountPassword },
+        await callWithAuth(createAuthorAccount, {
+          authorId: accountModal.author.id,
+          email: accountEmail.trim(),
+          password: accountPassword,
         });
         toast.success(`Login created for ${accountModal.author.name}`);
       } else {
-        await resetAuthorPassword({
-          data: { authorId: accountModal.author.id, password: accountPassword },
+        await callWithAuth(resetAuthorPassword, {
+          authorId: accountModal.author.id,
+          password: accountPassword,
         });
         toast.success("Password reset");
       }
