@@ -92,14 +92,18 @@ export function AppDownload() {
               <div className="flex flex-wrap items-center gap-4 pt-3">
                 <div className="flex flex-col gap-3">
                   <a
-                    href="#"
+                    href="https://apps.apple.com/np/app/zaaou-sewa/id6479515378"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     aria-label="Download on the App Store"
                     className="inline-block rounded-xl overflow-hidden hover:scale-[1.04] transition-transform shadow-soft"
                   >
                     <AppStoreBadge className="h-12 w-auto" />
                   </a>
                   <a
-                    href="#"
+                    href="https://play.google.com/store/apps/details?id=com.zaaou24x7.app"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     aria-label="Get it on Google Play"
                     className="inline-block rounded-xl overflow-hidden hover:scale-[1.04] transition-transform shadow-soft"
                   >
