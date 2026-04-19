@@ -28,6 +28,7 @@ export type Database = {
           slug: string
           twitter_url: string | null
           updated_at: string
+          user_id: string | null
           website_url: string | null
         }
         Insert: {
@@ -43,6 +44,7 @@ export type Database = {
           slug: string
           twitter_url?: string | null
           updated_at?: string
+          user_id?: string | null
           website_url?: string | null
         }
         Update: {
@@ -58,6 +60,7 @@ export type Database = {
           slug?: string
           twitter_url?: string | null
           updated_at?: string
+          user_id?: string | null
           website_url?: string | null
         }
         Relationships: []
@@ -123,6 +126,38 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "comments_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      post_views: {
+        Row: {
+          created_at: string
+          id: string
+          post_id: string
+          viewed_on: string
+          visitor_hash: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          post_id: string
+          viewed_on?: string
+          visitor_hash: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          post_id?: string
+          viewed_on?: string
+          visitor_hash?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "post_views_post_id_fkey"
             columns: ["post_id"]
             isOneToOne: false
             referencedRelation: "posts"
@@ -380,11 +415,16 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      current_author_id: { Args: never; Returns: string }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
           _user_id: string
         }
+        Returns: boolean
+      }
+      is_post_author: {
+        Args: { _post_id: string; _user_id: string }
         Returns: boolean
       }
       slugify: { Args: { value: string }; Returns: string }
