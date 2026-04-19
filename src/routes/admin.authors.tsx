@@ -57,16 +57,18 @@ function AuthorsPage() {
   const [accountEmail, setAccountEmail] = useState("");
   const [accountPassword, setAccountPassword] = useState("");
   const [accountSubmitting, setAccountSubmitting] = useState(false);
+  const [emails, setEmails] = useState<Record<string, string>>({});
 
   function openCreateAccount(a: Author) {
     setAccountEmail("");
     setAccountPassword("");
     setAccountModal({ kind: "create", author: a });
   }
-  function openResetAccount(a: Author) {
-    setAccountEmail("");
+  function openEditAccount(a: Author) {
+    const current = emails[a.id] ?? "";
+    setAccountEmail(current);
     setAccountPassword("");
-    setAccountModal({ kind: "reset", author: a });
+    setAccountModal({ kind: "edit", author: a, currentEmail: current });
   }
   async function handleAccountSubmit(e: FormEvent) {
     e.preventDefault();
@@ -81,11 +83,20 @@ function AuthorsPage() {
         });
         toast.success(`Login created for ${accountModal.author.name}`);
       } else {
-        await callWithAuth(resetAuthorPassword, {
+        const email = accountEmail.trim();
+        const emailChanged = email && email !== accountModal.currentEmail;
+        const payload: { authorId: string; email?: string; password?: string } = {
           authorId: accountModal.author.id,
-          password: accountPassword,
-        });
-        toast.success("Password reset");
+        };
+        if (emailChanged) payload.email = email;
+        if (accountPassword) payload.password = accountPassword;
+        if (!payload.email && !payload.password) {
+          toast.error("Change the email or set a new password");
+          setAccountSubmitting(false);
+          return;
+        }
+        await callWithAuth(updateAuthorAccount, payload);
+        toast.success("Login updated");
       }
       setAccountModal(null);
       load();
@@ -111,6 +122,13 @@ function AuthorsPage() {
     const { data } = await supabase.from("authors").select("*").order("name");
     setAuthors(data ?? []);
     setLoading(false);
+    // Load emails (admin-only)
+    try {
+      const map = await callWithAuth(listAuthorAccountEmails, undefined as never);
+      setEmails(map);
+    } catch {
+      // not fatal
+    }
   }
 
   useEffect(() => {
