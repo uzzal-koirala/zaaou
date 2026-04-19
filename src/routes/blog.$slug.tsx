@@ -1,12 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { ArrowLeft, Clock, Loader2, Calendar } from "lucide-react";
+import { ArrowLeft, Clock, Loader2, Calendar, Tag } from "lucide-react";
 import { PageShell } from "@/components/site/PageShell";
 import { MarkdownContent } from "@/components/blog/MarkdownContent";
 import { ShareBar } from "@/components/blog/ShareBar";
 import { AuthorCard } from "@/components/blog/AuthorCard";
 import { CommentSection } from "@/components/blog/CommentSection";
 import { BlogCard } from "@/components/blog/BlogCard";
+import { ReadingProgress } from "@/components/blog/ReadingProgress";
+import { TableOfContents } from "@/components/blog/TableOfContents";
 import { supabase } from "@/integrations/supabase/client";
 import { formatDate } from "@/lib/blog-utils";
 import type { Database } from "@/integrations/supabase/types";
@@ -187,104 +189,173 @@ function PostPage() {
 
   return (
     <PageShell>
-      <article className="mx-auto max-w-3xl px-5 lg:px-8 pt-10 pb-16">
-        <Link
-          to="/blog"
-          className="inline-flex items-center gap-1.5 text-sm font-semibold text-muted-foreground hover:text-primary mb-6"
-        >
-          <ArrowLeft className="h-4 w-4" /> Back to blog
-        </Link>
+      {/* Hero */}
+      <header className="relative overflow-hidden bg-gradient-to-b from-primary/10 via-background to-background pt-10 pb-12 lg:pt-14 lg:pb-16">
+        <div className="absolute inset-0 -z-10 opacity-60 [background:radial-gradient(60%_60%_at_50%_0%,color-mix(in_oklab,var(--primary)_18%,transparent),transparent_70%)]" />
+        <div className="mx-auto max-w-4xl px-5 lg:px-8">
+          <Link
+            to="/blog"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-muted-foreground hover:text-primary mb-6"
+          >
+            <ArrowLeft className="h-4 w-4" /> Back to blog
+          </Link>
 
-        {post.category && (
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary mb-3">
-            {post.category}
-          </p>
-        )}
-        <h1 className="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl tracking-tight text-foreground leading-tight">
-          {post.title}
-        </h1>
-        {post.excerpt && (
-          <p className="mt-4 text-lg text-muted-foreground leading-relaxed">{post.excerpt}</p>
-        )}
-
-        <div className="mt-6 flex items-center gap-4 text-sm text-muted-foreground flex-wrap">
-          {post.authors && (
-            <Link
-              to="/blog/author/$slug"
-              params={{ slug: post.authors.slug }}
-              className="flex items-center gap-2 group"
-            >
-              {post.authors.avatar_url ? (
-                <img
-                  src={post.authors.avatar_url}
-                  alt={post.authors.name}
-                  className="h-9 w-9 rounded-full object-cover"
-                />
-              ) : (
-                <div className="h-9 w-9 rounded-full bg-primary/10 text-primary grid place-items-center text-xs font-bold">
-                  {post.authors.name.charAt(0)}
-                </div>
-              )}
-              <span className="font-semibold text-foreground group-hover:text-primary transition-colors">
-                {post.authors.name}
-              </span>
-            </Link>
-          )}
-          <span className="flex items-center gap-1.5">
-            <Calendar className="h-3.5 w-3.5" /> {formatDate(post.published_at)}
-          </span>
-          {post.reading_time_minutes && (
-            <span className="flex items-center gap-1.5">
-              <Clock className="h-3.5 w-3.5" /> {post.reading_time_minutes} min read
+          {post.category && (
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 text-primary px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em]">
+              <Tag className="h-3 w-3" /> {post.category}
             </span>
           )}
+          <h1 className="mt-4 font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl tracking-tight text-foreground leading-[1.1]">
+            {post.title}
+          </h1>
+          {post.excerpt && (
+            <p className="mt-5 text-lg text-muted-foreground leading-relaxed max-w-2xl">
+              {post.excerpt}
+            </p>
+          )}
+
+          <div className="mt-7 flex items-center gap-5 text-sm text-muted-foreground flex-wrap">
+            {post.authors && (
+              <Link
+                to="/blog/author/$slug"
+                params={{ slug: post.authors.slug }}
+                className="flex items-center gap-2.5 group"
+              >
+                {post.authors.avatar_url ? (
+                  <img
+                    src={post.authors.avatar_url}
+                    alt={post.authors.name}
+                    className="h-10 w-10 rounded-full object-cover ring-2 ring-primary/20"
+                  />
+                ) : (
+                  <div className="h-10 w-10 rounded-full bg-primary/10 text-primary grid place-items-center text-xs font-bold ring-2 ring-primary/20">
+                    {post.authors.name.charAt(0)}
+                  </div>
+                )}
+                <span className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                  {post.authors.name}
+                </span>
+              </Link>
+            )}
+            <span className="flex items-center gap-1.5">
+              <Calendar className="h-3.5 w-3.5" /> {formatDate(post.published_at)}
+            </span>
+            {post.reading_time_minutes && (
+              <span className="flex items-center gap-1.5">
+                <Clock className="h-3.5 w-3.5" /> {post.reading_time_minutes} min read
+              </span>
+            )}
+          </div>
         </div>
-      </article>
+      </header>
 
       {post.cover_image_url && (
         <div className="mx-auto max-w-5xl px-5 lg:px-8">
           <img
             src={post.cover_image_url}
             alt={post.title}
-            className="w-full aspect-[16/9] object-cover rounded-2xl shadow-soft"
+            className="w-full aspect-[16/8] object-cover rounded-3xl shadow-glow"
           />
         </div>
       )}
 
-      <div className="mx-auto max-w-3xl px-5 lg:px-8 pt-12">
-        <MarkdownContent content={post.content} />
+      {/* Article + sidebar layout */}
+      <div className="mx-auto max-w-7xl px-5 lg:px-8 pt-12 pb-20">
+        <div className="grid gap-10 lg:gap-14 lg:grid-cols-[minmax(0,1fr)_300px]">
+          {/* Main column */}
+          <article className="min-w-0">
+            <ReadingProgress />
 
-        {post.tags.length > 0 && (
-          <div className="mt-10 flex items-center gap-2 flex-wrap">
-            {post.tags.map((tag) => (
-              <span
-                key={tag}
-                className="text-xs px-3 py-1 rounded-full bg-muted text-foreground/70 font-medium"
-              >
-                #{tag}
-              </span>
-            ))}
-          </div>
-        )}
+            <MarkdownContent content={post.content} />
 
-        <div className="mt-10 pt-8 border-t border-border">
-          {shareUrl && <ShareBar url={shareUrl} title={post.title} />}
+            {post.tags.length > 0 && (
+              <div className="mt-10 flex items-center gap-2 flex-wrap">
+                {post.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="text-xs px-3 py-1 rounded-full bg-muted text-foreground/70 font-medium"
+                  >
+                    #{tag}
+                  </span>
+                ))}
+              </div>
+            )}
+
+            <div className="mt-10 pt-8 border-t border-border">
+              {shareUrl && <ShareBar url={shareUrl} title={post.title} />}
+            </div>
+
+            {post.authors && (
+              <div className="mt-10 lg:hidden">
+                <AuthorCard author={post.authors} />
+              </div>
+            )}
+
+            <CommentSection
+              postId={post.id}
+              commentsEnabled={settings.comments_enabled}
+              autoApprove={settings.comments_auto_approve}
+            />
+          </article>
+
+          {/* Sidebar */}
+          <aside className="lg:block">
+            <div className="lg:sticky lg:top-24 space-y-6">
+              <TableOfContents content={post.content} />
+
+              {post.authors && (
+                <div className="hidden lg:block">
+                  <AuthorCard author={post.authors} />
+                </div>
+              )}
+
+              {related.length > 0 && (
+                <div className="rounded-2xl border border-border bg-card p-5 shadow-soft">
+                  <h3 className="font-display font-bold text-sm uppercase tracking-wider text-foreground mb-4">
+                    More in {post.category}
+                  </h3>
+                  <ul className="space-y-4">
+                    {related.map((p) => (
+                      <li key={p.slug}>
+                        <Link
+                          to="/blog/$slug"
+                          params={{ slug: p.slug }}
+                          className="group flex gap-3"
+                        >
+                          <div className="h-14 w-20 flex-shrink-0 overflow-hidden rounded-lg bg-muted">
+                            {p.cover_image_url ? (
+                              <img
+                                src={p.cover_image_url}
+                                alt={p.title}
+                                className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                loading="lazy"
+                              />
+                            ) : (
+                              <div className="h-full w-full bg-gradient-to-br from-primary/20 to-primary/5" />
+                            )}
+                          </div>
+                          <div className="min-w-0">
+                            <p className="text-sm font-semibold leading-snug text-foreground group-hover:text-primary transition-colors line-clamp-2">
+                              {p.title}
+                            </p>
+                            {p.reading_time_minutes && (
+                              <p className="mt-1 text-[11px] text-muted-foreground flex items-center gap-1">
+                                <Clock className="h-3 w-3" /> {p.reading_time_minutes} min read
+                              </p>
+                            )}
+                          </div>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          </aside>
         </div>
 
-        {post.authors && (
-          <div className="mt-10">
-            <AuthorCard author={post.authors} />
-          </div>
-        )}
-
-        <CommentSection
-          postId={post.id}
-          commentsEnabled={settings.comments_enabled}
-          autoApprove={settings.comments_auto_approve}
-        />
-
         {related.length > 0 && (
-          <section className="mt-16 pt-12 border-t border-border">
+          <section className="mt-20 pt-12 border-t border-border">
             <h2 className="font-display text-2xl font-bold mb-6">More stories</h2>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {related.map((p) => (
