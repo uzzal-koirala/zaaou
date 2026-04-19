@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TeamRouteImport } from './routes/team'
 import { Route as RestaurantsRouteImport } from './routes/restaurants'
 import { Route as PartnerRouteImport } from './routes/partner'
 import { Route as CareersRouteImport } from './routes/careers'
@@ -17,6 +18,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as AdminTeamRouteImport } from './routes/admin.team'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as AdminCommentsRouteImport } from './routes/admin.comments'
 import { Route as AdminAuthorsRouteImport } from './routes/admin.authors'
@@ -25,6 +27,11 @@ import { Route as BlogAuthorSlugRouteImport } from './routes/blog.author.$slug'
 import { Route as AdminPostsNewRouteImport } from './routes/admin.posts.new'
 import { Route as AdminPostsIdEditRouteImport } from './routes/admin.posts.$id.edit'
 
+const TeamRoute = TeamRouteImport.update({
+  id: '/team',
+  path: '/team',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RestaurantsRoute = RestaurantsRouteImport.update({
   id: '/restaurants',
   path: '/restaurants',
@@ -64,6 +71,11 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
   getParentRoute: () => BlogRoute,
+} as any)
+const AdminTeamRoute = AdminTeamRouteImport.update({
+  id: '/admin/team',
+  path: '/admin/team',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AdminSettingsRoute = AdminSettingsRouteImport.update({
   id: '/admin/settings',
@@ -108,9 +120,11 @@ export interface FileRoutesByFullPath {
   '/careers': typeof CareersRoute
   '/partner': typeof PartnerRoute
   '/restaurants': typeof RestaurantsRoute
+  '/team': typeof TeamRoute
   '/admin/authors': typeof AdminAuthorsRoute
   '/admin/comments': typeof AdminCommentsRoute
   '/admin/settings': typeof AdminSettingsRoute
+  '/admin/team': typeof AdminTeamRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/admin/posts/new': typeof AdminPostsNewRoute
@@ -125,9 +139,11 @@ export interface FileRoutesByTo {
   '/careers': typeof CareersRoute
   '/partner': typeof PartnerRoute
   '/restaurants': typeof RestaurantsRoute
+  '/team': typeof TeamRoute
   '/admin/authors': typeof AdminAuthorsRoute
   '/admin/comments': typeof AdminCommentsRoute
   '/admin/settings': typeof AdminSettingsRoute
+  '/admin/team': typeof AdminTeamRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/admin': typeof AdminIndexRoute
   '/admin/posts/new': typeof AdminPostsNewRoute
@@ -143,9 +159,11 @@ export interface FileRoutesById {
   '/careers': typeof CareersRoute
   '/partner': typeof PartnerRoute
   '/restaurants': typeof RestaurantsRoute
+  '/team': typeof TeamRoute
   '/admin/authors': typeof AdminAuthorsRoute
   '/admin/comments': typeof AdminCommentsRoute
   '/admin/settings': typeof AdminSettingsRoute
+  '/admin/team': typeof AdminTeamRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/admin/posts/new': typeof AdminPostsNewRoute
@@ -162,9 +180,11 @@ export interface FileRouteTypes {
     | '/careers'
     | '/partner'
     | '/restaurants'
+    | '/team'
     | '/admin/authors'
     | '/admin/comments'
     | '/admin/settings'
+    | '/admin/team'
     | '/blog/$slug'
     | '/admin/'
     | '/admin/posts/new'
@@ -179,9 +199,11 @@ export interface FileRouteTypes {
     | '/careers'
     | '/partner'
     | '/restaurants'
+    | '/team'
     | '/admin/authors'
     | '/admin/comments'
     | '/admin/settings'
+    | '/admin/team'
     | '/blog/$slug'
     | '/admin'
     | '/admin/posts/new'
@@ -196,9 +218,11 @@ export interface FileRouteTypes {
     | '/careers'
     | '/partner'
     | '/restaurants'
+    | '/team'
     | '/admin/authors'
     | '/admin/comments'
     | '/admin/settings'
+    | '/admin/team'
     | '/blog/$slug'
     | '/admin/'
     | '/admin/posts/new'
@@ -214,9 +238,11 @@ export interface RootRouteChildren {
   CareersRoute: typeof CareersRoute
   PartnerRoute: typeof PartnerRoute
   RestaurantsRoute: typeof RestaurantsRoute
+  TeamRoute: typeof TeamRoute
   AdminAuthorsRoute: typeof AdminAuthorsRoute
   AdminCommentsRoute: typeof AdminCommentsRoute
   AdminSettingsRoute: typeof AdminSettingsRoute
+  AdminTeamRoute: typeof AdminTeamRoute
   AdminIndexRoute: typeof AdminIndexRoute
   AdminPostsNewRoute: typeof AdminPostsNewRoute
   AdminPostsIndexRoute: typeof AdminPostsIndexRoute
@@ -225,6 +251,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/team': {
+      id: '/team'
+      path: '/team'
+      fullPath: '/team'
+      preLoaderRoute: typeof TeamRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/restaurants': {
       id: '/restaurants'
       path: '/restaurants'
@@ -280,6 +313,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/blog/$slug'
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof BlogRoute
+    }
+    '/admin/team': {
+      id: '/admin/team'
+      path: '/admin/team'
+      fullPath: '/admin/team'
+      preLoaderRoute: typeof AdminTeamRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/admin/settings': {
       id: '/admin/settings'
@@ -352,9 +392,11 @@ const rootRouteChildren: RootRouteChildren = {
   CareersRoute: CareersRoute,
   PartnerRoute: PartnerRoute,
   RestaurantsRoute: RestaurantsRoute,
+  TeamRoute: TeamRoute,
   AdminAuthorsRoute: AdminAuthorsRoute,
   AdminCommentsRoute: AdminCommentsRoute,
   AdminSettingsRoute: AdminSettingsRoute,
+  AdminTeamRoute: AdminTeamRoute,
   AdminIndexRoute: AdminIndexRoute,
   AdminPostsNewRoute: AdminPostsNewRoute,
   AdminPostsIndexRoute: AdminPostsIndexRoute,

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
+import { ArrowRight, Facebook, Instagram, Linkedin, Twitter } from "lucide-react/icons";
 import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
 
