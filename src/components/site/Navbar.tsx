@@ -17,12 +17,18 @@ export function Navbar() {
       <div className="mx-auto max-w-7xl px-5 lg:px-8 h-18 flex items-center justify-between py-3">
         <a href="#" className="flex items-center gap-2.5">
           <img src={logo} alt="Zaaou Food" className="h-11 w-11 rounded-xl shadow-soft" />
-          <span className="font-display font-extrabold text-xl tracking-tight">
-            Zaaou<span className="text-primary"> food</span>
-          </span>
+          <div className="leading-tight">
+            <span className="block font-display font-extrabold text-xl tracking-tight text-foreground">
+              Zaaou
+            </span>
+            <span className="block text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+              Food Delivery
+            </span>
+          </div>
         </a>
 
         <nav className="hidden md:flex items-center gap-8">
+          <a href="#" className="text-sm font-semibold text-primary">Home</a>
           {links.map((l) => (
             <a key={l.href} href={l.href} className="text-sm font-medium text-foreground/70 hover:text-primary transition-colors">
               {l.label}
@@ -32,7 +38,7 @@ export function Navbar() {
 
         <a
           href="#app"
-          className="hidden md:inline-flex items-center justify-center rounded-full bg-gradient-primary text-primary-foreground px-5 py-2.5 text-sm font-semibold shadow-soft hover:shadow-glow transition-shadow"
+          className="hidden md:inline-flex items-center justify-center rounded-xl bg-primary text-primary-foreground px-6 py-2.5 text-sm font-semibold shadow-soft hover:shadow-glow transition-shadow"
         >
           Order Now
         </a>
