@@ -197,7 +197,9 @@ export function CareersPage() {
                   </div>
                 </div>
                 <a
-                  href={`mailto:careers@zaaoufood.com?subject=Application: ${encodeURIComponent(job.title)}`}
+                  href={`https://wa.me/9779705047000?text=${encodeURIComponent(`Hi Zaaou, I'd like to apply for the ${job.title} role.`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="shrink-0 inline-flex items-center justify-center gap-2 rounded-xl bg-primary text-primary-foreground px-5 py-3 text-sm font-semibold hover:shadow-glow transition-all"
                 >
                   Apply now
