@@ -1,8 +1,9 @@
-import { Check } from "lucide-react";
+import { Check, QrCode } from "lucide-react";
 import { AppStoreBadge, GooglePlayBadge } from "./StoreBadges";
 import screenHome from "@/assets/app/screen-home.png";
 import screenStores from "@/assets/app/screen-stores.png";
 import screenProduct from "@/assets/app/screen-product.png";
+import zaaouQr from "@/assets/zaaou-qr.png";
 
 const perks = [
   "Browse 100+ restaurants by category",
@@ -51,21 +52,43 @@ export function AppDownload() {
                 ))}
               </ul>
 
-              <div className="flex flex-wrap gap-3 pt-3">
-                <a
-                  href="#"
-                  aria-label="Download on the App Store"
-                  className="inline-block rounded-xl overflow-hidden hover:scale-[1.03] transition-transform shadow-soft"
-                >
-                  <AppStoreBadge className="h-14 w-auto" />
-                </a>
-                <a
-                  href="#"
-                  aria-label="Get it on Google Play"
-                  className="inline-block rounded-xl overflow-hidden hover:scale-[1.03] transition-transform shadow-soft"
-                >
-                  <GooglePlayBadge className="h-14 w-auto" />
-                </a>
+              <div className="flex flex-wrap items-center gap-4 pt-3">
+                <div className="flex flex-col gap-3">
+                  <a
+                    href="#"
+                    aria-label="Download on the App Store"
+                    className="inline-block rounded-xl overflow-hidden hover:scale-[1.03] transition-transform shadow-soft"
+                  >
+                    <AppStoreBadge className="h-12 w-auto" />
+                  </a>
+                  <a
+                    href="#"
+                    aria-label="Get it on Google Play"
+                    className="inline-block rounded-xl overflow-hidden hover:scale-[1.03] transition-transform shadow-soft"
+                  >
+                    <GooglePlayBadge className="h-12 w-auto" />
+                  </a>
+                </div>
+
+                <div className="flex items-center gap-3 bg-card text-foreground rounded-2xl p-3 shadow-card">
+                  <img
+                    src={zaaouQr}
+                    alt="Scan QR code to download Zaaou Food app"
+                    width={120}
+                    height={120}
+                    loading="lazy"
+                    className="h-24 w-24 rounded-lg"
+                  />
+                  <div className="pr-2 max-w-[10rem]">
+                    <div className="inline-flex items-center gap-1.5 text-primary text-[10px] font-bold uppercase tracking-wider mb-1">
+                      <QrCode className="h-3 w-3" />
+                      Quick Install
+                    </div>
+                    <p className="font-display font-extrabold text-sm leading-tight">
+                      Scan to download Zaaou Food
+                    </p>
+                  </div>
+                </div>
               </div>
 
               <div className="flex items-center gap-6 pt-4">
