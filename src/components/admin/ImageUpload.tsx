@@ -155,26 +155,28 @@ export function ImageUpload({
         >
           {uploading ? (
             <>
-              <Loader2 className="h-7 w-7 text-primary animate-spin" />
-              <p className="mt-2 text-sm font-medium text-muted-foreground">
+              <Loader2 className="h-5 w-5 text-primary animate-spin" />
+              <p className="mt-1 text-[11px] font-medium text-muted-foreground">
                 Uploading…
               </p>
             </>
           ) : (
             <>
-              <div className="h-12 w-12 rounded-full bg-primary/10 grid place-items-center">
+              <div className="h-8 w-8 rounded-full bg-primary/10 grid place-items-center">
                 {variant === "avatar" ? (
-                  <ImagePlus className="h-5 w-5 text-primary" />
+                  <ImagePlus className="h-4 w-4 text-primary" />
                 ) : (
-                  <Upload className="h-5 w-5 text-primary" />
+                  <Upload className="h-4 w-4 text-primary" />
                 )}
               </div>
-              <p className="mt-2 text-sm font-semibold text-foreground">
-                Click or drop image
+              <p className="mt-1.5 text-xs font-semibold text-foreground">
+                {variant === "cover" ? "Click or drop image" : "Upload"}
               </p>
-              <p className="text-[11px] text-muted-foreground">
-                PNG, JPG, WEBP — max {MAX_MB}MB
-              </p>
+              {variant === "cover" && (
+                <p className="text-[10px] text-muted-foreground">
+                  PNG, JPG, WEBP — max {MAX_MB}MB
+                </p>
+              )}
             </>
           )}
         </div>
