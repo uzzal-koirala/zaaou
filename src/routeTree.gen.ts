@@ -17,18 +17,25 @@ import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
+import { Route as AuthorIndexRouteImport } from './routes/author.index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as AuthorProfileRouteImport } from './routes/author.profile'
+import { Route as AuthorLoginRouteImport } from './routes/author.login'
+import { Route as AuthorCommentsRouteImport } from './routes/author.comments'
 import { Route as AdminTeamRouteImport } from './routes/admin.team'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as AdminRidersRouteImport } from './routes/admin.riders'
 import { Route as AdminCommentsRouteImport } from './routes/admin.comments'
 import { Route as AdminAuthorsRouteImport } from './routes/admin.authors'
+import { Route as AuthorPostsIndexRouteImport } from './routes/author.posts.index'
 import { Route as AdminRestaurantsIndexRouteImport } from './routes/admin.restaurants.index'
 import { Route as AdminPostsIndexRouteImport } from './routes/admin.posts.index'
 import { Route as BlogAuthorSlugRouteImport } from './routes/blog.author.$slug'
+import { Route as AuthorPostsNewRouteImport } from './routes/author.posts.new'
 import { Route as AdminRestaurantsNewRouteImport } from './routes/admin.restaurants.new'
 import { Route as AdminPostsNewRouteImport } from './routes/admin.posts.new'
+import { Route as AuthorPostsIdEditRouteImport } from './routes/author.posts.$id.edit'
 import { Route as AdminRestaurantsIdEditRouteImport } from './routes/admin.restaurants.$id.edit'
 import { Route as AdminPostsIdEditRouteImport } from './routes/admin.posts.$id.edit'
 
@@ -72,6 +79,11 @@ const BlogIndexRoute = BlogIndexRouteImport.update({
   path: '/',
   getParentRoute: () => BlogRoute,
 } as any)
+const AuthorIndexRoute = AuthorIndexRouteImport.update({
+  id: '/author/',
+  path: '/author/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/admin/',
   path: '/admin/',
@@ -81,6 +93,21 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
   getParentRoute: () => BlogRoute,
+} as any)
+const AuthorProfileRoute = AuthorProfileRouteImport.update({
+  id: '/author/profile',
+  path: '/author/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthorLoginRoute = AuthorLoginRouteImport.update({
+  id: '/author/login',
+  path: '/author/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthorCommentsRoute = AuthorCommentsRouteImport.update({
+  id: '/author/comments',
+  path: '/author/comments',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AdminTeamRoute = AdminTeamRouteImport.update({
   id: '/admin/team',
@@ -107,6 +134,11 @@ const AdminAuthorsRoute = AdminAuthorsRouteImport.update({
   path: '/admin/authors',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthorPostsIndexRoute = AuthorPostsIndexRouteImport.update({
+  id: '/author/posts/',
+  path: '/author/posts/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminRestaurantsIndexRoute = AdminRestaurantsIndexRouteImport.update({
   id: '/admin/restaurants/',
   path: '/admin/restaurants/',
@@ -122,6 +154,11 @@ const BlogAuthorSlugRoute = BlogAuthorSlugRouteImport.update({
   path: '/author/$slug',
   getParentRoute: () => BlogRoute,
 } as any)
+const AuthorPostsNewRoute = AuthorPostsNewRouteImport.update({
+  id: '/author/posts/new',
+  path: '/author/posts/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminRestaurantsNewRoute = AdminRestaurantsNewRouteImport.update({
   id: '/admin/restaurants/new',
   path: '/admin/restaurants/new',
@@ -130,6 +167,11 @@ const AdminRestaurantsNewRoute = AdminRestaurantsNewRouteImport.update({
 const AdminPostsNewRoute = AdminPostsNewRouteImport.update({
   id: '/admin/posts/new',
   path: '/admin/posts/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthorPostsIdEditRoute = AuthorPostsIdEditRouteImport.update({
+  id: '/author/posts/$id/edit',
+  path: '/author/posts/$id/edit',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminRestaurantsIdEditRoute = AdminRestaurantsIdEditRouteImport.update({
@@ -156,16 +198,23 @@ export interface FileRoutesByFullPath {
   '/admin/riders': typeof AdminRidersRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/team': typeof AdminTeamRoute
+  '/author/comments': typeof AuthorCommentsRoute
+  '/author/login': typeof AuthorLoginRoute
+  '/author/profile': typeof AuthorProfileRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/admin/': typeof AdminIndexRoute
+  '/author/': typeof AuthorIndexRoute
   '/blog/': typeof BlogIndexRoute
   '/admin/posts/new': typeof AdminPostsNewRoute
   '/admin/restaurants/new': typeof AdminRestaurantsNewRoute
+  '/author/posts/new': typeof AuthorPostsNewRoute
   '/blog/author/$slug': typeof BlogAuthorSlugRoute
   '/admin/posts/': typeof AdminPostsIndexRoute
   '/admin/restaurants/': typeof AdminRestaurantsIndexRoute
+  '/author/posts/': typeof AuthorPostsIndexRoute
   '/admin/posts/$id/edit': typeof AdminPostsIdEditRoute
   '/admin/restaurants/$id/edit': typeof AdminRestaurantsIdEditRoute
+  '/author/posts/$id/edit': typeof AuthorPostsIdEditRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -179,16 +228,23 @@ export interface FileRoutesByTo {
   '/admin/riders': typeof AdminRidersRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/team': typeof AdminTeamRoute
+  '/author/comments': typeof AuthorCommentsRoute
+  '/author/login': typeof AuthorLoginRoute
+  '/author/profile': typeof AuthorProfileRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/admin': typeof AdminIndexRoute
+  '/author': typeof AuthorIndexRoute
   '/blog': typeof BlogIndexRoute
   '/admin/posts/new': typeof AdminPostsNewRoute
   '/admin/restaurants/new': typeof AdminRestaurantsNewRoute
+  '/author/posts/new': typeof AuthorPostsNewRoute
   '/blog/author/$slug': typeof BlogAuthorSlugRoute
   '/admin/posts': typeof AdminPostsIndexRoute
   '/admin/restaurants': typeof AdminRestaurantsIndexRoute
+  '/author/posts': typeof AuthorPostsIndexRoute
   '/admin/posts/$id/edit': typeof AdminPostsIdEditRoute
   '/admin/restaurants/$id/edit': typeof AdminRestaurantsIdEditRoute
+  '/author/posts/$id/edit': typeof AuthorPostsIdEditRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -204,16 +260,23 @@ export interface FileRoutesById {
   '/admin/riders': typeof AdminRidersRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/team': typeof AdminTeamRoute
+  '/author/comments': typeof AuthorCommentsRoute
+  '/author/login': typeof AuthorLoginRoute
+  '/author/profile': typeof AuthorProfileRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/admin/': typeof AdminIndexRoute
+  '/author/': typeof AuthorIndexRoute
   '/blog/': typeof BlogIndexRoute
   '/admin/posts/new': typeof AdminPostsNewRoute
   '/admin/restaurants/new': typeof AdminRestaurantsNewRoute
+  '/author/posts/new': typeof AuthorPostsNewRoute
   '/blog/author/$slug': typeof BlogAuthorSlugRoute
   '/admin/posts/': typeof AdminPostsIndexRoute
   '/admin/restaurants/': typeof AdminRestaurantsIndexRoute
+  '/author/posts/': typeof AuthorPostsIndexRoute
   '/admin/posts/$id/edit': typeof AdminPostsIdEditRoute
   '/admin/restaurants/$id/edit': typeof AdminRestaurantsIdEditRoute
+  '/author/posts/$id/edit': typeof AuthorPostsIdEditRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -230,16 +293,23 @@ export interface FileRouteTypes {
     | '/admin/riders'
     | '/admin/settings'
     | '/admin/team'
+    | '/author/comments'
+    | '/author/login'
+    | '/author/profile'
     | '/blog/$slug'
     | '/admin/'
+    | '/author/'
     | '/blog/'
     | '/admin/posts/new'
     | '/admin/restaurants/new'
+    | '/author/posts/new'
     | '/blog/author/$slug'
     | '/admin/posts/'
     | '/admin/restaurants/'
+    | '/author/posts/'
     | '/admin/posts/$id/edit'
     | '/admin/restaurants/$id/edit'
+    | '/author/posts/$id/edit'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -253,16 +323,23 @@ export interface FileRouteTypes {
     | '/admin/riders'
     | '/admin/settings'
     | '/admin/team'
+    | '/author/comments'
+    | '/author/login'
+    | '/author/profile'
     | '/blog/$slug'
     | '/admin'
+    | '/author'
     | '/blog'
     | '/admin/posts/new'
     | '/admin/restaurants/new'
+    | '/author/posts/new'
     | '/blog/author/$slug'
     | '/admin/posts'
     | '/admin/restaurants'
+    | '/author/posts'
     | '/admin/posts/$id/edit'
     | '/admin/restaurants/$id/edit'
+    | '/author/posts/$id/edit'
   id:
     | '__root__'
     | '/'
@@ -277,16 +354,23 @@ export interface FileRouteTypes {
     | '/admin/riders'
     | '/admin/settings'
     | '/admin/team'
+    | '/author/comments'
+    | '/author/login'
+    | '/author/profile'
     | '/blog/$slug'
     | '/admin/'
+    | '/author/'
     | '/blog/'
     | '/admin/posts/new'
     | '/admin/restaurants/new'
+    | '/author/posts/new'
     | '/blog/author/$slug'
     | '/admin/posts/'
     | '/admin/restaurants/'
+    | '/author/posts/'
     | '/admin/posts/$id/edit'
     | '/admin/restaurants/$id/edit'
+    | '/author/posts/$id/edit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -302,13 +386,20 @@ export interface RootRouteChildren {
   AdminRidersRoute: typeof AdminRidersRoute
   AdminSettingsRoute: typeof AdminSettingsRoute
   AdminTeamRoute: typeof AdminTeamRoute
+  AuthorCommentsRoute: typeof AuthorCommentsRoute
+  AuthorLoginRoute: typeof AuthorLoginRoute
+  AuthorProfileRoute: typeof AuthorProfileRoute
   AdminIndexRoute: typeof AdminIndexRoute
+  AuthorIndexRoute: typeof AuthorIndexRoute
   AdminPostsNewRoute: typeof AdminPostsNewRoute
   AdminRestaurantsNewRoute: typeof AdminRestaurantsNewRoute
+  AuthorPostsNewRoute: typeof AuthorPostsNewRoute
   AdminPostsIndexRoute: typeof AdminPostsIndexRoute
   AdminRestaurantsIndexRoute: typeof AdminRestaurantsIndexRoute
+  AuthorPostsIndexRoute: typeof AuthorPostsIndexRoute
   AdminPostsIdEditRoute: typeof AdminPostsIdEditRoute
   AdminRestaurantsIdEditRoute: typeof AdminRestaurantsIdEditRoute
+  AuthorPostsIdEditRoute: typeof AuthorPostsIdEditRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -369,6 +460,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogIndexRouteImport
       parentRoute: typeof BlogRoute
     }
+    '/author/': {
+      id: '/author/'
+      path: '/author'
+      fullPath: '/author/'
+      preLoaderRoute: typeof AuthorIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/': {
       id: '/admin/'
       path: '/admin'
@@ -382,6 +480,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/blog/$slug'
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof BlogRoute
+    }
+    '/author/profile': {
+      id: '/author/profile'
+      path: '/author/profile'
+      fullPath: '/author/profile'
+      preLoaderRoute: typeof AuthorProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/author/login': {
+      id: '/author/login'
+      path: '/author/login'
+      fullPath: '/author/login'
+      preLoaderRoute: typeof AuthorLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/author/comments': {
+      id: '/author/comments'
+      path: '/author/comments'
+      fullPath: '/author/comments'
+      preLoaderRoute: typeof AuthorCommentsRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/admin/team': {
       id: '/admin/team'
@@ -418,6 +537,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAuthorsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/author/posts/': {
+      id: '/author/posts/'
+      path: '/author/posts'
+      fullPath: '/author/posts/'
+      preLoaderRoute: typeof AuthorPostsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/restaurants/': {
       id: '/admin/restaurants/'
       path: '/admin/restaurants'
@@ -439,6 +565,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogAuthorSlugRouteImport
       parentRoute: typeof BlogRoute
     }
+    '/author/posts/new': {
+      id: '/author/posts/new'
+      path: '/author/posts/new'
+      fullPath: '/author/posts/new'
+      preLoaderRoute: typeof AuthorPostsNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/restaurants/new': {
       id: '/admin/restaurants/new'
       path: '/admin/restaurants/new'
@@ -451,6 +584,13 @@ declare module '@tanstack/react-router' {
       path: '/admin/posts/new'
       fullPath: '/admin/posts/new'
       preLoaderRoute: typeof AdminPostsNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/author/posts/$id/edit': {
+      id: '/author/posts/$id/edit'
+      path: '/author/posts/$id/edit'
+      fullPath: '/author/posts/$id/edit'
+      preLoaderRoute: typeof AuthorPostsIdEditRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/restaurants/$id/edit': {
@@ -497,13 +637,20 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRidersRoute: AdminRidersRoute,
   AdminSettingsRoute: AdminSettingsRoute,
   AdminTeamRoute: AdminTeamRoute,
+  AuthorCommentsRoute: AuthorCommentsRoute,
+  AuthorLoginRoute: AuthorLoginRoute,
+  AuthorProfileRoute: AuthorProfileRoute,
   AdminIndexRoute: AdminIndexRoute,
+  AuthorIndexRoute: AuthorIndexRoute,
   AdminPostsNewRoute: AdminPostsNewRoute,
   AdminRestaurantsNewRoute: AdminRestaurantsNewRoute,
+  AuthorPostsNewRoute: AuthorPostsNewRoute,
   AdminPostsIndexRoute: AdminPostsIndexRoute,
   AdminRestaurantsIndexRoute: AdminRestaurantsIndexRoute,
+  AuthorPostsIndexRoute: AuthorPostsIndexRoute,
   AdminPostsIdEditRoute: AdminPostsIdEditRoute,
   AdminRestaurantsIdEditRoute: AdminRestaurantsIdEditRoute,
+  AuthorPostsIdEditRoute: AuthorPostsIdEditRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

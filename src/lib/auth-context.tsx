@@ -2,12 +2,22 @@ import { createContext, useContext, useEffect, useState, type ReactNode } from "
 import type { Session, User } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
 
+type AuthorLite = {
+  id: string;
+  name: string;
+  slug: string;
+  avatar_url: string | null;
+};
+
 type AuthContextValue = {
   session: Session | null;
   user: User | null;
   isAdmin: boolean;
+  isAuthor: boolean;
+  author: AuthorLite | null;
   loading: boolean;
   signOut: () => Promise<void>;
+  refreshAuthor: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
@@ -15,27 +25,28 @@ const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isAuthor, setIsAuthor] = useState(false);
+  const [author, setAuthor] = useState<AuthorLite | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // 1. Subscribe FIRST
     const { data: sub } = supabase.auth.onAuthStateChange((_event, newSession) => {
       setSession(newSession);
       if (newSession?.user) {
-        // defer to avoid deadlock
         setTimeout(() => {
-          checkAdmin(newSession.user.id);
+          loadRolesAndAuthor(newSession.user.id);
         }, 0);
       } else {
         setIsAdmin(false);
+        setIsAuthor(false);
+        setAuthor(null);
       }
     });
 
-    // 2. Then check existing session
     supabase.auth.getSession().then(({ data }) => {
       setSession(data.session);
       if (data.session?.user) {
-        checkAdmin(data.session.user.id).finally(() => setLoading(false));
+        loadRolesAndAuthor(data.session.user.id).finally(() => setLoading(false));
       } else {
         setLoading(false);
       }
@@ -46,14 +57,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
   }, []);
 
-  async function checkAdmin(userId: string) {
-    const { data } = await supabase
-      .from("user_roles")
-      .select("role")
-      .eq("user_id", userId)
-      .eq("role", "admin")
-      .maybeSingle();
-    setIsAdmin(!!data);
+  async function loadRolesAndAuthor(userId: string) {
+    const [rolesRes, authorRes] = await Promise.all([
+      supabase.from("user_roles").select("role").eq("user_id", userId),
+      supabase
+        .from("authors")
+        .select("id, name, slug, avatar_url")
+        .eq("user_id", userId)
+        .maybeSingle(),
+    ]);
+    const roles = (rolesRes.data ?? []).map((r) => r.role);
+    setIsAdmin(roles.includes("admin"));
+    setIsAuthor(roles.includes("author"));
+    setAuthor(authorRes.data ?? null);
+  }
+
+  async function refreshAuthor() {
+    if (!session?.user) return;
+    await loadRolesAndAuthor(session.user.id);
   }
 
   async function signOut() {
@@ -62,7 +83,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   return (
     <AuthContext.Provider
-      value={{ session, user: session?.user ?? null, isAdmin, loading, signOut }}
+      value={{
+        session,
+        user: session?.user ?? null,
+        isAdmin,
+        isAuthor,
+        author,
+        loading,
+        signOut,
+        refreshAuthor,
+      }}
     >
       {children}
     </AuthContext.Provider>
