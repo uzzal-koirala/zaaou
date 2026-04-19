@@ -1,8 +1,9 @@
-import { Check } from "lucide-react";
+import { Check, QrCode } from "lucide-react";
 import { AppStoreBadge, GooglePlayBadge } from "./StoreBadges";
 import screenHome from "@/assets/app/screen-home.png";
 import screenStores from "@/assets/app/screen-stores.png";
 import screenProduct from "@/assets/app/screen-product.png";
+import zaaouQr from "@/assets/zaaou-qr.png";
 
 const perks = [
   "Browse 100+ restaurants by category",
