@@ -299,9 +299,10 @@ function PostPage() {
               {shareUrl && <ShareBar url={shareUrl} title={post.title} />}
             </div>
 
+            {/* About the Author — full-width, after the article */}
             {post.authors && (
-              <div className="mt-10 lg:hidden">
-                <AuthorCard author={post.authors} />
+              <div className="mt-12">
+                <AuthorCard author={post.authors} variant="wide" />
               </div>
             )}
 
@@ -316,12 +317,6 @@ function PostPage() {
           <aside className="lg:block">
             <div className="lg:sticky lg:top-24 space-y-6 max-h-[calc(100vh-7rem)] overflow-y-auto pb-2 [scrollbar-width:thin]">
               <TableOfContents content={post.content} />
-
-              {post.authors && (
-                <div className="hidden lg:block">
-                  <AuthorCard author={post.authors} />
-                </div>
-              )}
 
               <NewsletterCard />
 
