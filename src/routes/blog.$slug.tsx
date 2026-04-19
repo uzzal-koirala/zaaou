@@ -9,6 +9,8 @@ import { CommentSection } from "@/components/blog/CommentSection";
 import { BlogCard } from "@/components/blog/BlogCard";
 import { ReadingProgress } from "@/components/blog/ReadingProgress";
 import { TableOfContents } from "@/components/blog/TableOfContents";
+import { FloatingActions } from "@/components/blog/FloatingActions";
+import { NewsletterCard } from "@/components/blog/NewsletterCard";
 import { supabase } from "@/integrations/supabase/client";
 import { formatDate } from "@/lib/blog-utils";
 import type { Database } from "@/integrations/supabase/types";
