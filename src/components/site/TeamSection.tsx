@@ -56,10 +56,15 @@ export function TeamSection() {
   if (!loading && members.length === 0) return null;
 
   return (
-    <section id="team" className="py-20 sm:py-24 bg-background">
-      <div className="container mx-auto px-4">
-        <div className="max-w-2xl mx-auto text-center mb-12">
-          <span className="inline-block text-xs font-bold uppercase tracking-widest text-primary mb-3">
+    <section id="team" className="relative py-20 sm:py-28 overflow-hidden bg-gradient-to-b from-background via-secondary/30 to-background">
+      {/* decorative blobs */}
+      <div aria-hidden className="pointer-events-none absolute -top-24 -left-24 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
+      <div aria-hidden className="pointer-events-none absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-accent/10 blur-3xl" />
+
+      <div className="container mx-auto px-4 relative">
+        <div className="max-w-2xl mx-auto text-center mb-14">
+          <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 text-primary px-4 py-1.5 text-xs font-bold uppercase tracking-widest mb-4">
+            <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
             Our Team
           </span>
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">
@@ -71,26 +76,26 @@ export function TeamSection() {
         </div>
 
         {loading ? (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
             {Array.from({ length: 5 }).map((_, i) => (
-              <div key={i} className="rounded-2xl bg-muted/50 aspect-[3/4] animate-pulse" />
+              <div key={i} className="rounded-3xl bg-muted/50 aspect-[3/4] animate-pulse" />
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5">
-            {members.map((m) => (
-              <TeamCard key={m.id} member={m} />
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
+            {members.map((m, i) => (
+              <TeamCard key={m.id} member={m} index={i} />
             ))}
           </div>
         )}
 
-        <div className="mt-10 flex justify-center">
+        <div className="mt-14 flex justify-center">
           <Link
             to="/team"
-            className="inline-flex items-center gap-2 rounded-xl bg-primary text-primary-foreground px-6 py-3 text-sm font-semibold shadow-soft hover:shadow-glow transition-shadow"
+            className="group inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-7 py-3.5 text-sm font-semibold shadow-soft hover:shadow-glow transition-all hover:-translate-y-0.5"
           >
             View full team
-            <ArrowRight className="h-4 w-4" />
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
       </div>
@@ -98,65 +103,90 @@ export function TeamSection() {
   );
 }
 
-export function TeamCard({ member }: { member: TeamMember }) {
+const AVATAR_GRADIENTS = [
+  "from-orange-400 to-rose-500",
+  "from-amber-400 to-orange-500",
+  "from-rose-400 to-pink-500",
+  "from-emerald-400 to-teal-500",
+  "from-sky-400 to-indigo-500",
+  "from-fuchsia-400 to-purple-500",
+  "from-yellow-400 to-orange-500",
+];
+
+export function TeamCard({ member, index = 0 }: { member: TeamMember; index?: number }) {
+  const gradient = AVATAR_GRADIENTS[index % AVATAR_GRADIENTS.length];
+  const hasSocials =
+    member.facebook_url || member.instagram_url || member.linkedin_url || member.twitter_url;
+
   return (
-    <div className="group relative rounded-3xl bg-card border border-border overflow-hidden shadow-soft hover:shadow-glow transition-all duration-500 hover:-translate-y-2">
-      <div className="relative aspect-[4/5] overflow-hidden bg-gradient-to-br from-primary/10 via-muted to-accent/10">
-        {member.avatar_url ? (
-          <img
-            src={member.avatar_url}
-            alt={member.name}
-            loading="lazy"
-            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-          />
-        ) : (
-          <div className="w-full h-full grid place-items-center text-6xl font-bold text-primary">
-            {member.name.charAt(0)}
-          </div>
-        )}
-        {/* gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-500" />
+    <div className="group relative rounded-3xl bg-card border border-border p-6 text-center shadow-soft hover:shadow-glow transition-all duration-500 hover:-translate-y-2 overflow-hidden">
+      {/* hover gradient sheen */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-primary/5 via-transparent to-accent/5"
+      />
 
-        {/* role badge top */}
-        <div className="absolute top-3 left-3">
-          <span className="inline-block rounded-full bg-background/90 backdrop-blur-sm px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-primary shadow-soft">
-            {member.role}
-          </span>
-        </div>
-
-        {/* bottom content */}
-        <div className="absolute inset-x-0 bottom-0 p-4">
-          <h3 className="font-display font-bold text-lg text-foreground leading-tight drop-shadow-sm">
-            {member.name}
-          </h3>
-          {(member.facebook_url ||
-            member.instagram_url ||
-            member.linkedin_url ||
-            member.twitter_url) && (
-            <div className="mt-3 flex items-center gap-2 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-              {member.facebook_url && (
-                <SocialLink href={member.facebook_url} label="Facebook">
-                  <Facebook className="h-3.5 w-3.5" />
-                </SocialLink>
-              )}
-              {member.instagram_url && (
-                <SocialLink href={member.instagram_url} label="Instagram">
-                  <Instagram className="h-3.5 w-3.5" />
-                </SocialLink>
-              )}
-              {member.linkedin_url && (
-                <SocialLink href={member.linkedin_url} label="LinkedIn">
-                  <Linkedin className="h-3.5 w-3.5" />
-                </SocialLink>
-              )}
-              {member.twitter_url && (
-                <SocialLink href={member.twitter_url} label="Twitter">
-                  <Twitter className="h-3.5 w-3.5" />
-                </SocialLink>
-              )}
+      {/* avatar */}
+      <div className="relative mx-auto mb-5">
+        <div
+          aria-hidden
+          className={`absolute inset-0 -m-1 rounded-full bg-gradient-to-br ${gradient} opacity-60 blur-md group-hover:opacity-90 group-hover:-m-2 transition-all duration-500`}
+        />
+        <div className="relative mx-auto h-28 w-28 sm:h-32 sm:w-32 rounded-full overflow-hidden ring-4 ring-card shadow-soft">
+          {member.avatar_url ? (
+            <img
+              src={member.avatar_url}
+              alt={member.name}
+              loading="lazy"
+              className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500"
+            />
+          ) : (
+            <div
+              className={`h-full w-full grid place-items-center text-4xl font-display font-bold text-white bg-gradient-to-br ${gradient}`}
+            >
+              {member.name
+                .split(" ")
+                .map((n) => n.charAt(0))
+                .slice(0, 2)
+                .join("")}
             </div>
           )}
         </div>
+      </div>
+
+      {/* text */}
+      <div className="relative">
+        <h3 className="font-display font-bold text-base sm:text-lg text-foreground leading-tight">
+          {member.name}
+        </h3>
+        <p className="mt-1 text-xs font-semibold text-primary uppercase tracking-wide">
+          {member.role}
+        </p>
+
+        {hasSocials && (
+          <div className="mt-4 flex items-center justify-center gap-2">
+            {member.facebook_url && (
+              <SocialLink href={member.facebook_url} label="Facebook">
+                <Facebook className="h-3.5 w-3.5" />
+              </SocialLink>
+            )}
+            {member.instagram_url && (
+              <SocialLink href={member.instagram_url} label="Instagram">
+                <Instagram className="h-3.5 w-3.5" />
+              </SocialLink>
+            )}
+            {member.linkedin_url && (
+              <SocialLink href={member.linkedin_url} label="LinkedIn">
+                <Linkedin className="h-3.5 w-3.5" />
+              </SocialLink>
+            )}
+            {member.twitter_url && (
+              <SocialLink href={member.twitter_url} label="Twitter">
+                <Twitter className="h-3.5 w-3.5" />
+              </SocialLink>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
