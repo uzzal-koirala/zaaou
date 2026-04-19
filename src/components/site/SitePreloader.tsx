@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import logo from "@/assets/zaaou-logo.png";
 
 /**
  * Full-screen branded preloader shown until ALL <img> elements
@@ -108,13 +109,17 @@ export function SitePreloader() {
       />
 
       <div className="relative flex flex-col items-center gap-6 px-6">
-        {/* Bouncing food + spinner */}
+        {/* Bouncing logo + spinner */}
         <div className="relative h-24 w-24">
           <span
-            className="absolute inset-0 flex items-center justify-center text-5xl"
+            className="absolute inset-0 flex items-center justify-center"
             style={{ animation: "food-bounce 1s ease-in-out infinite" }}
           >
-            🍔
+            <img
+              src={logo}
+              alt="Zaaou Food"
+              className="h-14 w-14 rounded-2xl shadow-soft"
+            />
           </span>
           <span
             className="absolute inset-0 rounded-full border-4 border-primary/15 border-t-primary"
