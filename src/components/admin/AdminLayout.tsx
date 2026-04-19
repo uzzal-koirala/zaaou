@@ -17,6 +17,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
+import { ProfileMenu } from "./ProfileMenu";
 import logo from "@/assets/zaaou-logo.png";
 
 type NavItem = {
