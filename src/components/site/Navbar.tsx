@@ -3,17 +3,16 @@ import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import logo from "@/assets/zaaou-logo.png";
 
-type NavLink = { label: string } & (
-  | { kind: "hash"; href: string }
-  | { kind: "route"; to: "/restaurants" | "/careers" | "/partner" | "/blog" }
-);
+type NavLink = {
+  label: string;
+  to: "/restaurants" | "/careers" | "/partner" | "/blog";
+};
 
 const links: NavLink[] = [
-  { kind: "route", to: "/restaurants", label: "Restaurants" },
-  { kind: "route", to: "/blog", label: "Blog" },
-  { kind: "hash", href: "/#how", label: "How it works" },
-  { kind: "route", to: "/partner", label: "Add Restaurant" },
-  { kind: "route", to: "/careers", label: "Careers" },
+  { to: "/restaurants", label: "Restaurants" },
+  { to: "/blog", label: "Blog" },
+  { to: "/partner", label: "Add Restaurant" },
+  { to: "/careers", label: "Careers" },
 ];
 
 export function Navbar() {
@@ -43,26 +42,16 @@ export function Navbar() {
           >
             Home
           </Link>
-          {links.map((l) =>
-            l.kind === "route" ? (
-              <Link
-                key={l.to}
-                to={l.to}
-                activeProps={{ className: "text-primary" }}
-                className="text-sm font-medium text-foreground/70 hover:text-primary transition-colors"
-              >
-                {l.label}
-              </Link>
-            ) : (
-              <a
-                key={l.href}
-                href={l.href}
-                className="text-sm font-medium text-foreground/70 hover:text-primary transition-colors"
-              >
-                {l.label}
-              </a>
-            ),
-          )}
+          {links.map((l) => (
+            <Link
+              key={l.to}
+              to={l.to}
+              activeProps={{ className: "text-primary" }}
+              className="text-sm font-medium text-foreground/70 hover:text-primary transition-colors"
+            >
+              {l.label}
+            </Link>
+          ))}
         </nav>
 
         <a
@@ -91,27 +80,16 @@ export function Navbar() {
             >
               Home
             </Link>
-            {links.map((l) =>
-              l.kind === "route" ? (
-                <Link
-                  key={l.to}
-                  to={l.to}
-                  onClick={() => setOpen(false)}
-                  className="py-2 text-sm font-medium text-foreground/80"
-                >
-                  {l.label}
-                </Link>
-              ) : (
-                <a
-                  key={l.href}
-                  href={l.href}
-                  onClick={() => setOpen(false)}
-                  className="py-2 text-sm font-medium text-foreground/80"
-                >
-                  {l.label}
-                </a>
-              ),
-            )}
+            {links.map((l) => (
+              <Link
+                key={l.to}
+                to={l.to}
+                onClick={() => setOpen(false)}
+                className="py-2 text-sm font-medium text-foreground/80"
+              >
+                {l.label}
+              </Link>
+            ))}
             <a
               href="/#app"
               onClick={() => setOpen(false)}
