@@ -1,11 +1,18 @@
-import { MessageCircle } from "lucide-react";
+import { useSiteSettings } from "@/hooks/use-site-settings";
 
-const WHATSAPP_URL = "https://wa.me/9779705047000";
+const FALLBACK_WHATSAPP = "9779705047000";
+
+function buildUrl(raw: string | undefined | null) {
+  const num = (raw || FALLBACK_WHATSAPP).replace(/[^0-9]/g, "");
+  return `https://wa.me/${num || FALLBACK_WHATSAPP}`;
+}
 
 export function WhatsAppFloat() {
+  const { settings } = useSiteSettings();
+  const url = buildUrl(settings?.contact_whatsapp);
   return (
     <a
-      href={WHATSAPP_URL}
+      href={url}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Order on WhatsApp"
@@ -25,9 +32,11 @@ export function WhatsAppFloat() {
 }
 
 export function WhatsAppInlineButton({ className = "" }: { className?: string }) {
+  const { settings } = useSiteSettings();
+  const url = buildUrl(settings?.contact_whatsapp);
   return (
     <a
-      href={WHATSAPP_URL}
+      href={url}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Order on WhatsApp"

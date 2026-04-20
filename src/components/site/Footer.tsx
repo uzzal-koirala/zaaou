@@ -1,38 +1,57 @@
-import { Mail, Phone, MapPin, Send, Camera, MessageCircle } from "lucide-react";
+import { Mail, Phone, MapPin, Facebook, Instagram, Twitter, Linkedin, Youtube, Music2 } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import logo from "@/assets/zaaou-logo.png";
-
-const Facebook = MessageCircle;
-const Instagram = Camera;
-const Twitter = Send;
+import { useSiteSettings } from "@/hooks/use-site-settings";
 
 const CURRENT_YEAR = 2026;
 
 export function Footer() {
+  const { settings } = useSiteSettings();
+
+  const siteName = settings?.site_name ?? "Zaaou food";
+  const tagline = settings?.site_tagline ?? "Itahari's favourite food delivery - connecting you to the city's best kitchens.";
+  const logoUrl = settings?.site_logo_url || logo;
+  const phone1 = settings?.contact_phone_primary ?? "+977 970-5047000";
+  const phone2 = settings?.contact_phone_secondary ?? "+977 982-0757417";
+  const email = settings?.contact_email ?? "info@zaaoufoods.com";
+  const address = settings?.contact_address ?? "Itahari, Sunsari, Nepal";
+
+  const socials: { url: string | null | undefined; icon: typeof Facebook; label: string }[] = [
+    { url: settings?.social_facebook_url, icon: Facebook, label: "Facebook" },
+    { url: settings?.social_instagram_url, icon: Instagram, label: "Instagram" },
+    { url: settings?.social_tiktok_url, icon: Music2, label: "TikTok" },
+    { url: settings?.social_youtube_url, icon: Youtube, label: "YouTube" },
+    { url: settings?.social_twitter_url, icon: Twitter, label: "Twitter / X" },
+    { url: settings?.social_linkedin_url, icon: Linkedin, label: "LinkedIn" },
+  ];
+  const activeSocials = socials.filter((s) => s.url && s.url.trim().length > 0);
+
   return (
     <footer className="bg-foreground text-background pt-16 pb-8">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div className="grid gap-10 border-b border-white/10 pb-12 md:grid-cols-4">
           <div className="md:col-span-1">
             <div className="mb-4 flex items-center gap-2.5">
-              <img src={logo} alt="Zaaou Food" className="h-11 w-11 rounded-xl" />
-              <span className="font-display text-xl font-extrabold">Zaaou food</span>
+              <img src={logoUrl} alt={siteName} className="h-11 w-11 rounded-xl object-cover" />
+              <span className="font-display text-xl font-extrabold">{siteName}</span>
             </div>
-            <p className="text-sm leading-relaxed text-background/70">
-              Itahari&apos;s favourite food delivery - connecting you to the city&apos;s best kitchens.
-            </p>
-            <div className="mt-5 flex gap-3">
-              {[Facebook, Instagram, Twitter].map((Icon, i) => (
-                <a
-                  key={i}
-                  href="#"
-                  className="grid h-9 w-9 place-items-center rounded-full bg-white/10 transition-colors hover:bg-primary"
-                  aria-label="Social link"
-                >
-                  <Icon className="h-4 w-4" />
-                </a>
-              ))}
-            </div>
+            <p className="text-sm leading-relaxed text-background/70">{tagline}</p>
+            {activeSocials.length > 0 && (
+              <div className="mt-5 flex flex-wrap gap-3">
+                {activeSocials.map(({ url, icon: Icon, label }) => (
+                  <a
+                    key={label}
+                    href={url!}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="grid h-9 w-9 place-items-center rounded-full bg-white/10 transition-colors hover:bg-primary"
+                    aria-label={label}
+                  >
+                    <Icon className="h-4 w-4" />
+                  </a>
+                ))}
+              </div>
+            )}
           </div>
 
           <div>
@@ -60,15 +79,18 @@ export function Footer() {
           <div>
             <h4 className="mb-4 font-display font-bold">Get in touch</h4>
             <ul className="space-y-3 text-sm text-background/70">
-              <li className="flex items-center gap-2.5"><MapPin className="h-4 w-4 shrink-0 text-primary" /><span>Itahari, Sunsari, Nepal</span></li>
-              <li className="flex items-start gap-2.5"><Phone className="h-4 w-4 shrink-0 text-primary mt-0.5" /><span>+977 970-5047000<br />+977 982-0757417</span></li>
-              <li className="flex items-center gap-2.5"><Mail className="h-4 w-4 shrink-0 text-primary" /><span>info@zaaoufoods.com</span></li>
+              <li className="flex items-center gap-2.5"><MapPin className="h-4 w-4 shrink-0 text-primary" /><span>{address}</span></li>
+              <li className="flex items-start gap-2.5">
+                <Phone className="h-4 w-4 shrink-0 text-primary mt-0.5" />
+                <span>{phone1}{phone2 ? <><br />{phone2}</> : null}</span>
+              </li>
+              <li className="flex items-center gap-2.5"><Mail className="h-4 w-4 shrink-0 text-primary" /><span>{email}</span></li>
             </ul>
           </div>
         </div>
 
         <div className="flex flex-wrap items-center justify-between gap-3 pt-8 text-xs text-background/60">
-          <p>© {CURRENT_YEAR} Zaaou Food. All rights reserved.</p>
+          <p>© {CURRENT_YEAR} {siteName}. All rights reserved.</p>
           <p>
             Designed with <span className="text-primary">♥</span> by{" "}
             <a
