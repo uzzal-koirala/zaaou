@@ -21,6 +21,7 @@ import {
   ShieldQuestion,
   Moon,
   Sun,
+  Inbox,
 } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 import { useAdminTheme } from "@/hooks/use-admin-theme";
@@ -32,6 +33,7 @@ type NavItem = {
     | "/admin"
     | "/admin/restaurants"
     | "/admin/jobs"
+    | "/admin/inbox"
     | "/admin/posts"
     | "/admin/authors"
     | "/admin/team"
@@ -49,6 +51,7 @@ type NavItem = {
 
 const nav: NavItem[] = [
   { to: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true, group: "Overview" },
+  { to: "/admin/inbox", label: "Inbox", icon: Inbox, group: "Overview" },
   { to: "/admin/restaurants", label: "Restaurants", icon: Store, group: "Operations" },
   { to: "/admin/jobs", label: "Jobs", icon: Briefcase, group: "Operations" },
   { to: "/admin/posts", label: "Posts", icon: FileText, group: "Content" },
