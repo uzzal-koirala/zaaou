@@ -103,40 +103,43 @@ export function AdminLayout({ children }: { children: ReactNode }) {
     <div className="min-h-screen bg-muted/30 flex">
       {/* Mobile top bar */}
       <header className="lg:hidden fixed top-0 inset-x-0 z-40 h-14 bg-card/95 backdrop-blur-md border-b border-border flex items-center justify-between px-4">
-        <Link to="/admin" className="flex items-center gap-2 min-w-0">
-          <img src={logo} alt="" className="h-7 w-7 rounded-md flex-shrink-0" />
-          <span className="font-display font-extrabold text-base truncate">
-            Zaaou Admin
-          </span>
-        </Link>
         <button
           onClick={() => setMobileOpen(true)}
           aria-label="Open menu"
-          className="h-9 w-9 grid place-items-center rounded-lg hover:bg-muted transition-colors"
+          className="h-9 w-9 grid place-items-center rounded-lg hover:bg-muted active:scale-95 transition-all"
         >
           <Menu className="h-5 w-5" />
         </button>
+        <Link to="/admin" className="flex items-center gap-2 min-w-0 absolute left-1/2 -translate-x-1/2">
+          <img src={logo} alt="" className="h-7 w-7 rounded-md flex-shrink-0" />
+          <span className="font-display font-extrabold text-base truncate">
+            Zaaou <span className="text-primary">Admin</span>
+          </span>
+        </Link>
       </header>
 
       {/* Mobile backdrop */}
       {mobileOpen && (
         <div
-          className="lg:hidden fixed inset-0 z-40 bg-foreground/50 backdrop-blur-sm animate-fade-in"
+          className="lg:hidden fixed inset-0 z-40 bg-foreground/60 backdrop-blur-md animate-fade-in"
           onClick={() => setMobileOpen(false)}
         />
       )}
 
       {/* Sidebar:
-          - Mobile: fixed off-canvas drawer (translate)
+          - Mobile: fixed off-canvas drawer sliding from left
           - Desktop: in-flow sticky column with animated width */}
       <aside
         className={[
-          "z-50 bg-card border-r border-border flex flex-col",
-          // mobile drawer
-          "fixed top-0 left-0 h-screen w-72 transition-transform duration-300 ease-out",
+          "z-50 flex flex-col bg-card",
+          // mobile drawer (slides left → right)
+          "fixed top-0 left-0 h-[100dvh] w-[85%] max-w-[320px]",
+          "shadow-2xl shadow-foreground/20 rounded-r-2xl border-r border-border/60",
+          "transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]",
           mobileOpen ? "translate-x-0" : "-translate-x-full",
-          // desktop in-flow sticky
+          // desktop in-flow sticky (reset mobile-only styles)
           "lg:static lg:translate-x-0 lg:sticky lg:top-0 lg:h-screen lg:flex-shrink-0",
+          "lg:w-64 lg:max-w-none lg:rounded-none lg:shadow-none lg:border-r lg:border-border",
           "lg:transition-[width] lg:duration-300 lg:ease-out",
           collapsed ? "lg:w-[76px]" : "lg:w-64",
         ].join(" ")}
@@ -280,7 +283,7 @@ export function AdminLayout({ children }: { children: ReactNode }) {
           <ProfileMenu />
         </div>
         {/* Mobile top-right profile (sits inside the existing mobile header) */}
-        <div className="lg:hidden fixed top-2 right-14 z-50 flex items-center gap-1">
+        <div className="lg:hidden fixed top-2.5 right-3 z-50 flex items-center gap-1">
           <ThemeToggle />
           <ProfileMenu />
         </div>
