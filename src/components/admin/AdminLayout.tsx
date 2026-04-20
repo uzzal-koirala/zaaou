@@ -121,22 +121,25 @@ export function AdminLayout({ children }: { children: ReactNode }) {
       {/* Mobile backdrop */}
       {mobileOpen && (
         <div
-          className="lg:hidden fixed inset-0 z-40 bg-foreground/50 backdrop-blur-sm animate-fade-in"
+          className="lg:hidden fixed inset-0 z-40 bg-foreground/60 backdrop-blur-md animate-fade-in"
           onClick={() => setMobileOpen(false)}
         />
       )}
 
       {/* Sidebar:
-          - Mobile: fixed off-canvas drawer (translate)
+          - Mobile: fixed off-canvas drawer sliding from left
           - Desktop: in-flow sticky column with animated width */}
       <aside
         className={[
-          "z-50 bg-card border-r border-border flex flex-col",
-          // mobile drawer
-          "fixed top-0 left-0 h-screen w-72 transition-transform duration-300 ease-out",
+          "z-50 flex flex-col bg-card",
+          // mobile drawer (slides left → right)
+          "fixed top-0 left-0 h-[100dvh] w-[85%] max-w-[320px]",
+          "shadow-2xl shadow-foreground/20 rounded-r-2xl border-r border-border/60",
+          "transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]",
           mobileOpen ? "translate-x-0" : "-translate-x-full",
-          // desktop in-flow sticky
+          // desktop in-flow sticky (reset mobile-only styles)
           "lg:static lg:translate-x-0 lg:sticky lg:top-0 lg:h-screen lg:flex-shrink-0",
+          "lg:w-64 lg:max-w-none lg:rounded-none lg:shadow-none lg:border-r lg:border-border",
           "lg:transition-[width] lg:duration-300 lg:ease-out",
           collapsed ? "lg:w-[76px]" : "lg:w-64",
         ].join(" ")}
