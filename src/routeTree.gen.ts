@@ -10,9 +10,12 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TeamRouteImport } from './routes/team'
+import { Route as SupportRouteImport } from './routes/support'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RestaurantsRouteImport } from './routes/restaurants'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PartnerRouteImport } from './routes/partner'
+import { Route as FaqRouteImport } from './routes/faq'
 import { Route as CareersRouteImport } from './routes/careers'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -49,6 +52,11 @@ const TeamRoute = TeamRouteImport.update({
   path: '/team',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SupportRoute = SupportRouteImport.update({
+  id: '/support',
+  path: '/support',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -59,9 +67,19 @@ const RestaurantsRoute = RestaurantsRouteImport.update({
   path: '/restaurants',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PartnerRoute = PartnerRouteImport.update({
   id: '/partner',
   path: '/partner',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CareersRoute = CareersRouteImport.update({
@@ -221,9 +239,12 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/blog': typeof BlogRouteWithChildren
   '/careers': typeof CareersRoute
+  '/faq': typeof FaqRoute
   '/partner': typeof PartnerRoute
+  '/privacy': typeof PrivacyRoute
   '/restaurants': typeof RestaurantsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/support': typeof SupportRoute
   '/team': typeof TeamRoute
   '/admin/authors': typeof AdminAuthorsRoute
   '/admin/comments': typeof AdminCommentsRoute
@@ -256,9 +277,12 @@ export interface FileRoutesByTo {
   '/404': typeof R404Route
   '/auth': typeof AuthRoute
   '/careers': typeof CareersRoute
+  '/faq': typeof FaqRoute
   '/partner': typeof PartnerRoute
+  '/privacy': typeof PrivacyRoute
   '/restaurants': typeof RestaurantsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/support': typeof SupportRoute
   '/team': typeof TeamRoute
   '/admin/authors': typeof AdminAuthorsRoute
   '/admin/comments': typeof AdminCommentsRoute
@@ -293,9 +317,12 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/blog': typeof BlogRouteWithChildren
   '/careers': typeof CareersRoute
+  '/faq': typeof FaqRoute
   '/partner': typeof PartnerRoute
+  '/privacy': typeof PrivacyRoute
   '/restaurants': typeof RestaurantsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/support': typeof SupportRoute
   '/team': typeof TeamRoute
   '/admin/authors': typeof AdminAuthorsRoute
   '/admin/comments': typeof AdminCommentsRoute
@@ -331,9 +358,12 @@ export interface FileRouteTypes {
     | '/auth'
     | '/blog'
     | '/careers'
+    | '/faq'
     | '/partner'
+    | '/privacy'
     | '/restaurants'
     | '/sitemap.xml'
+    | '/support'
     | '/team'
     | '/admin/authors'
     | '/admin/comments'
@@ -366,9 +396,12 @@ export interface FileRouteTypes {
     | '/404'
     | '/auth'
     | '/careers'
+    | '/faq'
     | '/partner'
+    | '/privacy'
     | '/restaurants'
     | '/sitemap.xml'
+    | '/support'
     | '/team'
     | '/admin/authors'
     | '/admin/comments'
@@ -402,9 +435,12 @@ export interface FileRouteTypes {
     | '/auth'
     | '/blog'
     | '/careers'
+    | '/faq'
     | '/partner'
+    | '/privacy'
     | '/restaurants'
     | '/sitemap.xml'
+    | '/support'
     | '/team'
     | '/admin/authors'
     | '/admin/comments'
@@ -439,9 +475,12 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   BlogRoute: typeof BlogRouteWithChildren
   CareersRoute: typeof CareersRoute
+  FaqRoute: typeof FaqRoute
   PartnerRoute: typeof PartnerRoute
+  PrivacyRoute: typeof PrivacyRoute
   RestaurantsRoute: typeof RestaurantsRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  SupportRoute: typeof SupportRoute
   TeamRoute: typeof TeamRoute
   AdminAuthorsRoute: typeof AdminAuthorsRoute
   AdminCommentsRoute: typeof AdminCommentsRoute
@@ -476,6 +515,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TeamRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/support': {
+      id: '/support'
+      path: '/support'
+      fullPath: '/support'
+      preLoaderRoute: typeof SupportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -490,11 +536,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RestaurantsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/partner': {
       id: '/partner'
       path: '/partner'
       fullPath: '/partner'
       preLoaderRoute: typeof PartnerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/careers': {
@@ -730,9 +790,12 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   BlogRoute: BlogRouteWithChildren,
   CareersRoute: CareersRoute,
+  FaqRoute: FaqRoute,
   PartnerRoute: PartnerRoute,
+  PrivacyRoute: PrivacyRoute,
   RestaurantsRoute: RestaurantsRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  SupportRoute: SupportRoute,
   TeamRoute: TeamRoute,
   AdminAuthorsRoute: AdminAuthorsRoute,
   AdminCommentsRoute: AdminCommentsRoute,
