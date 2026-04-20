@@ -117,25 +117,36 @@ function LoginGatePage() {
     e.preventDefault();
     if (!editing) return;
     setSaving(true);
-    const payload = {
-      audience: editing.audience,
-      question: editing.question.trim(),
-      answer: editing.answer,
-      display_order: Number(editing.display_order) || 0,
-      is_active: editing.is_active,
-    };
 
     if (editing.id) {
+      // Only send answer if a new one was typed; trigger hashes it server-side.
+      const updatePayload: Database["public"]["Tables"]["login_gate_questions"]["Update"] = {
+        audience: editing.audience,
+        question: editing.question.trim(),
+        display_order: Number(editing.display_order) || 0,
+        is_active: editing.is_active,
+      };
+      if (editing.answer.trim().length > 0) updatePayload.answer = editing.answer;
       const { error } = await supabase
         .from("login_gate_questions")
-        .update(payload)
+        .update(updatePayload)
         .eq("id", editing.id);
       if (error) {
         setSaving(false);
         return toast.error(error.message);
       }
     } else {
-      const { error } = await supabase.from("login_gate_questions").insert(payload);
+      if (editing.answer.trim().length === 0) {
+        setSaving(false);
+        return toast.error("Answer is required for a new question");
+      }
+      const { error } = await supabase.from("login_gate_questions").insert({
+        audience: editing.audience,
+        question: editing.question.trim(),
+        answer: editing.answer,
+        display_order: Number(editing.display_order) || 0,
+        is_active: editing.is_active,
+      });
       if (error) {
         setSaving(false);
         return toast.error(error.message);
