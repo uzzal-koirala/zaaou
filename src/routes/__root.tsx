@@ -37,7 +37,11 @@ export const Route = createRootRoute({
   }),
   shellComponent: RootShell,
   component: RootComponent,
-  notFoundComponent: NotFoundComponent,
+  notFoundComponent: () => (
+    <AuthProvider>
+      <NotFound />
+    </AuthProvider>
+  ),
 });
 
 function RootShell({ children }: { children: React.ReactNode }) {
