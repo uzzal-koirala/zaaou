@@ -297,15 +297,16 @@ function LoginGatePage() {
                 />
               </Field>
               <Field
-                label="Correct answer *"
-                hint="Case-sensitive. Whatever the user types must match this exactly."
+                label={editing.id ? "Answer (leave blank to keep current)" : "Correct answer *"}
+                hint="Not case-sensitive. Stored hashed — you cannot view it later."
               >
                 <input
-                  required
+                  required={!editing.id}
+                  type="password"
                   value={editing.answer}
                   onChange={(e) => setEditing({ ...editing, answer: e.target.value })}
                   className={inputCls}
-                  placeholder="Itahari Chowk"
+                  placeholder={editing.id ? "••••••• (unchanged)" : "Itahari Chowk"}
                   maxLength={200}
                 />
               </Field>
