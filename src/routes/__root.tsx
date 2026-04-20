@@ -2,6 +2,7 @@ import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/r
 import { AuthProvider } from "@/lib/auth-context";
 import { Toaster } from "@/components/ui/sonner";
 import { RouteLoader } from "@/components/site/RouteLoader";
+import { MaintenanceGate } from "@/components/site/MaintenanceGate";
 
 import appCss from "../styles.css?url";
 
@@ -78,7 +79,9 @@ function RootComponent() {
   return (
     <AuthProvider>
       <RouteLoader />
-      <Outlet />
+      <MaintenanceGate>
+        <Outlet />
+      </MaintenanceGate>
       <Toaster richColors position="top-center" />
     </AuthProvider>
   );
