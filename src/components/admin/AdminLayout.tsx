@@ -103,19 +103,19 @@ export function AdminLayout({ children }: { children: ReactNode }) {
     <div className="min-h-screen bg-muted/30 flex">
       {/* Mobile top bar */}
       <header className="lg:hidden fixed top-0 inset-x-0 z-40 h-14 bg-card/95 backdrop-blur-md border-b border-border flex items-center justify-between px-4">
-        <Link to="/admin" className="flex items-center gap-2 min-w-0">
-          <img src={logo} alt="" className="h-7 w-7 rounded-md flex-shrink-0" />
-          <span className="font-display font-extrabold text-base truncate">
-            Zaaou Admin
-          </span>
-        </Link>
         <button
           onClick={() => setMobileOpen(true)}
           aria-label="Open menu"
-          className="h-9 w-9 grid place-items-center rounded-lg hover:bg-muted transition-colors"
+          className="h-9 w-9 grid place-items-center rounded-lg hover:bg-muted active:scale-95 transition-all"
         >
           <Menu className="h-5 w-5" />
         </button>
+        <Link to="/admin" className="flex items-center gap-2 min-w-0 absolute left-1/2 -translate-x-1/2">
+          <img src={logo} alt="" className="h-7 w-7 rounded-md flex-shrink-0" />
+          <span className="font-display font-extrabold text-base truncate">
+            Zaaou <span className="text-primary">Admin</span>
+          </span>
+        </Link>
       </header>
 
       {/* Mobile backdrop */}
