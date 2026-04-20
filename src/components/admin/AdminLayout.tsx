@@ -19,8 +19,11 @@ import {
   Star,
   Bell,
   Briefcase,
+  Moon,
+  Sun,
 } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
+import { useAdminTheme } from "@/hooks/use-admin-theme";
 import { ProfileMenu } from "./ProfileMenu";
 import logo from "@/assets/zaaou-logo.png";
 
@@ -272,11 +275,13 @@ export function AdminLayout({ children }: { children: ReactNode }) {
 
       <main className="flex-1 min-w-0 pt-14 lg:pt-0 flex flex-col">
         {/* Desktop top bar with profile menu */}
-        <div className="hidden lg:flex sticky top-0 z-30 h-16 items-center justify-end gap-3 px-6 lg:px-10 bg-background/80 backdrop-blur-md border-b border-border">
+        <div className="hidden lg:flex sticky top-0 z-30 h-16 items-center justify-end gap-2 px-6 lg:px-10 bg-background/80 backdrop-blur-md border-b border-border">
+          <ThemeToggle />
           <ProfileMenu />
         </div>
         {/* Mobile top-right profile (sits inside the existing mobile header) */}
-        <div className="lg:hidden fixed top-2 right-14 z-50">
+        <div className="lg:hidden fixed top-2 right-14 z-50 flex items-center gap-1">
+          <ThemeToggle />
           <ProfileMenu />
         </div>
         <div className="flex-1 max-w-6xl w-full mx-auto p-5 sm:p-6 lg:p-10">
@@ -284,5 +289,20 @@ export function AdminLayout({ children }: { children: ReactNode }) {
         </div>
       </main>
     </div>
+  );
+}
+
+function ThemeToggle() {
+  const { theme, toggle } = useAdminTheme();
+  const isDark = theme === "dark";
+  return (
+    <button
+      onClick={toggle}
+      aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+      title={isDark ? "Switch to light mode" : "Switch to dark mode"}
+      className="h-9 w-9 grid place-items-center rounded-lg hover:bg-muted transition-colors text-foreground/80"
+    >
+      {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+    </button>
   );
 }
