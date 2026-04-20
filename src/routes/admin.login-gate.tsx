@@ -75,7 +75,7 @@ function LoginGatePage() {
   async function saveSettings(next: { enabled?: boolean; count?: 1 | 2 }) {
     if (!settingsId) return;
     setSavingSettings(true);
-    const payload: Record<string, unknown> = {};
+    const payload: Database["public"]["Tables"]["blog_settings"]["Update"] = {};
     if (next.enabled !== undefined) payload.login_gate_enabled = next.enabled;
     if (next.count !== undefined) payload.login_gate_question_count = next.count;
     const { error } = await supabase.from("blog_settings").update(payload).eq("id", settingsId);

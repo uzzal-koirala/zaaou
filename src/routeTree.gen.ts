@@ -33,6 +33,7 @@ import { Route as AdminSubscribersRouteImport } from './routes/admin.subscribers
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as AdminReviewsRouteImport } from './routes/admin.reviews'
 import { Route as AdminNotificationsRouteImport } from './routes/admin.notifications'
+import { Route as AdminLoginGateRouteImport } from './routes/admin.login-gate'
 import { Route as AdminJobsRouteImport } from './routes/admin.jobs'
 import { Route as AdminCommentsRouteImport } from './routes/admin.comments'
 import { Route as AdminAuthorsRouteImport } from './routes/admin.authors'
@@ -167,6 +168,11 @@ const AdminNotificationsRoute = AdminNotificationsRouteImport.update({
   path: '/admin/notifications',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminLoginGateRoute = AdminLoginGateRouteImport.update({
+  id: '/admin/login-gate',
+  path: '/admin/login-gate',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminJobsRoute = AdminJobsRouteImport.update({
   id: '/admin/jobs',
   path: '/admin/jobs',
@@ -249,6 +255,7 @@ export interface FileRoutesByFullPath {
   '/admin/authors': typeof AdminAuthorsRoute
   '/admin/comments': typeof AdminCommentsRoute
   '/admin/jobs': typeof AdminJobsRoute
+  '/admin/login-gate': typeof AdminLoginGateRoute
   '/admin/notifications': typeof AdminNotificationsRoute
   '/admin/reviews': typeof AdminReviewsRoute
   '/admin/settings': typeof AdminSettingsRoute
@@ -287,6 +294,7 @@ export interface FileRoutesByTo {
   '/admin/authors': typeof AdminAuthorsRoute
   '/admin/comments': typeof AdminCommentsRoute
   '/admin/jobs': typeof AdminJobsRoute
+  '/admin/login-gate': typeof AdminLoginGateRoute
   '/admin/notifications': typeof AdminNotificationsRoute
   '/admin/reviews': typeof AdminReviewsRoute
   '/admin/settings': typeof AdminSettingsRoute
@@ -327,6 +335,7 @@ export interface FileRoutesById {
   '/admin/authors': typeof AdminAuthorsRoute
   '/admin/comments': typeof AdminCommentsRoute
   '/admin/jobs': typeof AdminJobsRoute
+  '/admin/login-gate': typeof AdminLoginGateRoute
   '/admin/notifications': typeof AdminNotificationsRoute
   '/admin/reviews': typeof AdminReviewsRoute
   '/admin/settings': typeof AdminSettingsRoute
@@ -368,6 +377,7 @@ export interface FileRouteTypes {
     | '/admin/authors'
     | '/admin/comments'
     | '/admin/jobs'
+    | '/admin/login-gate'
     | '/admin/notifications'
     | '/admin/reviews'
     | '/admin/settings'
@@ -406,6 +416,7 @@ export interface FileRouteTypes {
     | '/admin/authors'
     | '/admin/comments'
     | '/admin/jobs'
+    | '/admin/login-gate'
     | '/admin/notifications'
     | '/admin/reviews'
     | '/admin/settings'
@@ -445,6 +456,7 @@ export interface FileRouteTypes {
     | '/admin/authors'
     | '/admin/comments'
     | '/admin/jobs'
+    | '/admin/login-gate'
     | '/admin/notifications'
     | '/admin/reviews'
     | '/admin/settings'
@@ -485,6 +497,7 @@ export interface RootRouteChildren {
   AdminAuthorsRoute: typeof AdminAuthorsRoute
   AdminCommentsRoute: typeof AdminCommentsRoute
   AdminJobsRoute: typeof AdminJobsRoute
+  AdminLoginGateRoute: typeof AdminLoginGateRoute
   AdminNotificationsRoute: typeof AdminNotificationsRoute
   AdminReviewsRoute: typeof AdminReviewsRoute
   AdminSettingsRoute: typeof AdminSettingsRoute
@@ -676,6 +689,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminNotificationsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/login-gate': {
+      id: '/admin/login-gate'
+      path: '/admin/login-gate'
+      fullPath: '/admin/login-gate'
+      preLoaderRoute: typeof AdminLoginGateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/jobs': {
       id: '/admin/jobs'
       path: '/admin/jobs'
@@ -800,6 +820,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminAuthorsRoute: AdminAuthorsRoute,
   AdminCommentsRoute: AdminCommentsRoute,
   AdminJobsRoute: AdminJobsRoute,
+  AdminLoginGateRoute: AdminLoginGateRoute,
   AdminNotificationsRoute: AdminNotificationsRoute,
   AdminReviewsRoute: AdminReviewsRoute,
   AdminSettingsRoute: AdminSettingsRoute,
