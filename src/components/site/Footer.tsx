@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin, Facebook, Instagram, Twitter, Linkedin, Youtube, Music2 } from "lucide-react";
+import { Mail, Phone, MapPin, Music2 } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import logo from "@/assets/zaaou-logo.png";
 import { useSiteSettings } from "@/hooks/use-site-settings";
@@ -16,13 +16,13 @@ export function Footer() {
   const email = settings?.contact_email ?? "info@zaaoufoods.com";
   const address = settings?.contact_address ?? "Itahari, Sunsari, Nepal";
 
-  const socials: { url: string | null | undefined; icon: typeof Facebook; label: string }[] = [
-    { url: settings?.social_facebook_url, icon: Facebook, label: "Facebook" },
-    { url: settings?.social_instagram_url, icon: Instagram, label: "Instagram" },
+  const socials: { url: string | null | undefined; icon: React.ComponentType<{ className?: string }>; label: string }[] = [
+    { url: settings?.social_facebook_url, icon: FacebookIcon, label: "Facebook" },
+    { url: settings?.social_instagram_url, icon: InstagramIcon, label: "Instagram" },
     { url: settings?.social_tiktok_url, icon: Music2, label: "TikTok" },
-    { url: settings?.social_youtube_url, icon: Youtube, label: "YouTube" },
-    { url: settings?.social_twitter_url, icon: Twitter, label: "Twitter / X" },
-    { url: settings?.social_linkedin_url, icon: Linkedin, label: "LinkedIn" },
+    { url: settings?.social_youtube_url, icon: YoutubeIcon, label: "YouTube" },
+    { url: settings?.social_twitter_url, icon: TwitterIcon, label: "Twitter / X" },
+    { url: settings?.social_linkedin_url, icon: LinkedinIcon, label: "LinkedIn" },
   ];
   const activeSocials = socials.filter((s) => s.url && s.url.trim().length > 0);
 
