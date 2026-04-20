@@ -4,6 +4,7 @@ import { Loader2, Eye, EyeOff, Lock, Mail, PenSquare, ArrowRight } from "lucide-
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth-context";
+import { LoginGate } from "@/components/site/LoginGate";
 
 export const Route = createFileRoute("/author/login")({
   head: () => ({
@@ -12,8 +13,20 @@ export const Route = createFileRoute("/author/login")({
       { name: "robots", content: "noindex" },
     ],
   }),
-  component: AuthorLoginPage,
+  component: AuthorLoginWrapper,
 });
+
+function AuthorLoginWrapper() {
+  return (
+    <LoginGate
+      audience="author"
+      title="Author security check"
+      subtitle="Answer to continue to the author sign-in."
+    >
+      <AuthorLoginPage />
+    </LoginGate>
+  );
+}
 
 function AuthorLoginPage() {
   const { user, isAuthor, loading } = useAuth();
