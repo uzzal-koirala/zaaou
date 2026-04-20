@@ -26,7 +26,6 @@ import { Route as AuthorCommentsRouteImport } from './routes/author.comments'
 import { Route as AdminTeamRouteImport } from './routes/admin.team'
 import { Route as AdminSubscribersRouteImport } from './routes/admin.subscribers'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
-import { Route as AdminRidersRouteImport } from './routes/admin.riders'
 import { Route as AdminReviewsRouteImport } from './routes/admin.reviews'
 import { Route as AdminNotificationsRouteImport } from './routes/admin.notifications'
 import { Route as AdminJobsRouteImport } from './routes/admin.jobs'
@@ -128,11 +127,6 @@ const AdminSettingsRoute = AdminSettingsRouteImport.update({
   path: '/admin/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AdminRidersRoute = AdminRidersRouteImport.update({
-  id: '/admin/riders',
-  path: '/admin/riders',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AdminReviewsRoute = AdminReviewsRouteImport.update({
   id: '/admin/reviews',
   path: '/admin/reviews',
@@ -222,7 +216,6 @@ export interface FileRoutesByFullPath {
   '/admin/jobs': typeof AdminJobsRoute
   '/admin/notifications': typeof AdminNotificationsRoute
   '/admin/reviews': typeof AdminReviewsRoute
-  '/admin/riders': typeof AdminRidersRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/subscribers': typeof AdminSubscribersRoute
   '/admin/team': typeof AdminTeamRoute
@@ -256,7 +249,6 @@ export interface FileRoutesByTo {
   '/admin/jobs': typeof AdminJobsRoute
   '/admin/notifications': typeof AdminNotificationsRoute
   '/admin/reviews': typeof AdminReviewsRoute
-  '/admin/riders': typeof AdminRidersRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/subscribers': typeof AdminSubscribersRoute
   '/admin/team': typeof AdminTeamRoute
@@ -292,7 +284,6 @@ export interface FileRoutesById {
   '/admin/jobs': typeof AdminJobsRoute
   '/admin/notifications': typeof AdminNotificationsRoute
   '/admin/reviews': typeof AdminReviewsRoute
-  '/admin/riders': typeof AdminRidersRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/subscribers': typeof AdminSubscribersRoute
   '/admin/team': typeof AdminTeamRoute
@@ -329,7 +320,6 @@ export interface FileRouteTypes {
     | '/admin/jobs'
     | '/admin/notifications'
     | '/admin/reviews'
-    | '/admin/riders'
     | '/admin/settings'
     | '/admin/subscribers'
     | '/admin/team'
@@ -363,7 +353,6 @@ export interface FileRouteTypes {
     | '/admin/jobs'
     | '/admin/notifications'
     | '/admin/reviews'
-    | '/admin/riders'
     | '/admin/settings'
     | '/admin/subscribers'
     | '/admin/team'
@@ -398,7 +387,6 @@ export interface FileRouteTypes {
     | '/admin/jobs'
     | '/admin/notifications'
     | '/admin/reviews'
-    | '/admin/riders'
     | '/admin/settings'
     | '/admin/subscribers'
     | '/admin/team'
@@ -434,7 +422,6 @@ export interface RootRouteChildren {
   AdminJobsRoute: typeof AdminJobsRoute
   AdminNotificationsRoute: typeof AdminNotificationsRoute
   AdminReviewsRoute: typeof AdminReviewsRoute
-  AdminRidersRoute: typeof AdminRidersRoute
   AdminSettingsRoute: typeof AdminSettingsRoute
   AdminSubscribersRoute: typeof AdminSubscribersRoute
   AdminTeamRoute: typeof AdminTeamRoute
@@ -575,13 +562,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminSettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/riders': {
-      id: '/admin/riders'
-      path: '/admin/riders'
-      fullPath: '/admin/riders'
-      preLoaderRoute: typeof AdminRidersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/admin/reviews': {
       id: '/admin/reviews'
       path: '/admin/reviews'
@@ -717,7 +697,6 @@ const rootRouteChildren: RootRouteChildren = {
   AdminJobsRoute: AdminJobsRoute,
   AdminNotificationsRoute: AdminNotificationsRoute,
   AdminReviewsRoute: AdminReviewsRoute,
-  AdminRidersRoute: AdminRidersRoute,
   AdminSettingsRoute: AdminSettingsRoute,
   AdminSubscribersRoute: AdminSubscribersRoute,
   AdminTeamRoute: AdminTeamRoute,

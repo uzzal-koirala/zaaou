@@ -7,7 +7,6 @@ import { Restaurants } from "@/components/site/Restaurants";
 import { About } from "@/components/site/About";
 import { HowItWorks } from "@/components/site/HowItWorks";
 import { Testimonials } from "@/components/site/Testimonials";
-import { Riders } from "@/components/site/Riders";
 import { WhyZaaou } from "@/components/site/WhyZaaou";
 import { PartnerCTA } from "@/components/site/PartnerCTA";
 import { AppDownload } from "@/components/site/AppDownload";
@@ -39,7 +38,6 @@ function Index() {
         <About />
         <WhyZaaou />
         <HowItWorks />
-        <Riders />
         <Testimonials />
         <TeamSection />
         <PartnerCTA />
