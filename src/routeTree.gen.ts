@@ -27,6 +27,7 @@ import { Route as AdminTeamRouteImport } from './routes/admin.team'
 import { Route as AdminSubscribersRouteImport } from './routes/admin.subscribers'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as AdminRidersRouteImport } from './routes/admin.riders'
+import { Route as AdminReviewsRouteImport } from './routes/admin.reviews'
 import { Route as AdminCommentsRouteImport } from './routes/admin.comments'
 import { Route as AdminAuthorsRouteImport } from './routes/admin.authors'
 import { Route as AuthorPostsIndexRouteImport } from './routes/author.posts.index'
@@ -130,6 +131,11 @@ const AdminRidersRoute = AdminRidersRouteImport.update({
   path: '/admin/riders',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminReviewsRoute = AdminReviewsRouteImport.update({
+  id: '/admin/reviews',
+  path: '/admin/reviews',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminCommentsRoute = AdminCommentsRouteImport.update({
   id: '/admin/comments',
   path: '/admin/comments',
@@ -201,6 +207,7 @@ export interface FileRoutesByFullPath {
   '/team': typeof TeamRoute
   '/admin/authors': typeof AdminAuthorsRoute
   '/admin/comments': typeof AdminCommentsRoute
+  '/admin/reviews': typeof AdminReviewsRoute
   '/admin/riders': typeof AdminRidersRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/subscribers': typeof AdminSubscribersRoute
@@ -232,6 +239,7 @@ export interface FileRoutesByTo {
   '/team': typeof TeamRoute
   '/admin/authors': typeof AdminAuthorsRoute
   '/admin/comments': typeof AdminCommentsRoute
+  '/admin/reviews': typeof AdminReviewsRoute
   '/admin/riders': typeof AdminRidersRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/subscribers': typeof AdminSubscribersRoute
@@ -265,6 +273,7 @@ export interface FileRoutesById {
   '/team': typeof TeamRoute
   '/admin/authors': typeof AdminAuthorsRoute
   '/admin/comments': typeof AdminCommentsRoute
+  '/admin/reviews': typeof AdminReviewsRoute
   '/admin/riders': typeof AdminRidersRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/subscribers': typeof AdminSubscribersRoute
@@ -299,6 +308,7 @@ export interface FileRouteTypes {
     | '/team'
     | '/admin/authors'
     | '/admin/comments'
+    | '/admin/reviews'
     | '/admin/riders'
     | '/admin/settings'
     | '/admin/subscribers'
@@ -330,6 +340,7 @@ export interface FileRouteTypes {
     | '/team'
     | '/admin/authors'
     | '/admin/comments'
+    | '/admin/reviews'
     | '/admin/riders'
     | '/admin/settings'
     | '/admin/subscribers'
@@ -362,6 +373,7 @@ export interface FileRouteTypes {
     | '/team'
     | '/admin/authors'
     | '/admin/comments'
+    | '/admin/reviews'
     | '/admin/riders'
     | '/admin/settings'
     | '/admin/subscribers'
@@ -395,6 +407,7 @@ export interface RootRouteChildren {
   TeamRoute: typeof TeamRoute
   AdminAuthorsRoute: typeof AdminAuthorsRoute
   AdminCommentsRoute: typeof AdminCommentsRoute
+  AdminReviewsRoute: typeof AdminReviewsRoute
   AdminRidersRoute: typeof AdminRidersRoute
   AdminSettingsRoute: typeof AdminSettingsRoute
   AdminSubscribersRoute: typeof AdminSubscribersRoute
@@ -543,6 +556,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminRidersRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/reviews': {
+      id: '/admin/reviews'
+      path: '/admin/reviews'
+      fullPath: '/admin/reviews'
+      preLoaderRoute: typeof AdminReviewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/comments': {
       id: '/admin/comments'
       path: '/admin/comments'
@@ -654,6 +674,7 @@ const rootRouteChildren: RootRouteChildren = {
   TeamRoute: TeamRoute,
   AdminAuthorsRoute: AdminAuthorsRoute,
   AdminCommentsRoute: AdminCommentsRoute,
+  AdminReviewsRoute: AdminReviewsRoute,
   AdminRidersRoute: AdminRidersRoute,
   AdminSettingsRoute: AdminSettingsRoute,
   AdminSubscribersRoute: AdminSubscribersRoute,
