@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import {
   MapPin,
   Briefcase,
@@ -9,8 +10,13 @@ import {
   GraduationCap,
   Coffee,
   Users,
+  Loader2,
 } from "lucide-react";
 import { PageShell } from "@/components/site/PageShell";
+import { supabase } from "@/integrations/supabase/client";
+import type { Database } from "@/integrations/supabase/types";
+
+type Job = Database["public"]["Tables"]["job_postings"]["Row"];
 
 export const Route = createFileRoute("/careers")({
   head: () => ({
@@ -33,67 +39,28 @@ const perks = [
   { icon: Clock, title: "Flexible Hours", desc: "Hybrid schedule and reasonable working hours." },
 ];
 
-type Job = {
-  id: string;
-  title: string;
-  department: string;
-  type: string;
-  location: string;
-  desc: string;
-};
-
-const jobs: Job[] = [
-  {
-    id: "delivery-rider",
-    title: "Delivery Rider",
-    department: "Operations",
-    type: "Full-time",
-    location: "Itahari (On-field)",
-    desc: "Deliver hot, fresh food across Itahari. Own bike and smartphone required. Daily payouts.",
-  },
-  {
-    id: "operations-lead",
-    title: "Operations Lead",
-    department: "Operations",
-    type: "Full-time",
-    location: "Itahari (On-site)",
-    desc: "Lead the rider fleet, manage live dispatch and improve delivery times across the city.",
-  },
-  {
-    id: "flutter-developer",
-    title: "Flutter Mobile Developer",
-    department: "Engineering",
-    type: "Full-time",
-    location: "Itahari / Remote",
-    desc: "Build and ship features for the Zaaou Food customer and rider apps in Flutter.",
-  },
-  {
-    id: "backend-engineer",
-    title: "Backend Engineer (Node.js)",
-    department: "Engineering",
-    type: "Full-time",
-    location: "Remote",
-    desc: "Design scalable APIs, payments and order pipelines powering thousands of daily orders.",
-  },
-  {
-    id: "restaurant-success",
-    title: "Restaurant Success Manager",
-    department: "Partnerships",
-    type: "Full-time",
-    location: "Itahari (On-site)",
-    desc: "Onboard new partner restaurants and help them grow on the Zaaou platform.",
-  },
-  {
-    id: "social-media-intern",
-    title: "Social Media Intern",
-    department: "Marketing",
-    type: "Internship",
-    location: "Itahari (Hybrid)",
-    desc: "Run our Facebook, Instagram and TikTok - shoot food, write captions, engage the community.",
-  },
-];
-
 export function CareersPage() {
+  const [jobs, setJobs] = useState<Job[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+    supabase
+      .from("job_postings")
+      .select("*")
+      .eq("is_active", true)
+      .order("display_order", { ascending: true })
+      .order("created_at", { ascending: false })
+      .then(({ data }) => {
+        if (cancelled) return;
+        setJobs(data ?? []);
+        setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   return (
     <PageShell>
       {/* Hero */}
@@ -120,7 +87,7 @@ export function CareersPage() {
               <ArrowRight className="h-4 w-4" />
             </a>
             <a
-              href="mailto:careers@zaaoufood.com"
+              href="mailto:careers@zaaoufoods.com"
               className="inline-flex items-center gap-2 rounded-xl bg-card border-2 border-border hover:border-primary/40 text-foreground px-7 py-3.5 font-semibold transition-colors"
             >
               Send us your CV
@@ -169,45 +136,57 @@ export function CareersPage() {
             </h2>
           </div>
 
-          <div className="space-y-3">
-            {jobs.map((job) => (
-              <article
-                key={job.id}
-                className="group bg-card rounded-2xl p-5 sm:p-6 border border-border hover:border-primary/40 hover:shadow-soft transition-all flex flex-col sm:flex-row sm:items-center gap-4"
-              >
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-1.5">
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-primary bg-primary/10 rounded-full px-2.5 py-0.5">
-                      {job.department}
-                    </span>
-                  </div>
-                  <h3 className="font-bold text-lg leading-tight">{job.title}</h3>
-                  <p className="text-sm text-muted-foreground mt-1.5 leading-relaxed">
-                    {job.desc}
-                  </p>
-                  <div className="flex flex-wrap gap-4 mt-3 text-xs text-muted-foreground">
-                    <span className="inline-flex items-center gap-1.5">
-                      <MapPin className="h-3.5 w-3.5 text-primary" />
-                      {job.location}
-                    </span>
-                    <span className="inline-flex items-center gap-1.5">
-                      <Briefcase className="h-3.5 w-3.5 text-primary" />
-                      {job.type}
-                    </span>
-                  </div>
-                </div>
-                <a
-                  href={`https://wa.me/9779705047000?text=${encodeURIComponent(`Hi Zaaou, I'd like to apply for the ${job.title} role.`)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="shrink-0 inline-flex items-center justify-center gap-2 rounded-xl bg-primary text-primary-foreground px-5 py-3 text-sm font-semibold hover:shadow-glow transition-all"
+          {loading ? (
+            <div className="flex justify-center py-12">
+              <Loader2 className="h-6 w-6 animate-spin text-primary" />
+            </div>
+          ) : jobs.length === 0 ? (
+            <div className="rounded-2xl bg-card border border-dashed border-border p-10 text-center">
+              <p className="text-muted-foreground">
+                No open positions right now. Send us your CV — we'd love to hear from you.
+              </p>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {jobs.map((job) => (
+                <article
+                  key={job.id}
+                  className="group bg-card rounded-2xl p-5 sm:p-6 border border-border hover:border-primary/40 hover:shadow-soft transition-all flex flex-col sm:flex-row sm:items-center gap-4"
                 >
-                  Apply now
-                  <ArrowRight className="h-4 w-4" />
-                </a>
-              </article>
-            ))}
-          </div>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-primary bg-primary/10 rounded-full px-2.5 py-0.5">
+                        {job.department}
+                      </span>
+                    </div>
+                    <h3 className="font-bold text-lg leading-tight">{job.title}</h3>
+                    <p className="text-sm text-muted-foreground mt-1.5 leading-relaxed whitespace-pre-line">
+                      {job.description}
+                    </p>
+                    <div className="flex flex-wrap gap-4 mt-3 text-xs text-muted-foreground">
+                      <span className="inline-flex items-center gap-1.5">
+                        <MapPin className="h-3.5 w-3.5 text-primary" />
+                        {job.location}
+                      </span>
+                      <span className="inline-flex items-center gap-1.5">
+                        <Briefcase className="h-3.5 w-3.5 text-primary" />
+                        {job.job_type}
+                      </span>
+                    </div>
+                  </div>
+                  <a
+                    href={job.apply_url}
+                    target={job.apply_url.startsWith("http") ? "_blank" : undefined}
+                    rel={job.apply_url.startsWith("http") ? "noopener noreferrer" : undefined}
+                    className="shrink-0 inline-flex items-center justify-center gap-2 rounded-xl bg-primary text-primary-foreground px-5 py-3 text-sm font-semibold hover:shadow-glow transition-all"
+                  >
+                    Apply now
+                    <ArrowRight className="h-4 w-4" />
+                  </a>
+                </article>
+              ))}
+            </div>
+          )}
 
           <div className="mt-12 rounded-3xl bg-gradient-hero text-primary-foreground p-8 sm:p-10 text-center">
             <h3 className="font-display text-2xl sm:text-3xl font-extrabold mb-2">
@@ -217,10 +196,10 @@ export function CareersPage() {
               We're always open to meeting passionate people. Send us your CV and tell us how you can help.
             </p>
             <a
-              href="mailto:careers@zaaoufood.com"
+              href="mailto:careers@zaaoufoods.com"
               className="inline-flex items-center gap-2 rounded-xl bg-card text-foreground px-7 py-3.5 font-semibold hover:scale-[1.02] transition-transform"
             >
-              careers@zaaoufood.com
+              careers@zaaoufoods.com
             </a>
           </div>
 
