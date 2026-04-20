@@ -5,6 +5,7 @@ import { Loader2, Eye, EyeOff, Lock, Mail, ShieldCheck, ArrowRight } from "lucid
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth-context";
+import { LoginGate } from "@/components/site/LoginGate";
 import authBg from "@/assets/admin-auth-bg.jpg";
 
 const searchSchema = z.object({
@@ -19,8 +20,20 @@ export const Route = createFileRoute("/auth")({
       { name: "robots", content: "noindex" },
     ],
   }),
-  component: AuthPage,
+  component: AuthPageWrapper,
 });
+
+function AuthPageWrapper() {
+  return (
+    <LoginGate
+      audience="admin"
+      title="Admin security check"
+      subtitle="Answer to continue to the admin sign-in."
+    >
+      <AuthPage />
+    </LoginGate>
+  );
+}
 
 function AuthPage() {
   const { user, loading } = useAuth();

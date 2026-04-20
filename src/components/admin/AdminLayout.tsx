@@ -18,6 +18,7 @@ import {
   Star,
   Bell,
   Briefcase,
+  ShieldQuestion,
   Moon,
   Sun,
 } from "lucide-react";
@@ -38,6 +39,7 @@ type NavItem = {
     | "/admin/comments"
     | "/admin/subscribers"
     | "/admin/notifications"
+    | "/admin/login-gate"
     | "/admin/settings";
   label: string;
   icon: typeof LayoutDashboard;
@@ -56,6 +58,7 @@ const nav: NavItem[] = [
   { to: "/admin/comments", label: "Comments", icon: MessageSquare, group: "Content" },
   { to: "/admin/subscribers", label: "Newsletter", icon: Mail, group: "Audience" },
   { to: "/admin/notifications", label: "Notifications", icon: Bell, group: "Audience" },
+  { to: "/admin/login-gate", label: "Login security", icon: ShieldQuestion, group: "System" },
   { to: "/admin/settings", label: "Settings", icon: Settings, group: "System" },
 ];
 
