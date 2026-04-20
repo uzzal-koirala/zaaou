@@ -7,10 +7,6 @@ import { NotFound } from "@/components/site/NotFound";
 
 import appCss from "../styles.css?url";
 
-function NotFoundComponent() {
-  return <NotFound />;
-}
-
 export const Route = createRootRoute({
   head: () => ({
     meta: [
@@ -41,7 +37,11 @@ export const Route = createRootRoute({
   }),
   shellComponent: RootShell,
   component: RootComponent,
-  notFoundComponent: NotFoundComponent,
+  notFoundComponent: () => (
+    <AuthProvider>
+      <NotFound />
+    </AuthProvider>
+  ),
 });
 
 function RootShell({ children }: { children: React.ReactNode }) {
