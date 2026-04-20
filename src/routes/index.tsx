@@ -13,6 +13,7 @@ import { PartnerCTA } from "@/components/site/PartnerCTA";
 import { AppDownload } from "@/components/site/AppDownload";
 import { TeamSection } from "@/components/site/TeamSection";
 import { Footer } from "@/components/site/Footer";
+import { SocialNotifications } from "@/components/site/SocialNotifications";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -45,6 +46,7 @@ function Index() {
         <AppDownload />
       </main>
       <Footer />
+      <SocialNotifications />
     </div>
   );
 }
