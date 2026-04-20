@@ -136,6 +136,48 @@ export type Database = {
           },
         ]
       }
+      job_postings: {
+        Row: {
+          apply_url: string
+          created_at: string
+          department: string
+          description: string
+          display_order: number
+          id: string
+          is_active: boolean
+          job_type: string
+          location: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          apply_url: string
+          created_at?: string
+          department?: string
+          description: string
+          display_order?: number
+          id?: string
+          is_active?: boolean
+          job_type?: string
+          location?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          apply_url?: string
+          created_at?: string
+          department?: string
+          description?: string
+          display_order?: number
+          id?: string
+          is_active?: boolean
+          job_type?: string
+          location?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       newsletter_subscribers: {
         Row: {
           created_at: string

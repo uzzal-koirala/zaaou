@@ -18,6 +18,7 @@ import {
   ChevronRight,
   Star,
   Bell,
+  Briefcase,
 } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 import { ProfileMenu } from "./ProfileMenu";
@@ -28,6 +29,7 @@ type NavItem = {
     | "/admin"
     | "/admin/restaurants"
     | "/admin/riders"
+    | "/admin/jobs"
     | "/admin/posts"
     | "/admin/authors"
     | "/admin/team"
@@ -46,6 +48,7 @@ const nav: NavItem[] = [
   { to: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true, group: "Overview" },
   { to: "/admin/restaurants", label: "Restaurants", icon: Store, group: "Operations" },
   { to: "/admin/riders", label: "Riders", icon: Bike, group: "Operations" },
+  { to: "/admin/jobs", label: "Jobs", icon: Briefcase, group: "Operations" },
   { to: "/admin/posts", label: "Posts", icon: FileText, group: "Content" },
   { to: "/admin/authors", label: "Authors", icon: Users, group: "Content" },
   { to: "/admin/team", label: "Team", icon: UserSquare, group: "Content" },
