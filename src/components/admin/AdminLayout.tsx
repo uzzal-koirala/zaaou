@@ -17,6 +17,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Star,
+  Bell,
 } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 import { ProfileMenu } from "./ProfileMenu";
@@ -33,6 +34,7 @@ type NavItem = {
     | "/admin/reviews"
     | "/admin/comments"
     | "/admin/subscribers"
+    | "/admin/notifications"
     | "/admin/settings";
   label: string;
   icon: typeof LayoutDashboard;
@@ -50,6 +52,7 @@ const nav: NavItem[] = [
   { to: "/admin/reviews", label: "Reviews", icon: Star, group: "Content" },
   { to: "/admin/comments", label: "Comments", icon: MessageSquare, group: "Content" },
   { to: "/admin/subscribers", label: "Newsletter", icon: Mail, group: "Audience" },
+  { to: "/admin/notifications", label: "Notifications", icon: Bell, group: "Audience" },
   { to: "/admin/settings", label: "Settings", icon: Settings, group: "System" },
 ];
 

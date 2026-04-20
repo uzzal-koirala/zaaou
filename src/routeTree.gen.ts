@@ -28,6 +28,7 @@ import { Route as AdminSubscribersRouteImport } from './routes/admin.subscribers
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as AdminRidersRouteImport } from './routes/admin.riders'
 import { Route as AdminReviewsRouteImport } from './routes/admin.reviews'
+import { Route as AdminNotificationsRouteImport } from './routes/admin.notifications'
 import { Route as AdminCommentsRouteImport } from './routes/admin.comments'
 import { Route as AdminAuthorsRouteImport } from './routes/admin.authors'
 import { Route as AuthorPostsIndexRouteImport } from './routes/author.posts.index'
@@ -136,6 +137,11 @@ const AdminReviewsRoute = AdminReviewsRouteImport.update({
   path: '/admin/reviews',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminNotificationsRoute = AdminNotificationsRouteImport.update({
+  id: '/admin/notifications',
+  path: '/admin/notifications',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminCommentsRoute = AdminCommentsRouteImport.update({
   id: '/admin/comments',
   path: '/admin/comments',
@@ -207,6 +213,7 @@ export interface FileRoutesByFullPath {
   '/team': typeof TeamRoute
   '/admin/authors': typeof AdminAuthorsRoute
   '/admin/comments': typeof AdminCommentsRoute
+  '/admin/notifications': typeof AdminNotificationsRoute
   '/admin/reviews': typeof AdminReviewsRoute
   '/admin/riders': typeof AdminRidersRoute
   '/admin/settings': typeof AdminSettingsRoute
@@ -239,6 +246,7 @@ export interface FileRoutesByTo {
   '/team': typeof TeamRoute
   '/admin/authors': typeof AdminAuthorsRoute
   '/admin/comments': typeof AdminCommentsRoute
+  '/admin/notifications': typeof AdminNotificationsRoute
   '/admin/reviews': typeof AdminReviewsRoute
   '/admin/riders': typeof AdminRidersRoute
   '/admin/settings': typeof AdminSettingsRoute
@@ -273,6 +281,7 @@ export interface FileRoutesById {
   '/team': typeof TeamRoute
   '/admin/authors': typeof AdminAuthorsRoute
   '/admin/comments': typeof AdminCommentsRoute
+  '/admin/notifications': typeof AdminNotificationsRoute
   '/admin/reviews': typeof AdminReviewsRoute
   '/admin/riders': typeof AdminRidersRoute
   '/admin/settings': typeof AdminSettingsRoute
@@ -308,6 +317,7 @@ export interface FileRouteTypes {
     | '/team'
     | '/admin/authors'
     | '/admin/comments'
+    | '/admin/notifications'
     | '/admin/reviews'
     | '/admin/riders'
     | '/admin/settings'
@@ -340,6 +350,7 @@ export interface FileRouteTypes {
     | '/team'
     | '/admin/authors'
     | '/admin/comments'
+    | '/admin/notifications'
     | '/admin/reviews'
     | '/admin/riders'
     | '/admin/settings'
@@ -373,6 +384,7 @@ export interface FileRouteTypes {
     | '/team'
     | '/admin/authors'
     | '/admin/comments'
+    | '/admin/notifications'
     | '/admin/reviews'
     | '/admin/riders'
     | '/admin/settings'
@@ -407,6 +419,7 @@ export interface RootRouteChildren {
   TeamRoute: typeof TeamRoute
   AdminAuthorsRoute: typeof AdminAuthorsRoute
   AdminCommentsRoute: typeof AdminCommentsRoute
+  AdminNotificationsRoute: typeof AdminNotificationsRoute
   AdminReviewsRoute: typeof AdminReviewsRoute
   AdminRidersRoute: typeof AdminRidersRoute
   AdminSettingsRoute: typeof AdminSettingsRoute
@@ -563,6 +576,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminReviewsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/notifications': {
+      id: '/admin/notifications'
+      path: '/admin/notifications'
+      fullPath: '/admin/notifications'
+      preLoaderRoute: typeof AdminNotificationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/comments': {
       id: '/admin/comments'
       path: '/admin/comments'
@@ -674,6 +694,7 @@ const rootRouteChildren: RootRouteChildren = {
   TeamRoute: TeamRoute,
   AdminAuthorsRoute: AdminAuthorsRoute,
   AdminCommentsRoute: AdminCommentsRoute,
+  AdminNotificationsRoute: AdminNotificationsRoute,
   AdminReviewsRoute: AdminReviewsRoute,
   AdminRidersRoute: AdminRidersRoute,
   AdminSettingsRoute: AdminSettingsRoute,
