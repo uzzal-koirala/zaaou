@@ -437,6 +437,7 @@ export type Database = {
           id: string
           is_active: boolean
           is_featured: boolean
+          map_url: string | null
           name: string
           phone: string | null
           price_range: string | null
@@ -456,6 +457,7 @@ export type Database = {
           id?: string
           is_active?: boolean
           is_featured?: boolean
+          map_url?: string | null
           name: string
           phone?: string | null
           price_range?: string | null
@@ -475,6 +477,7 @@ export type Database = {
           id?: string
           is_active?: boolean
           is_featured?: boolean
+          map_url?: string | null
           name?: string
           phone?: string | null
           price_range?: string | null
