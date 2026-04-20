@@ -8,7 +8,9 @@ import {
   CheckCircle2,
   Store,
 } from "lucide-react";
+import { toast } from "sonner";
 import { PageShell } from "@/components/site/PageShell";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/partner")({
   head: () => ({
@@ -53,9 +55,34 @@ function PartnerPage() {
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    // For now, just acknowledge - wire up to backend later.
+    if (
+      !form.restaurantName.trim() ||
+      !form.ownerName.trim() ||
+      !form.phone.trim() ||
+      !form.email.trim()
+    ) {
+      toast.error("Please fill in all required fields");
+      return;
+    }
+    setSubmitting(true);
+    const { error } = await supabase.from("partner_applications").insert({
+      restaurant_name: form.restaurantName.trim(),
+      owner_name: form.ownerName.trim(),
+      phone: form.phone.trim(),
+      email: form.email.trim(),
+      address: form.address.trim() || null,
+      cuisine: form.cuisine || null,
+      message: form.message.trim() || null,
+    });
+    setSubmitting(false);
+    if (error) {
+      toast.error("Couldn't submit your application. Please try again.");
+      return;
+    }
     setSubmitted(true);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -237,9 +264,10 @@ function PartnerPage() {
                 <div className="sm:col-span-2 flex flex-col sm:flex-row sm:items-center gap-3 pt-2">
                   <button
                     type="submit"
-                    className="inline-flex items-center justify-center rounded-xl bg-primary text-primary-foreground px-7 py-3.5 font-semibold shadow-soft hover:shadow-glow transition-all"
+                    disabled={submitting}
+                    className="inline-flex items-center justify-center rounded-xl bg-primary text-primary-foreground px-7 py-3.5 font-semibold shadow-soft hover:shadow-glow transition-all disabled:opacity-60"
                   >
-                    Submit application
+                    {submitting ? "Submitting…" : "Submit application"}
                   </button>
                   <p className="text-xs text-muted-foreground">
                     By submitting, you agree to be contacted by Zaaou Food.

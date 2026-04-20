@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { PageShell } from "@/components/site/PageShell";
 import { useSiteSettings } from "@/hooks/use-site-settings";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/support")({
   head: () => ({
@@ -51,22 +52,26 @@ function SupportPage() {
   const [submitting, setSubmitting] = useState(false);
   const [sent, setSent] = useState(false);
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
       toast.error("Please fill in all fields");
       return;
     }
     setSubmitting(true);
-    // Open the user's email client with a pre-filled message
-    const subject = encodeURIComponent(`[Support - ${form.topic}] from ${form.name}`);
-    const body = encodeURIComponent(`${form.message}\n\n—\nFrom: ${form.name}\nReply-to: ${form.email}`);
-    window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
-    setTimeout(() => {
-      setSubmitting(false);
-      setSent(true);
-      toast.success("Thanks! Your email client should open shortly.");
-    }, 600);
+    const { error } = await supabase.from("contact_submissions").insert({
+      name: form.name.trim(),
+      email: form.email.trim(),
+      topic: form.topic,
+      message: form.message.trim(),
+    });
+    setSubmitting(false);
+    if (error) {
+      toast.error("Couldn't send your message. Please try again.");
+      return;
+    }
+    setSent(true);
+    toast.success("Message sent! Our team will get back to you shortly.");
   }
 
   return (
