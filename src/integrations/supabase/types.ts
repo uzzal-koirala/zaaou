@@ -199,6 +199,42 @@ export type Database = {
           },
         ]
       }
+      contact_submissions: {
+        Row: {
+          admin_notes: string | null
+          created_at: string
+          email: string
+          id: string
+          message: string
+          name: string
+          status: Database["public"]["Enums"]["inquiry_status"]
+          topic: string | null
+          updated_at: string
+        }
+        Insert: {
+          admin_notes?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          message: string
+          name: string
+          status?: Database["public"]["Enums"]["inquiry_status"]
+          topic?: string | null
+          updated_at?: string
+        }
+        Update: {
+          admin_notes?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          message?: string
+          name?: string
+          status?: Database["public"]["Enums"]["inquiry_status"]
+          topic?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       job_postings: {
         Row: {
           apply_url: string
@@ -324,6 +360,51 @@ export type Database = {
           name?: string | null
           source?: string | null
           unsubscribed_at?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      partner_applications: {
+        Row: {
+          address: string | null
+          admin_notes: string | null
+          created_at: string
+          cuisine: string | null
+          email: string
+          id: string
+          message: string | null
+          owner_name: string
+          phone: string
+          restaurant_name: string
+          status: Database["public"]["Enums"]["inquiry_status"]
+          updated_at: string
+        }
+        Insert: {
+          address?: string | null
+          admin_notes?: string | null
+          created_at?: string
+          cuisine?: string | null
+          email: string
+          id?: string
+          message?: string | null
+          owner_name: string
+          phone: string
+          restaurant_name: string
+          status?: Database["public"]["Enums"]["inquiry_status"]
+          updated_at?: string
+        }
+        Update: {
+          address?: string | null
+          admin_notes?: string | null
+          created_at?: string
+          cuisine?: string | null
+          email?: string
+          id?: string
+          message?: string | null
+          owner_name?: string
+          phone?: string
+          restaurant_name?: string
+          status?: Database["public"]["Enums"]["inquiry_status"]
           updated_at?: string
         }
         Relationships: []
@@ -705,6 +786,7 @@ export type Database = {
     Enums: {
       app_role: "admin" | "user" | "author"
       comment_status: "pending" | "approved" | "rejected"
+      inquiry_status: "new" | "in_progress" | "resolved" | "archived"
       post_status: "draft" | "published"
     }
     CompositeTypes: {
@@ -835,6 +917,7 @@ export const Constants = {
     Enums: {
       app_role: ["admin", "user", "author"],
       comment_status: ["pending", "approved", "rejected"],
+      inquiry_status: ["new", "in_progress", "resolved", "archived"],
       post_status: ["draft", "published"],
     },
   },
