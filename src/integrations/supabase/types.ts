@@ -304,6 +304,7 @@ export type Database = {
       login_gate_questions: {
         Row: {
           answer: string
+          answer_hash: string | null
           audience: string
           created_at: string
           display_order: number
@@ -314,6 +315,7 @@ export type Database = {
         }
         Insert: {
           answer: string
+          answer_hash?: string | null
           audience: string
           created_at?: string
           display_order?: number
@@ -324,6 +326,7 @@ export type Database = {
         }
         Update: {
           answer?: string
+          answer_hash?: string | null
           audience?: string
           created_at?: string
           display_order?: number
