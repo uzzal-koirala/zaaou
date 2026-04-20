@@ -1,9 +1,8 @@
-import { Outlet, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import { Outlet, createRootRoute, HeadContent, Scripts, redirect } from "@tanstack/react-router";
 import { AuthProvider } from "@/lib/auth-context";
 import { Toaster } from "@/components/ui/sonner";
 import { RouteLoader } from "@/components/site/RouteLoader";
 import { MaintenanceGate } from "@/components/site/MaintenanceGate";
-import { NotFound } from "@/components/site/NotFound";
 
 import appCss from "../styles.css?url";
 
@@ -37,11 +36,9 @@ export const Route = createRootRoute({
   }),
   shellComponent: RootShell,
   component: RootComponent,
-  notFoundComponent: () => (
-    <AuthProvider>
-      <NotFound />
-    </AuthProvider>
-  ),
+  notFoundComponent: () => {
+    throw redirect({ to: "/404" });
+  },
 });
 
 function RootShell({ children }: { children: React.ReactNode }) {
