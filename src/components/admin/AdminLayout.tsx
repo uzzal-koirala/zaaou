@@ -29,6 +29,7 @@ type NavItem = {
     | "/admin/posts"
     | "/admin/authors"
     | "/admin/team"
+    | "/admin/reviews"
     | "/admin/comments"
     | "/admin/subscribers"
     | "/admin/settings";
@@ -45,6 +46,7 @@ const nav: NavItem[] = [
   { to: "/admin/posts", label: "Posts", icon: FileText, group: "Content" },
   { to: "/admin/authors", label: "Authors", icon: Users, group: "Content" },
   { to: "/admin/team", label: "Team", icon: UserSquare, group: "Content" },
+  { to: "/admin/reviews", label: "Reviews", icon: Star, group: "Content" },
   { to: "/admin/comments", label: "Comments", icon: MessageSquare, group: "Content" },
   { to: "/admin/subscribers", label: "Newsletter", icon: Mail, group: "Audience" },
   { to: "/admin/settings", label: "Settings", icon: Settings, group: "System" },
