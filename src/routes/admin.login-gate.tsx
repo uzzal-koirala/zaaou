@@ -398,8 +398,8 @@ function AudienceSection({
               <p className="text-sm font-medium leading-snug">{q.question}</p>
               <p className="mt-1.5 text-[11px] text-muted-foreground">
                 Answer:{" "}
-                <span className="font-mono text-foreground/80 bg-muted px-1.5 py-0.5 rounded">
-                  {q.answer}
+                <span className="font-mono text-foreground/60 bg-muted px-1.5 py-0.5 rounded">
+                  ••••••• (hashed)
                 </span>
               </p>
               <div className="mt-3 flex items-center justify-between">
