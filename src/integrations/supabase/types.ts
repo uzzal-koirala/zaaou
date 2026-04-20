@@ -71,6 +71,7 @@ export type Database = {
           comments_enabled: boolean
           created_at: string
           id: string
+          notifications_enabled: boolean
           singleton: boolean
           updated_at: string
         }
@@ -79,6 +80,7 @@ export type Database = {
           comments_enabled?: boolean
           created_at?: string
           id?: string
+          notifications_enabled?: boolean
           singleton?: boolean
           updated_at?: string
         }
@@ -87,6 +89,7 @@ export type Database = {
           comments_enabled?: boolean
           created_at?: string
           id?: string
+          notifications_enabled?: boolean
           singleton?: boolean
           updated_at?: string
         }
@@ -407,6 +410,39 @@ export type Database = {
           total_deliveries?: number
           updated_at?: string
           vehicle_type?: string | null
+        }
+        Relationships: []
+      }
+      site_notifications: {
+        Row: {
+          created_at: string
+          display_order: number
+          icon_url: string | null
+          id: string
+          is_active: boolean
+          message: string
+          time_ago_label: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          display_order?: number
+          icon_url?: string | null
+          id?: string
+          is_active?: boolean
+          message: string
+          time_ago_label?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          display_order?: number
+          icon_url?: string | null
+          id?: string
+          is_active?: boolean
+          message?: string
+          time_ago_label?: string
+          updated_at?: string
         }
         Relationships: []
       }
