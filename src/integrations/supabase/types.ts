@@ -76,6 +76,8 @@ export type Database = {
           contact_whatsapp: string
           created_at: string
           id: string
+          login_gate_enabled: boolean
+          login_gate_question_count: number
           maintenance_message: string
           maintenance_mode: boolean
           notifications_enabled: boolean
@@ -104,6 +106,8 @@ export type Database = {
           contact_whatsapp?: string
           created_at?: string
           id?: string
+          login_gate_enabled?: boolean
+          login_gate_question_count?: number
           maintenance_message?: string
           maintenance_mode?: boolean
           notifications_enabled?: boolean
@@ -132,6 +136,8 @@ export type Database = {
           contact_whatsapp?: string
           created_at?: string
           id?: string
+          login_gate_enabled?: boolean
+          login_gate_question_count?: number
           maintenance_message?: string
           maintenance_mode?: boolean
           notifications_enabled?: boolean
@@ -231,6 +237,63 @@ export type Database = {
           job_type?: string
           location?: string
           title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      login_gate_attempts: {
+        Row: {
+          audience: string
+          created_at: string
+          id: string
+          ip_hash: string
+          succeeded: boolean
+        }
+        Insert: {
+          audience: string
+          created_at?: string
+          id?: string
+          ip_hash: string
+          succeeded?: boolean
+        }
+        Update: {
+          audience?: string
+          created_at?: string
+          id?: string
+          ip_hash?: string
+          succeeded?: boolean
+        }
+        Relationships: []
+      }
+      login_gate_questions: {
+        Row: {
+          answer: string
+          audience: string
+          created_at: string
+          display_order: number
+          id: string
+          is_active: boolean
+          question: string
+          updated_at: string
+        }
+        Insert: {
+          answer: string
+          audience: string
+          created_at?: string
+          display_order?: number
+          id?: string
+          is_active?: boolean
+          question: string
+          updated_at?: string
+        }
+        Update: {
+          answer?: string
+          audience?: string
+          created_at?: string
+          display_order?: number
+          id?: string
+          is_active?: boolean
+          question?: string
           updated_at?: string
         }
         Relationships: []
