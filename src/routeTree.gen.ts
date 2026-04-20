@@ -35,6 +35,7 @@ import { Route as AdminReviewsRouteImport } from './routes/admin.reviews'
 import { Route as AdminNotificationsRouteImport } from './routes/admin.notifications'
 import { Route as AdminLoginGateRouteImport } from './routes/admin.login-gate'
 import { Route as AdminJobsRouteImport } from './routes/admin.jobs'
+import { Route as AdminInboxRouteImport } from './routes/admin.inbox'
 import { Route as AdminCommentsRouteImport } from './routes/admin.comments'
 import { Route as AdminAuthorsRouteImport } from './routes/admin.authors'
 import { Route as AuthorPostsIndexRouteImport } from './routes/author.posts.index'
@@ -178,6 +179,11 @@ const AdminJobsRoute = AdminJobsRouteImport.update({
   path: '/admin/jobs',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminInboxRoute = AdminInboxRouteImport.update({
+  id: '/admin/inbox',
+  path: '/admin/inbox',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminCommentsRoute = AdminCommentsRouteImport.update({
   id: '/admin/comments',
   path: '/admin/comments',
@@ -254,6 +260,7 @@ export interface FileRoutesByFullPath {
   '/team': typeof TeamRoute
   '/admin/authors': typeof AdminAuthorsRoute
   '/admin/comments': typeof AdminCommentsRoute
+  '/admin/inbox': typeof AdminInboxRoute
   '/admin/jobs': typeof AdminJobsRoute
   '/admin/login-gate': typeof AdminLoginGateRoute
   '/admin/notifications': typeof AdminNotificationsRoute
@@ -293,6 +300,7 @@ export interface FileRoutesByTo {
   '/team': typeof TeamRoute
   '/admin/authors': typeof AdminAuthorsRoute
   '/admin/comments': typeof AdminCommentsRoute
+  '/admin/inbox': typeof AdminInboxRoute
   '/admin/jobs': typeof AdminJobsRoute
   '/admin/login-gate': typeof AdminLoginGateRoute
   '/admin/notifications': typeof AdminNotificationsRoute
@@ -334,6 +342,7 @@ export interface FileRoutesById {
   '/team': typeof TeamRoute
   '/admin/authors': typeof AdminAuthorsRoute
   '/admin/comments': typeof AdminCommentsRoute
+  '/admin/inbox': typeof AdminInboxRoute
   '/admin/jobs': typeof AdminJobsRoute
   '/admin/login-gate': typeof AdminLoginGateRoute
   '/admin/notifications': typeof AdminNotificationsRoute
@@ -376,6 +385,7 @@ export interface FileRouteTypes {
     | '/team'
     | '/admin/authors'
     | '/admin/comments'
+    | '/admin/inbox'
     | '/admin/jobs'
     | '/admin/login-gate'
     | '/admin/notifications'
@@ -415,6 +425,7 @@ export interface FileRouteTypes {
     | '/team'
     | '/admin/authors'
     | '/admin/comments'
+    | '/admin/inbox'
     | '/admin/jobs'
     | '/admin/login-gate'
     | '/admin/notifications'
@@ -455,6 +466,7 @@ export interface FileRouteTypes {
     | '/team'
     | '/admin/authors'
     | '/admin/comments'
+    | '/admin/inbox'
     | '/admin/jobs'
     | '/admin/login-gate'
     | '/admin/notifications'
@@ -496,6 +508,7 @@ export interface RootRouteChildren {
   TeamRoute: typeof TeamRoute
   AdminAuthorsRoute: typeof AdminAuthorsRoute
   AdminCommentsRoute: typeof AdminCommentsRoute
+  AdminInboxRoute: typeof AdminInboxRoute
   AdminJobsRoute: typeof AdminJobsRoute
   AdminLoginGateRoute: typeof AdminLoginGateRoute
   AdminNotificationsRoute: typeof AdminNotificationsRoute
@@ -703,6 +716,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminJobsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/inbox': {
+      id: '/admin/inbox'
+      path: '/admin/inbox'
+      fullPath: '/admin/inbox'
+      preLoaderRoute: typeof AdminInboxRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/comments': {
       id: '/admin/comments'
       path: '/admin/comments'
@@ -819,6 +839,7 @@ const rootRouteChildren: RootRouteChildren = {
   TeamRoute: TeamRoute,
   AdminAuthorsRoute: AdminAuthorsRoute,
   AdminCommentsRoute: AdminCommentsRoute,
+  AdminInboxRoute: AdminInboxRoute,
   AdminJobsRoute: AdminJobsRoute,
   AdminLoginGateRoute: AdminLoginGateRoute,
   AdminNotificationsRoute: AdminNotificationsRoute,
