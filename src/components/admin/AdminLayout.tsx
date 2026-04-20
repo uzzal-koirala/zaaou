@@ -283,7 +283,7 @@ export function AdminLayout({ children }: { children: ReactNode }) {
           <ProfileMenu />
         </div>
         {/* Mobile top-right profile (sits inside the existing mobile header) */}
-        <div className="lg:hidden fixed top-2 right-14 z-50 flex items-center gap-1">
+        <div className="lg:hidden fixed top-2.5 right-3 z-50 flex items-center gap-1">
           <ThemeToggle />
           <ProfileMenu />
         </div>
