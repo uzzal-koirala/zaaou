@@ -60,6 +60,13 @@ function RestaurantsAdminPage() {
     load();
   }
 
+  async function toggleFeatured(id: string, current: boolean) {
+    const { error } = await supabase.from("restaurants").update({ is_featured: !current }).eq("id", id);
+    if (error) return toast.error(error.message);
+    toast.success(!current ? "Featured on home page" : "Removed from featured");
+    load();
+  }
+
   async function remove(id: string, name: string) {
     if (!window.confirm(`Delete "${name}"? This cannot be undone.`)) return;
     const { error } = await supabase.from("restaurants").delete().eq("id", id);
@@ -166,6 +173,19 @@ function RestaurantsAdminPage() {
                 </div>
               </div>
               <div className="flex items-center gap-2 flex-shrink-0">
+                <button
+                  onClick={() => toggleFeatured(r.id, r.is_featured)}
+                  aria-label={r.is_featured ? "Unfeature" : "Feature on home"}
+                  title={r.is_featured ? "Remove from home featured" : "Feature on home page"}
+                  className={`text-xs font-semibold rounded-lg px-3 py-1.5 border transition-colors inline-flex items-center gap-1 ${
+                    r.is_featured
+                      ? "border-primary/30 bg-primary/10 text-primary hover:bg-primary/20"
+                      : "border-border text-foreground/70 hover:bg-muted"
+                  }`}
+                >
+                  <Star className={`h-3.5 w-3.5 ${r.is_featured ? "fill-current" : ""}`} />
+                  {r.is_featured ? "Featured" : "Feature"}
+                </button>
                 <button
                   onClick={() => toggleActive(r.id, r.is_active)}
                   className={`text-xs font-semibold rounded-lg px-3 py-1.5 border transition-colors ${

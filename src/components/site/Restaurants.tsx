@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Star, Clock, Store } from "lucide-react";
+import { Star, Clock, Store, MapPin } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -12,6 +12,7 @@ type Featured = {
   rating: number | null;
   delivery_time_minutes: number | null;
   price_range: string | null;
+  map_url: string | null;
 };
 
 export function Restaurants() {
@@ -21,12 +22,12 @@ export function Restaurants() {
     (async () => {
       const { data } = await supabase
         .from("restaurants")
-        .select("id, name, slug, cuisine, cover_image_url, rating, delivery_time_minutes, price_range")
+        .select("id, name, slug, cuisine, cover_image_url, rating, delivery_time_minutes, price_range, map_url")
         .eq("is_active", true)
         .eq("is_featured", true)
         .order("display_order", { ascending: true })
         .limit(4);
-      setItems(data ?? []);
+      setItems((data ?? []) as Featured[]);
     })();
   }, []);
 
@@ -85,6 +86,17 @@ export function Restaurants() {
                   </span>
                   {r.price_range && <span className="text-xs font-bold text-primary">{r.price_range}</span>}
                 </div>
+                {r.map_url && (
+                  <a
+                    href={r.map_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline underline-offset-4"
+                  >
+                    <MapPin className="h-3.5 w-3.5" /> Get directions
+                  </a>
+                )}
               </div>
             </div>
           ))}

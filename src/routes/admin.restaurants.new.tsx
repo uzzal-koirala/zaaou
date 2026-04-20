@@ -18,6 +18,7 @@ type FormState = {
   cover_image_url: string;
   address: string;
   phone: string;
+  map_url: string;
   rating: string;
   delivery_time_minutes: string;
   price_range: "" | "$" | "$$" | "$$$" | "$$$$";
@@ -35,6 +36,7 @@ const empty: FormState = {
   cover_image_url: "",
   address: "",
   phone: "",
+  map_url: "",
   rating: "0",
   delivery_time_minutes: "30",
   price_range: "$$",
@@ -66,6 +68,7 @@ function RestaurantForm({ mode }: { mode: Mode }) {
           cover_image_url: data.cover_image_url ?? "",
           address: data.address ?? "",
           phone: data.phone ?? "",
+          map_url: (data as { map_url?: string | null }).map_url ?? "",
           rating: String(data.rating ?? 0),
           delivery_time_minutes: String(data.delivery_time_minutes ?? 30),
           price_range: (data.price_range ?? "$$") as FormState["price_range"],
@@ -96,6 +99,7 @@ function RestaurantForm({ mode }: { mode: Mode }) {
       cover_image_url: form.cover_image_url.trim() || null,
       address: form.address.trim() || null,
       phone: form.phone.trim() || null,
+      map_url: form.map_url.trim() || null,
       rating: Number(form.rating) || 0,
       delivery_time_minutes: Number(form.delivery_time_minutes) || null,
       price_range: form.price_range || null,
@@ -200,6 +204,18 @@ function RestaurantForm({ mode }: { mode: Mode }) {
                 value={form.phone}
                 onChange={(e) => update("phone", e.target.value)}
                 placeholder="+977 98XXXXXXXX"
+                className={inputCls}
+              />
+            </Field>
+            <Field
+              label="Directions link"
+              hint="Google Maps URL — shown as 'Get directions' on the home card"
+            >
+              <input
+                type="url"
+                value={form.map_url}
+                onChange={(e) => update("map_url", e.target.value)}
+                placeholder="https://maps.google.com/?q=..."
                 className={inputCls}
               />
             </Field>
