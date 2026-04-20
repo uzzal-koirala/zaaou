@@ -320,6 +320,48 @@ export type Database = {
         }
         Relationships: []
       }
+      reviews: {
+        Row: {
+          avatar_url: string | null
+          content: string
+          created_at: string
+          display_order: number
+          id: string
+          is_active: boolean
+          is_featured: boolean
+          name: string
+          rating: number
+          role: string | null
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          content: string
+          created_at?: string
+          display_order?: number
+          id?: string
+          is_active?: boolean
+          is_featured?: boolean
+          name: string
+          rating?: number
+          role?: string | null
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          content?: string
+          created_at?: string
+          display_order?: number
+          id?: string
+          is_active?: boolean
+          is_featured?: boolean
+          name?: string
+          rating?: number
+          role?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       riders: {
         Row: {
           avatar_url: string | null
