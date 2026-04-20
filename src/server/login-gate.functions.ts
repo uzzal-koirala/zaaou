@@ -172,7 +172,7 @@ export const verifyLoginGate = createServerFn({ method: "POST" })
     const ids = data.answers.map((a) => a.id);
     const { data: rows, error } = await supabaseAdmin
       .from("login_gate_questions")
-      .select("id, answer, audience, is_active")
+      .select("id, answer_hash, audience, is_active")
       .in("id", ids);
 
     if (error || !rows || rows.length !== ids.length) {
@@ -184,11 +184,25 @@ export const verifyLoginGate = createServerFn({ method: "POST" })
       return { success: false as const, locked: false as const };
     }
 
+    function hashAnswer(raw: string): string {
+      return crypto.createHash("sha256").update(raw.trim().toLowerCase()).digest("hex");
+    }
+
     const allMatch = data.answers.every((submitted) => {
-      const row = rows.find((r) => r.id === submitted.id);
+      const row = rows.find((r) => r.id === submitted.id) as
+        | { id: string; answer_hash: string | null; audience: string; is_active: boolean }
+        | undefined;
       if (!row || !row.is_active || row.audience !== data.audience) return false;
-      // Exact match (case-sensitive, no trim) per user choice
-      return row.answer === submitted.answer;
+      if (!row.answer_hash) return false;
+      const submittedHash = hashAnswer(submitted.answer);
+      try {
+        return crypto.timingSafeEqual(
+          Buffer.from(row.answer_hash, "hex"),
+          Buffer.from(submittedHash, "hex"),
+        );
+      } catch {
+        return false;
+      }
     });
 
     await supabaseAdmin.from("login_gate_attempts").insert({

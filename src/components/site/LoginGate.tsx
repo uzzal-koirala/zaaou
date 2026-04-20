@@ -169,7 +169,7 @@ export function LoginGate({
 
           <div className="mt-5 flex items-start gap-2 text-[11px] text-muted-foreground">
             <AlertTriangle className="h-3.5 w-3.5 mt-0.5 flex-shrink-0" />
-            <p>Answers are case-sensitive. After 5 wrong attempts the gate is locked for 15 minutes.</p>
+            <p>Answers are not case-sensitive. After 5 wrong attempts the gate is locked for 15 minutes.</p>
           </div>
         </div>
       </div>

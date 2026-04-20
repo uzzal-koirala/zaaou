@@ -99,7 +99,7 @@ function LoginGatePage() {
       id: q.id,
       audience: q.audience as Audience,
       question: q.question,
-      answer: q.answer,
+      answer: "", // plaintext is never stored; leave blank to keep, type to replace
       display_order: q.display_order,
       is_active: q.is_active,
     });
@@ -117,25 +117,36 @@ function LoginGatePage() {
     e.preventDefault();
     if (!editing) return;
     setSaving(true);
-    const payload = {
-      audience: editing.audience,
-      question: editing.question.trim(),
-      answer: editing.answer,
-      display_order: Number(editing.display_order) || 0,
-      is_active: editing.is_active,
-    };
 
     if (editing.id) {
+      // Only send answer if a new one was typed; trigger hashes it server-side.
+      const updatePayload: Database["public"]["Tables"]["login_gate_questions"]["Update"] = {
+        audience: editing.audience,
+        question: editing.question.trim(),
+        display_order: Number(editing.display_order) || 0,
+        is_active: editing.is_active,
+      };
+      if (editing.answer.trim().length > 0) updatePayload.answer = editing.answer;
       const { error } = await supabase
         .from("login_gate_questions")
-        .update(payload)
+        .update(updatePayload)
         .eq("id", editing.id);
       if (error) {
         setSaving(false);
         return toast.error(error.message);
       }
     } else {
-      const { error } = await supabase.from("login_gate_questions").insert(payload);
+      if (editing.answer.trim().length === 0) {
+        setSaving(false);
+        return toast.error("Answer is required for a new question");
+      }
+      const { error } = await supabase.from("login_gate_questions").insert({
+        audience: editing.audience,
+        question: editing.question.trim(),
+        answer: editing.answer,
+        display_order: Number(editing.display_order) || 0,
+        is_active: editing.is_active,
+      });
       if (error) {
         setSaving(false);
         return toast.error(error.message);
@@ -286,15 +297,16 @@ function LoginGatePage() {
                 />
               </Field>
               <Field
-                label="Correct answer *"
-                hint="Case-sensitive. Whatever the user types must match this exactly."
+                label={editing.id ? "Answer (leave blank to keep current)" : "Correct answer *"}
+                hint="Not case-sensitive. Stored hashed — you cannot view it later."
               >
                 <input
-                  required
+                  required={!editing.id}
+                  type="password"
                   value={editing.answer}
                   onChange={(e) => setEditing({ ...editing, answer: e.target.value })}
                   className={inputCls}
-                  placeholder="Itahari Chowk"
+                  placeholder={editing.id ? "••••••• (unchanged)" : "Itahari Chowk"}
                   maxLength={200}
                 />
               </Field>
@@ -386,8 +398,8 @@ function AudienceSection({
               <p className="text-sm font-medium leading-snug">{q.question}</p>
               <p className="mt-1.5 text-[11px] text-muted-foreground">
                 Answer:{" "}
-                <span className="font-mono text-foreground/80 bg-muted px-1.5 py-0.5 rounded">
-                  {q.answer}
+                <span className="font-mono text-foreground/60 bg-muted px-1.5 py-0.5 rounded">
+                  ••••••• (hashed)
                 </span>
               </p>
               <div className="mt-3 flex items-center justify-between">
