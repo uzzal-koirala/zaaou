@@ -99,7 +99,7 @@ function LoginGatePage() {
       id: q.id,
       audience: q.audience as Audience,
       question: q.question,
-      answer: q.answer,
+      answer: "", // plaintext is never stored; leave blank to keep, type to replace
       display_order: q.display_order,
       is_active: q.is_active,
     });
