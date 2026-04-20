@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TeamRouteImport } from './routes/team'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RestaurantsRouteImport } from './routes/restaurants'
 import { Route as PartnerRouteImport } from './routes/partner'
 import { Route as CareersRouteImport } from './routes/careers'
@@ -45,6 +46,11 @@ import { Route as AdminPostsIdEditRouteImport } from './routes/admin.posts.$id.e
 const TeamRoute = TeamRouteImport.update({
   id: '/team',
   path: '/team',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RestaurantsRoute = RestaurantsRouteImport.update({
@@ -210,6 +216,7 @@ export interface FileRoutesByFullPath {
   '/careers': typeof CareersRoute
   '/partner': typeof PartnerRoute
   '/restaurants': typeof RestaurantsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/team': typeof TeamRoute
   '/admin/authors': typeof AdminAuthorsRoute
   '/admin/comments': typeof AdminCommentsRoute
@@ -243,6 +250,7 @@ export interface FileRoutesByTo {
   '/careers': typeof CareersRoute
   '/partner': typeof PartnerRoute
   '/restaurants': typeof RestaurantsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/team': typeof TeamRoute
   '/admin/authors': typeof AdminAuthorsRoute
   '/admin/comments': typeof AdminCommentsRoute
@@ -278,6 +286,7 @@ export interface FileRoutesById {
   '/careers': typeof CareersRoute
   '/partner': typeof PartnerRoute
   '/restaurants': typeof RestaurantsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/team': typeof TeamRoute
   '/admin/authors': typeof AdminAuthorsRoute
   '/admin/comments': typeof AdminCommentsRoute
@@ -314,6 +323,7 @@ export interface FileRouteTypes {
     | '/careers'
     | '/partner'
     | '/restaurants'
+    | '/sitemap.xml'
     | '/team'
     | '/admin/authors'
     | '/admin/comments'
@@ -347,6 +357,7 @@ export interface FileRouteTypes {
     | '/careers'
     | '/partner'
     | '/restaurants'
+    | '/sitemap.xml'
     | '/team'
     | '/admin/authors'
     | '/admin/comments'
@@ -381,6 +392,7 @@ export interface FileRouteTypes {
     | '/careers'
     | '/partner'
     | '/restaurants'
+    | '/sitemap.xml'
     | '/team'
     | '/admin/authors'
     | '/admin/comments'
@@ -416,6 +428,7 @@ export interface RootRouteChildren {
   CareersRoute: typeof CareersRoute
   PartnerRoute: typeof PartnerRoute
   RestaurantsRoute: typeof RestaurantsRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TeamRoute: typeof TeamRoute
   AdminAuthorsRoute: typeof AdminAuthorsRoute
   AdminCommentsRoute: typeof AdminCommentsRoute
@@ -448,6 +461,13 @@ declare module '@tanstack/react-router' {
       path: '/team'
       fullPath: '/team'
       preLoaderRoute: typeof TeamRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/restaurants': {
@@ -691,6 +711,7 @@ const rootRouteChildren: RootRouteChildren = {
   CareersRoute: CareersRoute,
   PartnerRoute: PartnerRoute,
   RestaurantsRoute: RestaurantsRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   TeamRoute: TeamRoute,
   AdminAuthorsRoute: AdminAuthorsRoute,
   AdminCommentsRoute: AdminCommentsRoute,
