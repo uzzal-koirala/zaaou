@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Menu, X, Home, Store, Newspaper, PlusCircle, Briefcase } from "lucide-react";
+import { Menu, X, Home, Store, Newspaper, PlusCircle, Briefcase, LifeBuoy } from "lucide-react";
 import logo from "@/assets/zaaou-logo.png";
 
 type NavLink = {
   label: string;
-  to: "/restaurants" | "/careers" | "/partner" | "/blog";
+  to: "/restaurants" | "/careers" | "/partner" | "/blog" | "/support";
   icon: typeof Home;
 };
 
@@ -14,6 +14,7 @@ const links: NavLink[] = [
   { to: "/blog", label: "Blog", icon: Newspaper },
   { to: "/partner", label: "Add Restaurant", icon: PlusCircle },
   { to: "/careers", label: "Careers", icon: Briefcase },
+  { to: "/support", label: "Contact", icon: LifeBuoy },
 ];
 
 export function Navbar() {
