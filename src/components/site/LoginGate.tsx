@@ -52,6 +52,11 @@ export function LoginGate({
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
+    if (questions.length === 0) {
+      // Nothing to verify — re-fetch to either pass or surface lockout
+      await fetchChallenge();
+      return;
+    }
     if (questions.some((q) => !answers[q.id]?.length)) {
       toast.error("Please answer all questions");
       return;
