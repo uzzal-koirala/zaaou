@@ -62,7 +62,7 @@ export function Footer() {
             <ul className="space-y-3 text-sm text-background/70">
               <li className="flex items-center gap-2.5"><MapPin className="h-4 w-4 shrink-0 text-primary" /><span>Itahari, Sunsari, Nepal</span></li>
               <li className="flex items-start gap-2.5"><Phone className="h-4 w-4 shrink-0 text-primary mt-0.5" /><span>+977 970-5047000<br />+977 982-0757417</span></li>
-              <li className="flex items-center gap-2.5"><Mail className="h-4 w-4 shrink-0 text-primary" /><span>hello@zaaoufood.com</span></li>
+              <li className="flex items-center gap-2.5"><Mail className="h-4 w-4 shrink-0 text-primary" /><span>info@zaaoufoods.com</span></li>
             </ul>
           </div>
         </div>
