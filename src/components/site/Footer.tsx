@@ -111,7 +111,7 @@ export function Footer() {
         <div className="flex flex-wrap items-center justify-between gap-3 pt-8 text-xs text-background/60">
           <p>© {CURRENT_YEAR} {siteName}. All rights reserved.</p>
           <p>
-            Designed with <span className="text-primary">♥</span> by{" "}
+            Design, develop &amp; manage by{" "}
             <a
               href="https://www.nepsustech.com"
               target="_blank"
