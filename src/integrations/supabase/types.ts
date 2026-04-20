@@ -769,7 +769,44 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      comments_public: {
+        Row: {
+          content: string | null
+          created_at: string | null
+          id: string | null
+          name: string | null
+          post_id: string | null
+          status: Database["public"]["Enums"]["comment_status"] | null
+          updated_at: string | null
+        }
+        Insert: {
+          content?: string | null
+          created_at?: string | null
+          id?: string | null
+          name?: string | null
+          post_id?: string | null
+          status?: Database["public"]["Enums"]["comment_status"] | null
+          updated_at?: string | null
+        }
+        Update: {
+          content?: string | null
+          created_at?: string | null
+          id?: string | null
+          name?: string | null
+          post_id?: string | null
+          status?: Database["public"]["Enums"]["comment_status"] | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "comments_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Functions: {
       current_author_id: { Args: never; Returns: string }

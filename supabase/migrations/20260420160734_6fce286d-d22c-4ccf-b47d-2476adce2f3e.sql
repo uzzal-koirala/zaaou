@@ -1,0 +1,1 @@
+ALTER VIEW public.comments_public SET (security_invoker = true);
