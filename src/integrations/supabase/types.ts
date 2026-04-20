@@ -69,28 +69,85 @@ export type Database = {
         Row: {
           comments_auto_approve: boolean
           comments_enabled: boolean
+          contact_address: string
+          contact_email: string
+          contact_phone_primary: string
+          contact_phone_secondary: string
+          contact_whatsapp: string
           created_at: string
           id: string
+          maintenance_message: string
+          maintenance_mode: boolean
           notifications_enabled: boolean
+          seo_default_description: string
+          seo_default_og_image_url: string | null
+          seo_default_title: string
           singleton: boolean
+          site_logo_url: string | null
+          site_name: string
+          site_tagline: string
+          social_facebook_url: string | null
+          social_instagram_url: string | null
+          social_linkedin_url: string | null
+          social_tiktok_url: string | null
+          social_twitter_url: string | null
+          social_youtube_url: string | null
           updated_at: string
         }
         Insert: {
           comments_auto_approve?: boolean
           comments_enabled?: boolean
+          contact_address?: string
+          contact_email?: string
+          contact_phone_primary?: string
+          contact_phone_secondary?: string
+          contact_whatsapp?: string
           created_at?: string
           id?: string
+          maintenance_message?: string
+          maintenance_mode?: boolean
           notifications_enabled?: boolean
+          seo_default_description?: string
+          seo_default_og_image_url?: string | null
+          seo_default_title?: string
           singleton?: boolean
+          site_logo_url?: string | null
+          site_name?: string
+          site_tagline?: string
+          social_facebook_url?: string | null
+          social_instagram_url?: string | null
+          social_linkedin_url?: string | null
+          social_tiktok_url?: string | null
+          social_twitter_url?: string | null
+          social_youtube_url?: string | null
           updated_at?: string
         }
         Update: {
           comments_auto_approve?: boolean
           comments_enabled?: boolean
+          contact_address?: string
+          contact_email?: string
+          contact_phone_primary?: string
+          contact_phone_secondary?: string
+          contact_whatsapp?: string
           created_at?: string
           id?: string
+          maintenance_message?: string
+          maintenance_mode?: boolean
           notifications_enabled?: boolean
+          seo_default_description?: string
+          seo_default_og_image_url?: string | null
+          seo_default_title?: string
           singleton?: boolean
+          site_logo_url?: string | null
+          site_name?: string
+          site_tagline?: string
+          social_facebook_url?: string | null
+          social_instagram_url?: string | null
+          social_linkedin_url?: string | null
+          social_tiktok_url?: string | null
+          social_twitter_url?: string | null
+          social_youtube_url?: string | null
           updated_at?: string
         }
         Relationships: []
