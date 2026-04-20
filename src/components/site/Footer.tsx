@@ -91,6 +91,7 @@ export function Footer() {
               <li><Link to="/faq" className="transition-colors hover:text-primary">FAQs</Link></li>
               <li><Link to="/privacy" className="transition-colors hover:text-primary">Privacy Policy</Link></li>
               <li><Link to="/support" className="transition-colors hover:text-primary">Contact Us</Link></li>
+              <li><a href="/sitemap.xml" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-primary">Sitemap</a></li>
               <li><Link to="/author/login" className="transition-colors hover:text-primary">Author Login</Link></li>
             </ul>
           </div>
