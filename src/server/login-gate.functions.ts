@@ -4,6 +4,17 @@ import { z } from "zod";
 import crypto from "crypto";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
+/**
+ * Returns true if the server has the secrets needed for the admin client.
+ * If false, the login gate fails open so admin sign-in stays reachable —
+ * the real security layer is the password authentication on /auth.
+ */
+function hasAdminEnv(): boolean {
+  const url = process.env.SUPABASE_URL ?? process.env.PROJECT_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.SERVICE_ROLE_KEY;
+  return Boolean(url && key);
+}
+
 const AudienceSchema = z.enum(["admin", "author"]);
 type Audience = z.infer<typeof AudienceSchema>;
 
