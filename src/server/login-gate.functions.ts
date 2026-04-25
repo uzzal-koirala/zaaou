@@ -4,6 +4,17 @@ import { z } from "zod";
 import crypto from "crypto";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
+/**
+ * Returns true if the server has the secrets needed for the admin client.
+ * If false, the login gate fails open so admin sign-in stays reachable —
+ * the real security layer is the password authentication on /auth.
+ */
+function hasAdminEnv(): boolean {
+  const url = process.env.SUPABASE_URL ?? process.env.PROJECT_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.SERVICE_ROLE_KEY;
+  return Boolean(url && key);
+}
+
 const AudienceSchema = z.enum(["admin", "author"]);
 type Audience = z.infer<typeof AudienceSchema>;
 
@@ -78,6 +89,19 @@ export const getLoginGateChallenge = createServerFn({ method: "POST" })
     const cookie = getCookie(passCookieName(data.audience));
     if (verifyPassToken(data.audience, cookie)) {
       return { passed: true as const, questions: [] as { id: string; question: string }[], count: 0, locked: false as const };
+    }
+
+    // Fail-open if admin secrets are unavailable — gate is a soft layer.
+    if (!hasAdminEnv()) {
+      const exp = Date.now() + PASS_COOKIE_MAX_AGE * 1000;
+      setCookie(passCookieName(data.audience), signPassToken(data.audience, exp), {
+        httpOnly: true,
+        secure: true,
+        sameSite: "lax",
+        path: "/",
+        maxAge: PASS_COOKIE_MAX_AGE,
+      });
+      return { passed: true as const, questions: [], count: 0, locked: false as const };
     }
 
     const ipHash = getClientIpHash();
@@ -159,6 +183,18 @@ export const verifyLoginGate = createServerFn({ method: "POST" })
       .parse(input.answers),
   }))
   .handler(async ({ data }) => {
+    // Fail-open if admin secrets are unavailable.
+    if (!hasAdminEnv()) {
+      const exp = Date.now() + PASS_COOKIE_MAX_AGE * 1000;
+      setCookie(passCookieName(data.audience), signPassToken(data.audience, exp), {
+        httpOnly: true,
+        secure: true,
+        sameSite: "lax",
+        path: "/",
+        maxAge: PASS_COOKIE_MAX_AGE,
+      });
+      return { success: true as const, locked: false as const };
+    }
     const ipHash = getClientIpHash();
     const lockout = await isLockedOut(data.audience, ipHash);
     if (lockout.locked) {
