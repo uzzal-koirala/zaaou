@@ -39,8 +39,8 @@ const screens = [
 export function AppDownload() {
   return (
     <section id="app" className="relative py-20 lg:py-28 bg-background overflow-hidden">
-      <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <div className="relative bg-gradient-hero rounded-[2.5rem] overflow-hidden text-primary-foreground p-8 sm:p-12 lg:p-16 shadow-glow">
+      <div className="mx-auto max-w-7xl px-4 sm:px-5 lg:px-8">
+        <div className="relative bg-gradient-hero rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden text-primary-foreground p-5 sm:p-12 lg:p-16 shadow-glow">
           {/* Background ornaments */}
           <div aria-hidden className="absolute -top-32 -right-24 h-[28rem] w-[28rem] rounded-full bg-white/15 blur-3xl" />
           <div aria-hidden className="absolute -bottom-24 -left-24 h-96 w-96 rounded-full bg-yellow-300/15 blur-3xl" />
@@ -64,7 +64,7 @@ export function AppDownload() {
                 The Zaaou App
               </div>
 
-              <h2 className="font-display text-4xl sm:text-5xl lg:text-[4.25rem] font-extrabold tracking-tight leading-[1.02]">
+              <h2 className="font-display text-3xl sm:text-5xl lg:text-[4.25rem] font-extrabold tracking-tight leading-[1.05] break-words">
                 Your next meal is{" "}
                 <span className="relative inline-block">
                   <span className="relative z-10 italic font-light">one tap</span>
@@ -73,7 +73,7 @@ export function AppDownload() {
                 <span className="text-yellow-200">away.</span>
               </h2>
 
-              <p className="text-white/85 text-lg max-w-lg leading-relaxed">
+              <p className="text-white/85 text-base sm:text-lg max-w-lg leading-relaxed">
                 Download the Zaaou Food app - Itahari's tastiest kitchens,
                 live tracking and exclusive offers, right in your pocket.
               </p>
@@ -89,8 +89,8 @@ export function AppDownload() {
                 ))}
               </ul>
 
-              <div className="flex flex-wrap items-center gap-4 pt-3">
-                <div className="flex flex-col gap-3">
+              <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-3">
+                <div className="flex flex-row sm:flex-col gap-2 sm:gap-3 w-full sm:w-auto">
                   <a
                     href="https://apps.apple.com/np/app/zaaou-sewa/id6479515378"
                     target="_blank"
@@ -98,7 +98,7 @@ export function AppDownload() {
                     aria-label="Download on the App Store"
                     className="inline-block rounded-xl overflow-hidden hover:scale-[1.04] transition-transform shadow-soft"
                   >
-                    <AppStoreBadge className="h-12 w-auto" />
+                    <AppStoreBadge className="h-10 sm:h-12 w-auto" />
                   </a>
                   <a
                     href="https://play.google.com/store/apps/details?id=com.zaaou24x7.app"
@@ -107,11 +107,11 @@ export function AppDownload() {
                     aria-label="Get it on Google Play"
                     className="inline-block rounded-xl overflow-hidden hover:scale-[1.04] transition-transform shadow-soft"
                   >
-                    <GooglePlayBadge className="h-12 w-auto" />
+                    <GooglePlayBadge className="h-10 sm:h-12 w-auto" />
                   </a>
                 </div>
 
-                <div className="relative flex items-center gap-3 bg-card text-foreground rounded-2xl p-3 shadow-card ring-1 ring-white/10">
+                <div className="relative flex items-center gap-2.5 sm:gap-3 bg-card text-foreground rounded-2xl p-2.5 sm:p-3 shadow-card ring-1 ring-white/10 w-full sm:w-auto">
                   <div className="absolute -top-2 -right-2 bg-yellow-300 text-foreground text-[9px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-full shadow">
                     New
                   </div>
@@ -121,9 +121,9 @@ export function AppDownload() {
                     width={120}
                     height={120}
                     loading="lazy"
-                    className="h-24 w-24 rounded-lg"
+                    className="h-20 w-20 sm:h-24 sm:w-24 rounded-lg shrink-0"
                   />
-                  <div className="pr-2 max-w-[10rem]">
+                  <div className="pr-2 min-w-0 flex-1 sm:max-w-[10rem]">
                     <div className="inline-flex items-center gap-1.5 text-primary text-[10px] font-bold uppercase tracking-wider mb-1">
                       <QrCode className="h-3 w-3" />
                       Quick Install
@@ -135,22 +135,22 @@ export function AppDownload() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-6 pt-4">
+              <div className="flex items-center gap-3 sm:gap-6 pt-4 flex-wrap">
                 <div>
-                  <p className="font-display font-extrabold text-3xl">50K+</p>
-                  <p className="text-xs text-white/75 uppercase tracking-wider">Downloads</p>
+                  <p className="font-display font-extrabold text-2xl sm:text-3xl">50K+</p>
+                  <p className="text-[10px] sm:text-xs text-white/75 uppercase tracking-wider">Downloads</p>
                 </div>
                 <div className="h-10 w-px bg-white/25" />
                 <div>
-                  <p className="font-display font-extrabold text-3xl flex items-center gap-1">
-                    4.9 <Star className="h-5 w-5 fill-yellow-300 text-yellow-300" />
+                  <p className="font-display font-extrabold text-2xl sm:text-3xl flex items-center gap-1">
+                    4.9 <Star className="h-4 w-4 sm:h-5 sm:w-5 fill-yellow-300 text-yellow-300" />
                   </p>
-                  <p className="text-xs text-white/75 uppercase tracking-wider">App Rating</p>
+                  <p className="text-[10px] sm:text-xs text-white/75 uppercase tracking-wider">App Rating</p>
                 </div>
                 <div className="h-10 w-px bg-white/25" />
                 <div>
-                  <p className="font-display font-extrabold text-3xl">100+</p>
-                  <p className="text-xs text-white/75 uppercase tracking-wider">Restaurants</p>
+                  <p className="font-display font-extrabold text-2xl sm:text-3xl">100+</p>
+                  <p className="text-[10px] sm:text-xs text-white/75 uppercase tracking-wider">Restaurants</p>
                 </div>
               </div>
             </div>
