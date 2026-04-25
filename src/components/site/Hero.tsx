@@ -64,12 +64,13 @@ export function Hero() {
           >
             <a
               href="#app"
-              className="group inline-flex items-center justify-center gap-2 rounded-xl bg-primary text-primary-foreground px-4 py-3 sm:px-7 sm:py-4 text-sm sm:text-base font-semibold shadow-soft hover:shadow-glow hover:scale-[1.02] transition-all whitespace-nowrap"
+              className="group flex-1 sm:flex-none min-w-0 inline-flex items-center justify-center gap-1.5 sm:gap-2 rounded-xl bg-primary text-primary-foreground px-3 py-3 sm:px-7 sm:py-4 text-xs sm:text-base font-semibold shadow-soft hover:shadow-glow hover:scale-[1.02] transition-all whitespace-nowrap"
             >
-              Download the App
-              <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform shrink-0" />
+              <span className="sm:hidden">Download App</span>
+              <span className="hidden sm:inline">Download the App</span>
+              <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 group-hover:translate-x-1 transition-transform shrink-0" />
             </a>
-            <WhatsAppInlineButton />
+            <WhatsAppInlineButton className="flex-1 sm:flex-none min-w-0" />
           </div>
 
           {/* Trust strip */}
