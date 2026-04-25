@@ -73,7 +73,7 @@ export function AppDownload() {
                 <span className="text-yellow-200">away.</span>
               </h2>
 
-              <p className="text-white/85 text-lg max-w-lg leading-relaxed">
+              <p className="text-white/85 text-base sm:text-lg max-w-lg leading-relaxed">
                 Download the Zaaou Food app - Itahari's tastiest kitchens,
                 live tracking and exclusive offers, right in your pocket.
               </p>
