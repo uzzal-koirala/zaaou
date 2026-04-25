@@ -11,6 +11,7 @@ import { WhyZaaou } from "@/components/site/WhyZaaou";
 import { PartnerCTA } from "@/components/site/PartnerCTA";
 import { AppDownload } from "@/components/site/AppDownload";
 import { TeamSection } from "@/components/site/TeamSection";
+import { Riders } from "@/components/site/Riders";
 import { Footer } from "@/components/site/Footer";
 import { SocialNotifications } from "@/components/site/SocialNotifications";
 
