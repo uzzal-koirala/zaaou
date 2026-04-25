@@ -104,7 +104,10 @@ export function Hero() {
         </div>
 
         {/* Right phone showcase */}
-        <div className="lg:col-span-5 relative flex justify-center lg:justify-end">
+        <div
+          className="lg:col-span-5 relative flex justify-center lg:justify-end animate-scale-in"
+          style={{ animationDelay: "300ms", animationFillMode: "both" }}
+        >
           {/* Glow blob behind phone */}
           <div
             aria-hidden
