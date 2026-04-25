@@ -25,12 +25,18 @@ export function Hero() {
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8 pt-12 pb-20 lg:pt-20 lg:pb-28 grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
         {/* Left copy column */}
         <div className="lg:col-span-7 space-y-7">
-          <div className="inline-flex items-center gap-2 rounded-full bg-card border border-border shadow-sm px-4 py-1.5 text-xs font-semibold text-foreground/80">
+          <div
+            className="inline-flex items-center gap-2 rounded-full bg-card border border-border shadow-sm px-4 py-1.5 text-xs font-semibold text-foreground/80 animate-fade-in"
+            style={{ animationDelay: "0ms", animationFillMode: "both" }}
+          >
             <Sparkles className="h-3.5 w-3.5 text-primary" />
             #1 Food Delivery App in Itahari
           </div>
 
-          <h1 className="font-display text-5xl sm:text-6xl lg:text-[5.25rem] font-extrabold leading-[1.02] tracking-tight text-foreground">
+          <h1
+            className="font-display text-5xl sm:text-6xl lg:text-[5.25rem] font-extrabold leading-[1.02] tracking-tight text-foreground animate-fade-in"
+            style={{ animationDelay: "120ms", animationFillMode: "both" }}
+          >
             Crave it.{" "}
             <span className="relative inline-block">
               <span className="relative z-10 text-primary">Tap it.</span>
@@ -44,18 +50,24 @@ export function Hero() {
             <span className="text-gradient-primary">30 minutes.</span>
           </h1>
 
-          <p className="text-lg text-muted-foreground max-w-xl leading-relaxed">
+          <p
+            className="text-lg text-muted-foreground max-w-xl leading-relaxed animate-fade-in"
+            style={{ animationDelay: "260ms", animationFillMode: "both" }}
+          >
             From sizzling momos to wood-fired pizzas - order from Itahari's
             best kitchens and track your rider live, all from one beautiful app.
           </p>
 
-          <div className="flex flex-wrap items-center gap-3 pt-1">
+          <div
+            className="flex flex-row flex-nowrap items-center gap-2 sm:gap-3 pt-1 animate-fade-in"
+            style={{ animationDelay: "400ms", animationFillMode: "both" }}
+          >
             <a
               href="#app"
-              className="group inline-flex items-center gap-2 rounded-xl bg-primary text-primary-foreground px-7 py-4 font-semibold shadow-soft hover:shadow-glow hover:scale-[1.02] transition-all"
+              className="group inline-flex items-center justify-center gap-2 rounded-xl bg-primary text-primary-foreground px-4 py-3 sm:px-7 sm:py-4 text-sm sm:text-base font-semibold shadow-soft hover:shadow-glow hover:scale-[1.02] transition-all whitespace-nowrap"
             >
               Download the App
-              <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform shrink-0" />
             </a>
             <WhatsAppInlineButton />
           </div>
