@@ -39,7 +39,47 @@ export function Testimonials() {
           </h2>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+        {/* Mobile: horizontal scroll slider */}
+        <div className="md:hidden -mx-5 px-5">
+          <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 scrollbar-hide">
+            {reviews.map((r) => (
+              <figure
+                key={r.id}
+                className="bg-card rounded-3xl p-6 shadow-card border border-border/60 relative shrink-0 w-[85%] snap-center"
+              >
+                <Quote className="h-7 w-7 text-primary/20 mb-3" />
+                <div className="flex gap-0.5 text-yellow-500 mb-3">
+                  {[...Array(r.rating)].map((_, i) => (
+                    <Star key={i} className="h-4 w-4 fill-current" />
+                  ))}
+                </div>
+                <blockquote className="text-foreground/85 leading-relaxed text-sm mb-5">
+                  "{r.content}"
+                </blockquote>
+                <figcaption className="flex items-center gap-3 pt-4 border-t border-border">
+                  {r.avatar_url ? (
+                    <img
+                      src={r.avatar_url}
+                      alt={r.name}
+                      className="h-10 w-10 rounded-full object-cover"
+                    />
+                  ) : (
+                    <div className="h-10 w-10 rounded-full bg-gradient-primary text-primary-foreground grid place-items-center font-bold">
+                      {r.name[0]}
+                    </div>
+                  )}
+                  <div>
+                    <p className="font-bold text-sm leading-tight">{r.name}</p>
+                    {r.role && <p className="text-xs text-muted-foreground">{r.role}</p>}
+                  </div>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+
+        {/* Desktop: grid */}
+        <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-4 gap-5">
           {reviews.map((r) => (
             <figure
               key={r.id}
