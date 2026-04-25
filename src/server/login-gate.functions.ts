@@ -91,6 +91,19 @@ export const getLoginGateChallenge = createServerFn({ method: "POST" })
       return { passed: true as const, questions: [] as { id: string; question: string }[], count: 0, locked: false as const };
     }
 
+    // Fail-open if admin secrets are unavailable — gate is a soft layer.
+    if (!hasAdminEnv()) {
+      const exp = Date.now() + PASS_COOKIE_MAX_AGE * 1000;
+      setCookie(passCookieName(data.audience), signPassToken(data.audience, exp), {
+        httpOnly: true,
+        secure: true,
+        sameSite: "lax",
+        path: "/",
+        maxAge: PASS_COOKIE_MAX_AGE,
+      });
+      return { passed: true as const, questions: [], count: 0, locked: false as const };
+    }
+
     const ipHash = getClientIpHash();
     const lockout = await isLockedOut(data.audience, ipHash);
     if (lockout.locked) {
