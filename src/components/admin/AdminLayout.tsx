@@ -22,6 +22,7 @@ import {
   Moon,
   Sun,
   Inbox,
+  Bike,
 } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 import { useAdminTheme } from "@/hooks/use-admin-theme";
