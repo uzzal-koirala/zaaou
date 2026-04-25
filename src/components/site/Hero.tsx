@@ -73,7 +73,10 @@ export function Hero() {
           </div>
 
           {/* Trust strip */}
-          <div className="grid grid-cols-3 gap-4 pt-6 max-w-xl">
+          <div
+            className="grid grid-cols-3 gap-4 pt-6 max-w-xl animate-fade-in"
+            style={{ animationDelay: "540ms", animationFillMode: "both" }}
+          >
             <div className="flex items-start gap-2.5">
               <div className="flex items-center gap-0.5 text-primary mt-0.5">
                 <Star className="h-4 w-4 fill-current" />
