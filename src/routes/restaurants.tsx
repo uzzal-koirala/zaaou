@@ -125,16 +125,16 @@ function RestaurantsPage() {
                 className="w-full h-12 sm:h-14 pl-9 sm:pl-12 pr-3 sm:pr-4 rounded-2xl bg-card border-2 border-border focus:border-primary focus:outline-none text-sm sm:text-base text-foreground placeholder:text-muted-foreground transition-colors shadow-card"
               />
             </div>
-            <div className="relative shrink-0">
-              <SlidersHorizontal className="absolute left-2.5 sm:left-4 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-muted-foreground pointer-events-none" />
+            <div className="relative shrink-0 w-[110px] sm:w-auto">
+              <SlidersHorizontal className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 h-3.5 w-3.5 sm:h-5 sm:w-5 text-muted-foreground pointer-events-none" />
               <select
                 value={sort}
                 onChange={(e) => setSort(e.target.value as typeof sort)}
-                className="h-12 sm:h-14 pl-8 sm:pl-12 pr-6 sm:pr-8 rounded-2xl bg-card border-2 border-border focus:border-primary focus:outline-none text-xs sm:text-base text-foreground font-medium shadow-card appearance-none cursor-pointer"
+                className="w-full h-12 sm:h-14 pl-7 sm:pl-12 pr-2 sm:pr-8 rounded-2xl bg-card border-2 border-border focus:border-primary focus:outline-none text-[11px] sm:text-base text-foreground font-medium shadow-card appearance-none cursor-pointer"
               >
                 <option value="rating">Top rated</option>
-                <option value="fastest">Fastest delivery</option>
-                <option value="name">Name (A–Z)</option>
+                <option value="fastest">Fastest</option>
+                <option value="name">Name A–Z</option>
               </select>
             </div>
           </div>
