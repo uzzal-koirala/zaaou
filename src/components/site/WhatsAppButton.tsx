@@ -1,10 +1,10 @@
 import { useSiteSettings } from "@/hooks/use-site-settings";
 
-const FALLBACK_WHATSAPP = "9779705047000";
+const FALLBACK_WHATSAPP = "9779820757425";
 
-function buildUrl(raw: string | undefined | null) {
-  const num = (raw || FALLBACK_WHATSAPP).replace(/[^0-9]/g, "");
-  return `https://wa.me/${num || FALLBACK_WHATSAPP}`;
+function buildUrl(_raw: string | undefined | null) {
+  // Always use the official Order on WhatsApp number
+  return `https://wa.me/${FALLBACK_WHATSAPP}`;
 }
 
 export function WhatsAppFloat() {
