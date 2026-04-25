@@ -38,6 +38,7 @@ type NavItem = {
     | "/admin/posts"
     | "/admin/authors"
     | "/admin/team"
+    | "/admin/riders"
     | "/admin/reviews"
     | "/admin/comments"
     | "/admin/subscribers"
