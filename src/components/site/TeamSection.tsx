@@ -102,11 +102,40 @@ export function TeamSection() {
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-            {members.map((m, i) => (
-              <TeamCard key={m.id} member={m} index={i} />
-            ))}
-          </div>
+          <>
+            {/* Mobile: looping autoplay slider */}
+            <div className="sm:hidden">
+              <div className="overflow-hidden -mx-4 px-4" ref={emblaRef}>
+                <div className="flex gap-4">
+                  {members.map((m, i) => (
+                    <div key={m.id} className="shrink-0 grow-0 basis-[80%]">
+                      <TeamCard member={m} index={i} />
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="flex justify-center gap-1.5 mt-5">
+                {members.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => emblaApi?.scrollTo(i)}
+                    aria-label={`Go to team member ${i + 1}`}
+                    className={
+                      "h-1.5 rounded-full transition-all " +
+                      (i === selectedIndex ? "w-6 bg-primary" : "w-1.5 bg-primary/30")
+                    }
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Desktop: grid */}
+            <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+              {members.map((m, i) => (
+                <TeamCard key={m.id} member={m} index={i} />
+              ))}
+            </div>
+          </>
         )}
 
         <div className="mt-14 flex justify-center">
