@@ -183,6 +183,18 @@ export const verifyLoginGate = createServerFn({ method: "POST" })
       .parse(input.answers),
   }))
   .handler(async ({ data }) => {
+    // Fail-open if admin secrets are unavailable.
+    if (!hasAdminEnv()) {
+      const exp = Date.now() + PASS_COOKIE_MAX_AGE * 1000;
+      setCookie(passCookieName(data.audience), signPassToken(data.audience, exp), {
+        httpOnly: true,
+        secure: true,
+        sameSite: "lax",
+        path: "/",
+        maxAge: PASS_COOKIE_MAX_AGE,
+      });
+      return { success: true as const, locked: false as const };
+    }
     const ipHash = getClientIpHash();
     const lockout = await isLockedOut(data.audience, ipHash);
     if (lockout.locked) {
