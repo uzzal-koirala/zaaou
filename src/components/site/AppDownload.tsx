@@ -64,7 +64,7 @@ export function AppDownload() {
                 The Zaaou App
               </div>
 
-              <h2 className="font-display text-4xl sm:text-5xl lg:text-[4.25rem] font-extrabold tracking-tight leading-[1.02]">
+              <h2 className="font-display text-3xl sm:text-5xl lg:text-[4.25rem] font-extrabold tracking-tight leading-[1.05] break-words">
                 Your next meal is{" "}
                 <span className="relative inline-block">
                   <span className="relative z-10 italic font-light">one tap</span>
