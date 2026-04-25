@@ -39,8 +39,8 @@ const screens = [
 export function AppDownload() {
   return (
     <section id="app" className="relative py-20 lg:py-28 bg-background overflow-hidden">
-      <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <div className="relative bg-gradient-hero rounded-[2.5rem] overflow-hidden text-primary-foreground p-8 sm:p-12 lg:p-16 shadow-glow">
+      <div className="mx-auto max-w-7xl px-4 sm:px-5 lg:px-8">
+        <div className="relative bg-gradient-hero rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden text-primary-foreground p-5 sm:p-12 lg:p-16 shadow-glow">
           {/* Background ornaments */}
           <div aria-hidden className="absolute -top-32 -right-24 h-[28rem] w-[28rem] rounded-full bg-white/15 blur-3xl" />
           <div aria-hidden className="absolute -bottom-24 -left-24 h-96 w-96 rounded-full bg-yellow-300/15 blur-3xl" />
