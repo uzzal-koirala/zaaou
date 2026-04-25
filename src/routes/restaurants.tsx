@@ -114,23 +114,23 @@ function RestaurantsPage() {
             Search by name, cuisine or area - and filter to find exactly what you're craving today.
           </p>
 
-          <div className="mt-8 flex flex-col sm:flex-row gap-3 max-w-3xl">
-            <div className="relative flex-1">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+          <div className="mt-8 flex flex-row gap-2 sm:gap-3 max-w-3xl">
+            <div className="relative flex-1 min-w-0">
+              <Search className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-muted-foreground" />
               <input
                 type="search"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search restaurants, cuisines or areas…"
-                className="w-full h-14 pl-12 pr-4 rounded-2xl bg-card border-2 border-border focus:border-primary focus:outline-none text-foreground placeholder:text-muted-foreground transition-colors shadow-card"
+                placeholder="Search restaurants…"
+                className="w-full h-12 sm:h-14 pl-9 sm:pl-12 pr-3 sm:pr-4 rounded-2xl bg-card border-2 border-border focus:border-primary focus:outline-none text-sm sm:text-base text-foreground placeholder:text-muted-foreground transition-colors shadow-card"
               />
             </div>
-            <div className="relative">
-              <SlidersHorizontal className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground pointer-events-none" />
+            <div className="relative shrink-0">
+              <SlidersHorizontal className="absolute left-2.5 sm:left-4 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-muted-foreground pointer-events-none" />
               <select
                 value={sort}
                 onChange={(e) => setSort(e.target.value as typeof sort)}
-                className="h-14 pl-12 pr-8 rounded-2xl bg-card border-2 border-border focus:border-primary focus:outline-none text-foreground font-medium shadow-card appearance-none cursor-pointer"
+                className="h-12 sm:h-14 pl-8 sm:pl-12 pr-6 sm:pr-8 rounded-2xl bg-card border-2 border-border focus:border-primary focus:outline-none text-xs sm:text-base text-foreground font-medium shadow-card appearance-none cursor-pointer"
               >
                 <option value="rating">Top rated</option>
                 <option value="fastest">Fastest delivery</option>
