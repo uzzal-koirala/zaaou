@@ -41,6 +41,7 @@ function Index() {
         <HowItWorks />
         <Testimonials />
         <TeamSection />
+        <Riders />
         <PartnerCTA />
         <AppDownload />
       </main>
