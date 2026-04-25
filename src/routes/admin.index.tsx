@@ -109,7 +109,7 @@ function Dashboard() {
       value: stats.riders,
       sub: `${stats.ridersOnline} online`,
       icon: Bike,
-      to: "/admin/riders" as const,
+      to: "/admin" as const,
       gradient: "from-blue-500/15 to-blue-500/5",
       iconColor: "text-blue-500",
     },
