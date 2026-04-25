@@ -56,6 +56,7 @@ const nav: NavItem[] = [
   { to: "/admin/inbox", label: "Inbox", icon: Inbox, group: "Overview" },
   { to: "/admin/restaurants", label: "Restaurants", icon: Store, group: "Operations" },
   { to: "/admin/jobs", label: "Jobs", icon: Briefcase, group: "Operations" },
+  { to: "/admin/riders", label: "Riders", icon: Bike, group: "Operations" },
   { to: "/admin/posts", label: "Posts", icon: FileText, group: "Content" },
   { to: "/admin/authors", label: "Authors", icon: Users, group: "Content" },
   { to: "/admin/team", label: "Team", icon: UserSquare, group: "Content" },
