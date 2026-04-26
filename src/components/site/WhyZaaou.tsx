@@ -98,22 +98,22 @@ export function WhyZaaou() {
           <div aria-hidden className="absolute -top-16 -right-16 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
           <div aria-hidden className="absolute -bottom-16 -left-16 h-64 w-64 rounded-full bg-yellow-300/20 blur-3xl" />
 
-          <div className="relative grid sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center sm:text-left">
+          <div className="relative grid grid-cols-2 lg:grid-cols-4 gap-8 text-center sm:text-left">
             <div>
-              <p className="font-display font-extrabold text-4xl lg:text-5xl">50K+</p>
-              <p className="text-sm text-white/80 uppercase tracking-wider mt-1">Happy Customers</p>
+              <p className="font-display font-extrabold text-4xl lg:text-5xl">50+</p>
+              <p className="text-sm text-white/80 uppercase tracking-wider mt-1">Partner Restaurants</p>
             </div>
             <div>
-              <p className="font-display font-extrabold text-4xl lg:text-5xl">100+</p>
-              <p className="text-sm text-white/80 uppercase tracking-wider mt-1">Partner Restaurants</p>
+              <p className="font-display font-extrabold text-4xl lg:text-5xl">5+</p>
+              <p className="text-sm text-white/80 uppercase tracking-wider mt-1">Delivery Riders</p>
+            </div>
+            <div>
+              <p className="font-display font-extrabold text-4xl lg:text-5xl">1L+</p>
+              <p className="text-sm text-white/80 uppercase tracking-wider mt-1">App Downloads</p>
             </div>
             <div>
               <p className="font-display font-extrabold text-4xl lg:text-5xl">28<span className="text-2xl">min</span></p>
               <p className="text-sm text-white/80 uppercase tracking-wider mt-1">Avg. Delivery Time</p>
-            </div>
-            <div>
-              <p className="font-display font-extrabold text-4xl lg:text-5xl">4.9★</p>
-              <p className="text-sm text-white/80 uppercase tracking-wider mt-1">Customer Rating</p>
             </div>
           </div>
         </div>
