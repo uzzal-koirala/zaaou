@@ -48,7 +48,7 @@ const categories: Category[] = [
     label: "Payments",
     icon: CreditCard,
     items: [
-      { q: "Which payment methods do you accept?", a: "Cash on delivery, eSewa, Khalti, IME Pay, ConnectIPS and major debit/credit cards." },
+      { q: "Which payment methods do you accept?", a: "We currently accept eSewa and Cash on Delivery only." },
       { q: "Is online payment secure?", a: "All payments go through PCI-compliant providers. We never store your full card details on our servers." },
       { q: "How do refunds work?", a: "Refunds for cancelled or failed orders are issued back to the original payment method within 5-7 business days." },
       { q: "Do you offer promo codes or discounts?", a: "Yes! Check the Offers tab in the app or follow us on social media for ongoing deals." },
