@@ -8,7 +8,7 @@ import zaaouQr from "@/assets/zaaou-qr.png";
 const perks = [
   "Browse 100+ restaurants by category",
   "Live order tracking, every step of the way",
-  "Pay with eSewa, Khalti, card or cash",
+  "Pay with eSewa or cash on delivery",
   "Save favourites & reorder in one tap",
 ];
 

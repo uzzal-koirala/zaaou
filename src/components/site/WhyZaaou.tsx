@@ -22,7 +22,7 @@ const reasons = [
   {
     icon: Wallet,
     title: "Pay Your Way",
-    desc: "eSewa, Khalti, IME Pay, cards or good old cash on delivery. No hidden fees, ever.",
+    desc: "Pay with eSewa or good old cash on delivery. No hidden fees, ever.",
     accent: "from-violet-400 to-fuchsia-500",
   },
   {

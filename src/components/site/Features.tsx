@@ -4,7 +4,7 @@ const features = [
   { icon: Award, title: "Quality Food", desc: "Hand-picked kitchens, hygiene checked - every single order." },
   { icon: Rocket, title: "Fastest Delivery", desc: "Hot food at your door in 30 minutes, anywhere in Itahari.", featured: true },
   { icon: Leaf, title: "Fresh Food", desc: "Locally sourced, freshly prepared meals from trusted chefs." },
-  { icon: Smartphone, title: "Easy To Order", desc: "Order in three taps with eSewa, Khalti, card or cash." },
+  { icon: Smartphone, title: "Easy To Order", desc: "Order in three taps with eSewa or cash on delivery." },
 ];
 
 export function Features() {
