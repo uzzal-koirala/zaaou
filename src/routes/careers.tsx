@@ -141,10 +141,23 @@ export function CareersPage() {
               <Loader2 className="h-6 w-6 animate-spin text-primary" />
             </div>
           ) : jobs.length === 0 ? (
-            <div className="rounded-2xl bg-card border border-dashed border-border p-10 text-center">
-              <p className="text-muted-foreground">
-                No open positions right now. Send us your CV — we'd love to hear from you.
+            <div className="rounded-2xl bg-card border border-dashed border-border p-12 text-center">
+              <div className="mx-auto h-14 w-14 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                <Briefcase className="h-6 w-6 text-primary" />
+              </div>
+              <h3 className="font-display text-xl sm:text-2xl font-extrabold text-foreground mb-2">
+                No openings right now
+              </h3>
+              <p className="text-muted-foreground max-w-md mx-auto">
+                We don't have any open positions at the moment. Check back later — or send us your CV and we'll reach out when something opens up.
               </p>
+              <a
+                href="mailto:careers@zaaoufoods.com"
+                className="inline-flex items-center gap-2 rounded-xl bg-primary text-primary-foreground px-6 py-3 mt-5 text-sm font-semibold hover:shadow-glow transition-all"
+              >
+                Send us your CV
+                <ArrowRight className="h-4 w-4" />
+              </a>
             </div>
           ) : (
             <div className="space-y-3">
