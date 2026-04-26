@@ -87,7 +87,7 @@ export function CareersPage() {
               <ArrowRight className="h-4 w-4" />
             </a>
             <a
-              href="mailto:careers@zaaoufoods.com"
+              href="mailto:manager.zaaou@gmail.com"
               className="inline-flex items-center gap-2 rounded-xl bg-card border-2 border-border hover:border-primary/40 text-foreground px-7 py-3.5 font-semibold transition-colors"
             >
               Send us your CV
@@ -152,7 +152,7 @@ export function CareersPage() {
                 We don't have any open positions at the moment. Check back later — or send us your CV and we'll reach out when something opens up.
               </p>
               <a
-                href="mailto:careers@zaaoufoods.com"
+                href="mailto:manager.zaaou@gmail.com"
                 className="inline-flex items-center gap-2 rounded-xl bg-primary text-primary-foreground px-6 py-3 mt-5 text-sm font-semibold hover:shadow-glow transition-all"
               >
                 Send us your CV
@@ -209,10 +209,10 @@ export function CareersPage() {
               We're always open to meeting passionate people. Send us your CV and tell us how you can help.
             </p>
             <a
-              href="mailto:careers@zaaoufoods.com"
+              href="mailto:manager.zaaou@gmail.com"
               className="inline-flex items-center gap-2 rounded-xl bg-card text-foreground px-7 py-3.5 font-semibold hover:scale-[1.02] transition-transform"
             >
-              careers@zaaoufoods.com
+              manager.zaaou@gmail.com
             </a>
           </div>
 
