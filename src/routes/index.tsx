@@ -34,10 +34,10 @@ function Index() {
       <Navbar />
       <main>
         <Hero />
+        <WhyZaaou />
         <Features />
         <Restaurants />
         <About />
-        <WhyZaaou />
         <HowItWorks />
         <Testimonials />
         <TeamSection />
